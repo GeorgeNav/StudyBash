@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		087BAA1E235100C6008FCD12 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BAA1D235100C6008FCD12 /* LoginViewController.swift */; };
+		087BAA20235100E9008FCD12 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BAA1F235100E9008FCD12 /* SignupViewController.swift */; };
+		087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BAA212351010F008FCD12 /* ResetPasswordViewController.swift */; };
+		087BAA2523510142008FCD12 /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BAA2423510142008FCD12 /* EnterCodeViewController.swift */; };
+		087BAA272351015E008FCD12 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BAA262351015E008FCD12 /* ChangePasswordViewController.swift */; };
 		08A9A104234AB40A00B3C45A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9A103234AB40A00B3C45A /* AppDelegate.swift */; };
 		08A9A106234AB40A00B3C45A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9A105234AB40A00B3C45A /* SceneDelegate.swift */; };
 		08A9A108234AB40A00B3C45A /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9A107234AB40A00B3C45A /* SplashScreenViewController.swift */; };
@@ -22,6 +27,11 @@
 
 /* Begin PBXFileReference section */
 		058121D66A0A44677895E6CB /* Pods_studybash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_studybash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		087BAA1D235100C6008FCD12 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		087BAA1F235100E9008FCD12 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		087BAA212351010F008FCD12 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		087BAA2423510142008FCD12 /* EnterCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewController.swift; sourceTree = "<group>"; };
+		087BAA262351015E008FCD12 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		08A9A100234AB40A00B3C45A /* studybash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = studybash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08A9A103234AB40A00B3C45A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08A9A105234AB40A00B3C45A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +60,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		087BAA1B2350FF50008FCD12 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				087BAA1C2350FFDA008FCD12 /* Onboarding */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		087BAA1C2350FFDA008FCD12 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				087BAA232351011E008FCD12 /* ResetPassword */,
+				08A9A107234AB40A00B3C45A /* SplashScreenViewController.swift */,
+				087BAA1D235100C6008FCD12 /* LoginViewController.swift */,
+				087BAA1F235100E9008FCD12 /* SignupViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		087BAA232351011E008FCD12 /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				087BAA212351010F008FCD12 /* ResetPasswordViewController.swift */,
+				087BAA2423510142008FCD12 /* EnterCodeViewController.swift */,
+				087BAA262351015E008FCD12 /* ChangePasswordViewController.swift */,
+				457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */,
+				457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */,
+			);
+			path = ResetPassword;
+			sourceTree = "<group>";
+		};
 		08A9A0F7234AB40A00B3C45A = {
 			isa = PBXGroup;
 			children = (
@@ -71,17 +112,15 @@
 		08A9A102234AB40A00B3C45A /* studybash */ = {
 			isa = PBXGroup;
 			children = (
+				087BAA1B2350FF50008FCD12 /* Views */,
 				457CA50F23503B8600AF6B8C /* Animation */,
 				08A9A103234AB40A00B3C45A /* AppDelegate.swift */,
 				08A9A105234AB40A00B3C45A /* SceneDelegate.swift */,
-				08A9A107234AB40A00B3C45A /* SplashScreenViewController.swift */,
 				08A9A109234AB40A00B3C45A /* Main.storyboard */,
 				08A9A10C234AB40D00B3C45A /* Assets.xcassets */,
 				08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */,
 				08A9A111234AB40D00B3C45A /* Info.plist */,
 				08A9A117234AB6AD00B3C45A /* GoogleService-Info.plist */,
-				457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */,
-				457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */,
 			);
 			path = studybash;
 			sourceTree = "<group>";
@@ -228,7 +267,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				087BAA1E235100C6008FCD12 /* LoginViewController.swift in Sources */,
+				087BAA20235100E9008FCD12 /* SignupViewController.swift in Sources */,
 				08A9A108234AB40A00B3C45A /* SplashScreenViewController.swift in Sources */,
+				087BAA272351015E008FCD12 /* ChangePasswordViewController.swift in Sources */,
+				087BAA2523510142008FCD12 /* EnterCodeViewController.swift in Sources */,
+				087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */,
 				457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */,
 				08A9A104234AB40A00B3C45A /* AppDelegate.swift in Sources */,
 				08A9A106234AB40A00B3C45A /* SceneDelegate.swift in Sources */,
