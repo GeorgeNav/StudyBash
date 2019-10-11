@@ -7,6 +7,7 @@ target 'studybash' do
 
   # Pods for studybash
   pod 'Firebase/Firestore'
+  pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
   pod 'lottie-ios'
   pod 'Protobuf', :inhibit_warnings => true
