@@ -20,6 +20,8 @@
 		08A9A110234AB40D00B3C45A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */; };
 		08A9A118234AB6AD00B3C45A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A117234AB6AD00B3C45A /* GoogleService-Info.plist */; };
 		2192ACBE2065527441A29DAA /* Pods_studybash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 058121D66A0A44677895E6CB /* Pods_studybash.framework */; };
+		450DEF7C235263C2000F9EE6 /* AboutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450DEF7B235263C2000F9EE6 /* AboutScreen.swift */; };
+		450DEF802352659B000F9EE6 /* about.json in Resources */ = {isa = PBXBuildFile; fileRef = 450DEF7F2352659B000F9EE6 /* about.json */; };
 		45395DB223502DEA005F7C67 /* time.json in Resources */ = {isa = PBXBuildFile; fileRef = 45395DB123502DEA005F7C67 /* time.json */; };
 		457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */; };
 		457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */; };
@@ -41,6 +43,8 @@
 		08A9A10F234AB40D00B3C45A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08A9A111234AB40D00B3C45A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08A9A117234AB6AD00B3C45A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		450DEF7B235263C2000F9EE6 /* AboutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutScreen.swift; sourceTree = "<group>"; };
+		450DEF7F2352659B000F9EE6 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = about.json; sourceTree = "<group>"; };
 		45395DB123502DEA005F7C67 /* time.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = time.json; sourceTree = "<group>"; };
 		457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopoutViewController.swift; sourceTree = "<group>"; };
 		457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopoutViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				087BAA1C2350FFDA008FCD12 /* Onboarding */,
+				450DEF7B235263C2000F9EE6 /* AboutScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -128,6 +133,7 @@
 		457CA50F23503B8600AF6B8C /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				450DEF7F2352659B000F9EE6 /* about.json */,
 				45395DB123502DEA005F7C67 /* time.json */,
 			);
 			path = Animation;
@@ -213,6 +219,7 @@
 				08A9A110234AB40D00B3C45A /* LaunchScreen.storyboard in Resources */,
 				08A9A118234AB6AD00B3C45A /* GoogleService-Info.plist in Resources */,
 				45395DB223502DEA005F7C67 /* time.json in Resources */,
+				450DEF802352659B000F9EE6 /* about.json in Resources */,
 				08A9A10D234AB40D00B3C45A /* Assets.xcassets in Resources */,
 				08A9A10B234AB40A00B3C45A /* Main.storyboard in Resources */,
 			);
@@ -275,6 +282,7 @@
 				087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */,
 				457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */,
 				08A9A104234AB40A00B3C45A /* AppDelegate.swift in Sources */,
+				450DEF7C235263C2000F9EE6 /* AboutScreen.swift in Sources */,
 				08A9A106234AB40A00B3C45A /* SceneDelegate.swift in Sources */,
 				457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */,
 			);
