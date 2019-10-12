@@ -42,10 +42,9 @@ class SignupViewController: UIViewController {
                 return
             }
             print(authResult!.user.email!, " account is created and logged in!")
-            self.performSegue(withIdentifier: "sign_in_success", sender: self)
+            self.dismiss(animated: true, completion: nil)
             authResult!.user.sendEmailVerification(completion: { (_) in
-                // Pop up to tell the user to check their email to verify their account
-                self.dismiss(animated: true, completion: nil)
+                // Decide if there needs to be a pop up to tell the user to check their email to verify their account
             })
         })
     }
