@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Uqj-lN-9cJ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -153,6 +153,7 @@
                     <connections>
                         <outlet property="emailTF" destination="L8O-vS-LBD" id="yYh-tz-thn"/>
                         <outlet property="passwordTF" destination="cxQ-4X-RjX" id="wGl-c0-PaF"/>
+                        <segue destination="sHf-CC-yJ6" kind="presentation" identifier="sign_in_success" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="kAB-iZ-OfM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TNh-op-1cV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -734,6 +735,7 @@
         <scene sceneID="T4g-h3-JTI">
             <objects>
                 <tabBarController id="sHf-CC-yJ6" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="MZj-b6-hub"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="06S-oC-w4B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -883,6 +885,7 @@
                         <outlet property="firstNameTF" destination="04f-Hq-yLg" id="Unt-Br-VMC"/>
                         <outlet property="lastNameTF" destination="Qhe-Pc-IYx" id="Luk-yl-OQ8"/>
                         <outlet property="passwordTF" destination="Lov-TF-kRo" id="Ch7-KJ-iGP"/>
+                        <segue destination="sHf-CC-yJ6" kind="presentation" identifier="sign_up_success" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="8Mf-cg-Z3y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Uu-p6-y5p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1256,4 +1259,7 @@
         <image name="settingsIcon" width="25" height="26"/>
         <image name="termsIcon" width="33" height="33"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="kAB-iZ-OfM"/>
+    </inferredMetricsTieBreakers>
 </document>

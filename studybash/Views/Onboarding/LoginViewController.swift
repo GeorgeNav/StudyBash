@@ -36,6 +36,7 @@ class LoginViewController: UIViewController {
                 return
             }
             print(authResult!.user.email!, " is logged in!")
+            self.performSegue(withIdentifier: "sign_in_success", sender: self)
         })
     }
 
