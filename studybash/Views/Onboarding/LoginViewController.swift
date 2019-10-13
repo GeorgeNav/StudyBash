@@ -54,25 +54,4 @@ class LoginViewController: UIViewController {
 //        })
     }
     
-    func dbStuff() {
-//        import Firebase
-//        import FirebaseFirestore
-//        let db: Firestore = Firestore.firestore()
-//                db.collection("users").document("schema").getDocument() {(snapshot:DocumentSnapshot?, error:Error?) in
-//                    guard snapshot != nil else { print("Error: \(error!)") ; return }
-//                    print(snapshot!.data()!)
-//                    let schemaRef: DocumentReference = snapshot!.data()!["goals"]! as! DocumentReference
-//                    schemaRef.getDocument() {(snapshot, error) in
-//                        guard snapshot != nil else { print("Error: \(error!)") ; return }
-//                        print(snapshot!.data()!)
-//                        let goalsArray = snapshot!.data()!["goals"]! as! [[String: Any]]
-//                        let subGoalsRef = goalsArray[0]["sub_goals"]! as! DocumentReference
-//                        subGoalsRef.getDocument() {(snapshot, error) in
-//                            guard snapshot != nil else { print("Error: \(error!)") ; return }
-//                            let subGoalsDic: [String: Any] = snapshot!.data()!
-//                            print(subGoalsDic)
-//                        }
-//                    }
-//                }
-    }
 }
