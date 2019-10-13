@@ -27,6 +27,9 @@
 		45395DB223502DEA005F7C67 /* time.json in Resources */ = {isa = PBXBuildFile; fileRef = 45395DB123502DEA005F7C67 /* time.json */; };
 		457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */; };
 		457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */; };
+		45B389C82353CDB500311F79 /* AccountCreated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B389C72353CDB500311F79 /* AccountCreated.swift */; };
+		45B389CB2353CE9E00311F79 /* ErrorAccountCreated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B389CA2353CE9E00311F79 /* ErrorAccountCreated.swift */; };
+		45B38A092353E33000311F79 /* SubGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B38A082353E33000311F79 /* SubGoalsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,9 @@
 		45395DB123502DEA005F7C67 /* time.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = time.json; sourceTree = "<group>"; };
 		457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopoutViewController.swift; sourceTree = "<group>"; };
 		457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopoutViewController.swift; sourceTree = "<group>"; };
+		45B389C72353CDB500311F79 /* AccountCreated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreated.swift; sourceTree = "<group>"; };
+		45B389CA2353CE9E00311F79 /* ErrorAccountCreated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAccountCreated.swift; sourceTree = "<group>"; };
+		45B38A082353E33000311F79 /* SubGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalsView.swift; sourceTree = "<group>"; };
 		5814EDFD53F944EFA6A55C90 /* Pods-studybash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studybash.debug.xcconfig"; path = "Target Support Files/Pods-studybash/Pods-studybash.debug.xcconfig"; sourceTree = "<group>"; };
 		CC3D71E03C82A67DCB5D0727 /* Pods-studybash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studybash.release.xcconfig"; path = "Target Support Files/Pods-studybash/Pods-studybash.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +77,7 @@
 		08557BB823528D3E009944A2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				45B389C92353CE7D00311F79 /* Settings */,
 				08557BB923528D5B009944A2 /* Goals */,
 			);
 			path = Main;
@@ -81,6 +88,7 @@
 			children = (
 				08557BBB23528D85009944A2 /* GoalsViewController.swift */,
 				08557BC92352A171009944A2 /* GoalsCollectionViewCell.swift */,
+				45B38A082353E33000311F79 /* SubGoalsView.swift */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -90,7 +98,6 @@
 			children = (
 				08557BB823528D3E009944A2 /* Main */,
 				087BAA1C2350FFDA008FCD12 /* Onboarding */,
-				450DEF7B235263C2000F9EE6 /* AboutScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -102,6 +109,8 @@
 				08A9A107234AB40A00B3C45A /* SplashScreenViewController.swift */,
 				087BAA1D235100C6008FCD12 /* LoginViewController.swift */,
 				087BAA1F235100E9008FCD12 /* SignupViewController.swift */,
+				45B389C72353CDB500311F79 /* AccountCreated.swift */,
+				45B389CA2353CE9E00311F79 /* ErrorAccountCreated.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -159,6 +168,14 @@
 				45395DB123502DEA005F7C67 /* time.json */,
 			);
 			path = Animation;
+			sourceTree = "<group>";
+		};
+		45B389C92353CE7D00311F79 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				450DEF7B235263C2000F9EE6 /* AboutScreen.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		EB1E86900B0D0D4AF1F6D67D /* Frameworks */ = {
@@ -298,10 +315,13 @@
 			files = (
 				087BAA1E235100C6008FCD12 /* LoginViewController.swift in Sources */,
 				087BAA20235100E9008FCD12 /* SignupViewController.swift in Sources */,
+				45B389C82353CDB500311F79 /* AccountCreated.swift in Sources */,
+				45B389CB2353CE9E00311F79 /* ErrorAccountCreated.swift in Sources */,
 				08A9A108234AB40A00B3C45A /* SplashScreenViewController.swift in Sources */,
 				08557BCA2352A171009944A2 /* GoalsCollectionViewCell.swift in Sources */,
 				087BAA272351015E008FCD12 /* ChangePasswordViewController.swift in Sources */,
 				087BAA2523510142008FCD12 /* EnterCodeViewController.swift in Sources */,
+				45B38A092353E33000311F79 /* SubGoalsView.swift in Sources */,
 				08557BBC23528D85009944A2 /* GoalsViewController.swift in Sources */,
 				087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */,
 				457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */,
