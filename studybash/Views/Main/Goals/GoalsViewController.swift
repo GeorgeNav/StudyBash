@@ -13,7 +13,7 @@ import FirebaseFirestore
 struct UserData {
     var info: [String: Any]
     var goals: [String: Any]
-    
+
     init() {
         info = ["":""]
         goals = ["":""]
@@ -62,28 +62,48 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
         db.collection("users").document(uid).getDocument() {(snapshot:DocumentSnapshot?, error:Error?) in
             guard snapshot != nil else { print("Error: \(error!)") ; return }
             info = snapshot!.data()!
-            let schemaRef: DocumentReference = snapshot!.data()!["goals"]! as! DocumentReference
-            schemaRef.getDocument() {(snapshot, error) in
+            let schemaGoalsRef: DocumentReference = snapshot!.data()!["goals"]! as! DocumentReference
+            schemaGoalsRef.getDocument() {(snapshot, error) in
                 guard snapshot != nil else { print("Error: \(error!)") ; return }
                 goals = snapshot!.data()!
                 self.ud = UserData(info: info, goals: goals)
                 print(self.ud.info)
                 print(self.ud.goals)
-                self.ud.goals.forEach({(goalKey, goalData) in
-                    let gd = goalData as! [String: Any]
-                    self.allGoals.append(gd["name"]! as! String)
-                })
                 self.goalsCV.reloadData()
-                print(Array(self.ud.goals.keys))
-                print(self.allGoals)
-//                let goalsArray = snapshot!.data()!["goals"]! as! [[String: Any]]
-//                let subGoalsRef = goalsArray[0]["sub_goals"]! as! DocumentReference
-//                subGoalsRef.getDocument() {(snapshot, error) in
-//                    guard snapshot != nil else { print("Error: \(error!)") ; return }
-//                    let subGoalsDic: [String: Any] = snapshot!.data()!
-//                    print(subGoalsDic)
-//                }
+                print("Goal keys: ", Array(self.ud.goals.keys))
+                print("Goals: ", self.allGoals)
+                
+                //self.subGoalsDueOnDate(year: 2019, month: 10, day: 13)
             }
         }
+    }
+    
+    func subGoalsDueOnDate(year:Int, month:Int, day: Int) {
+        var allSubGoalsDueThisDay: [String: Any] = [String: Any]()
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        
+        let userCalendar = Calendar.current
+        let date = userCalendar.date(from: dateComponents)!
+        
+        self.ud.goals.forEach({(goalKey, goalData) in
+            let gd = goalData as! [String: Any]
+            self.allGoals.append(gd["name"]! as! String)
+            let subGoalsRef = gd["sub_goals"]! as! DocumentReference
+            print(gd["name"]! as! String)
+            subGoalsRef.getDocument() {(snapshot, error) in
+                guard snapshot != nil else { print("Error: \(error!)") ; return }
+                let subGoalsData = snapshot!.data()!
+                subGoalsData.forEach({(subGoalKey:String, subGoalData:Any) in
+                    let data = subGoalData as! [String: Any]
+                    let dueDate = data["due_date"] as! Timestamp
+                    if(Calendar.current.dateComponents([.day], from: dueDate.dateValue(), to: date).day == 0) {
+                        allSubGoalsDueThisDay[subGoalKey] = data
+                    }
+                })
+            }
+        })
     }
 }
