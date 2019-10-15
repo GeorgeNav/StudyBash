@@ -54,6 +54,10 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     func subGoalsDueOnDate(year:Int, month:Int, day: Int) {
-        db.collection("users").document(uid).collection("goals")
+        db.collection("users").document(uid).getDocument { (snapshot, error) in
+            self.db.collectionGroup("sub_goals").start(atDocument: snapshot!).getDocuments(completion: {(snapshot, error) in
+                
+            })
+        }
     }
 }
