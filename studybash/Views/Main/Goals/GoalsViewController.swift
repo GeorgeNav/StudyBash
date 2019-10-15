@@ -37,11 +37,12 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.view.addSubview(goalsCV)
         self.goalsCV.dataSource = self
         self.goalsCV.delegate = self
-        uid = Auth.auth().currentUser!.uid
-        getUserData(uid: "schema")
+        //uid = Auth.auth().currentUser!.uid
+        uid = "schema"
+        getUserData()
     }
 
-    func getUserData(uid:String) {
+    func getUserData() {
         db.collection("users").document(uid).collection("goals").getDocuments(completion: { (goalDocRefs, error) in
             goalDocRefs?.documents.forEach({ (doc) in
                 let goalData = doc.data()
@@ -49,15 +50,53 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
                 self.goalsCV.reloadData()
             })
         })
-        
-        //subGoalsDueOnDate(year: 2019, month: 10, day: 14)
-    }
     
-    func subGoalsDueOnDate(year:Int, month:Int, day: Int) {
+        //  subGoalsDueOnDate(date: Date())
+    }
+        
+    func subGoalsDueOnDate(date:Date) {
         db.collection("users").document(uid).getDocument { (snapshot, error) in
-            self.db.collectionGroup("sub_goals").start(atDocument: snapshot!).getDocuments(completion: {(snapshot, error) in
-                
+            guard snapshot != nil else { print("Error:", error!); return }
+            self.db.collectionGroup("sub_goals")
+            .start(atDocument: snapshot!)
+            .whereField("due_date", date: date)
+            .getDocuments(completion: {(snapshot, error) in
+                guard snapshot != nil else { print("Error:", error!); return }
+                print(snapshot!.documents.count)
+                snapshot?.documents.forEach({ (subGoalDocRef) in
+                    print(subGoalDocRef.data()["name"]!)
+                })
             })
         }
+    }
+}
+
+extension Query {
+    func whereField(_ field: String, date: Date) -> Query {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        let start = dateFormatter.date(from: dateFormatter.string(from: date))!
+        let end = dateFormatter.date(from: dateFormatter.string(from: date.dayAfter))!
+        return whereField(field, isGreaterThanOrEqualTo: Timestamp(date: start)).whereField(field, isLessThan: Timestamp(date: end))
+    }
+}
+
+extension Date {
+    static var yesterday: Date { return Date().dayBefore }
+    static var tomorrow:  Date { return Date().dayAfter }
+    var dayBefore: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
+    }
+    var dayAfter: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: noon)!
+    }
+    var noon: Date {
+        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
+    }
+    var month: Int {
+        return Calendar.current.component(.month,  from: self)
+    }
+    var isLastDayOfMonth: Bool {
+        return dayAfter.month != month
     }
 }
