@@ -43,60 +43,88 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
 
     func getUserData() {
-        db.collection("users").document(uid).collection("goals").getDocuments(completion: { (goalDocRefs, error) in
+        db.collection("users").document(uid).collection("goals").addSnapshotListener({ (goalDocRefs, error) in
+            guard goalDocRefs != nil else { print("Error: ", error!); return }
+            print("Number of Doc Changes: ", goalDocRefs!.documentChanges.count)
+            self.allGoals = [String]() // make sure allGoals is emtpy before update from firestore
             goalDocRefs?.documents.forEach({ (doc) in
                 let goalData = doc.data()
                 self.allGoals.append(goalData["name"]! as! String)
                 self.goalsCV.reloadData()
             })
         })
-    
-        //  subGoalsDueOnDate(date: Date())
-    }
         
-    func subGoalsDueOnDate(date:Date) {
-        db.collection("users").document(uid).getDocument { (snapshot, error) in
+        //subGoalsDueOnDate(date: Date())
+    }
+    
+    func subGoalTasks() {
+        db.collection("users").document(uid).addSnapshotListener({ (snapshot, error) in
             guard snapshot != nil else { print("Error:", error!); return }
             self.db.collectionGroup("sub_goals")
-            .start(atDocument: snapshot!)
-            .whereField("due_date", date: date)
             .getDocuments(completion: {(snapshot, error) in
                 guard snapshot != nil else { print("Error:", error!); return }
                 print(snapshot!.documents.count)
                 snapshot?.documents.forEach({ (subGoalDocRef) in
-                    print(subGoalDocRef.data()["name"]!)
+                    let subGoalData = subGoalDocRef.data()
+                    print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - all")
                 })
             })
-        }
+        })
     }
-}
-
-extension Query {
-    func whereField(_ field: String, date: Date) -> Query {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd"
-        let start = dateFormatter.date(from: dateFormatter.string(from: date))!
-        let end = dateFormatter.date(from: dateFormatter.string(from: date.dayAfter))!
-        return whereField(field, isGreaterThanOrEqualTo: Timestamp(date: start)).whereField(field, isLessThan: Timestamp(date: end))
+    
+    func subGoalsDueOnDate(date:Date) {
+        db.collection("users").document(uid).addSnapshotListener({ (snapshot, error) in
+            guard snapshot != nil else { print("Error:", error!); return }
+            self.db.collectionGroup("sub_goals")
+            .whereField("due_date", onThisDay: date)
+            .whereField("uid", isEqualTo: self.uid)
+            .addSnapshotListener({ (snapshot, error) in
+                guard snapshot != nil else { print("Error:", error!); return }
+                print("Number of Doc Changes: ", snapshot!.documentChanges.count)
+                print(snapshot!.documents.count)
+                snapshot?.documents.forEach({ (subGoalDocRef) in
+                    let subGoalData = subGoalDocRef.data()
+                    print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
+                })
+            })
+        })
     }
 }
 
 extension Date {
     static var yesterday: Date { return Date().dayBefore }
     static var tomorrow:  Date { return Date().dayAfter }
-    var dayBefore: Date {
-        return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
+    var dayBefore: Date { return Calendar.current.date(byAdding: .day, value: -1, to: noon)! }
+    var dayAfter: Date { return Calendar.current.date(byAdding: .day, value: 1, to: noon)! }
+    var noon: Date { return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)! }
+    var month: Int { return Calendar.current.component(.month,  from: self) }
+    var isLastDayOfMonth: Bool { return dayAfter.month != month }
+    func convertToLocalTime(fromTimeZone timeZoneAbbreviation: String) -> Date? {
+        if let timeZone = TimeZone(abbreviation: timeZoneAbbreviation) {
+            let targetOffset = TimeInterval(timeZone.secondsFromGMT(for: self))
+            let localOffeset = TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT(for: self))
+
+            return self.addingTimeInterval(targetOffset - localOffeset)
+        }
+
+        return nil
     }
-    var dayAfter: Date {
-        return Calendar.current.date(byAdding: .day, value: 1, to: noon)!
-    }
-    var noon: Date {
-        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
-    }
-    var month: Int {
-        return Calendar.current.component(.month,  from: self)
-    }
-    var isLastDayOfMonth: Bool {
-        return dayAfter.month != month
+}
+
+extension Query {
+    func whereField(_ field: String, onThisDay date: Date) -> Query {
+        let f1 = DateFormatter()
+        f1.dateFormat = "yyyy/MM/dd"
+        let f2 = DateFormatter()
+        f2.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        
+        let startDate = f2.date(from: f1.string(from: date) + " 00:00:00")!
+        let endDate = f2.date(from: f1.string(from: date.dayAfter) + " 00:00:00")!
+        let startTimestamp = Timestamp(date: startDate)
+        let endTimestamp = Timestamp(date: endDate)
+        
+        print(startTimestamp, " - start")
+        print(endTimestamp, " - end")
+        return whereField("due_date", isGreaterThanOrEqualTo: startTimestamp).whereField("due_date", isLessThan: endTimestamp)
     }
 }
