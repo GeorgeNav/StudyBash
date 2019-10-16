@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08548ACA2356C349002A37E4 /* AddGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08548AC92356C349002A37E4 /* AddGoalViewController.swift */; };
 		08557BBC23528D85009944A2 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08557BBB23528D85009944A2 /* GoalsViewController.swift */; };
 		08557BCA2352A171009944A2 /* GoalsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08557BC92352A171009944A2 /* GoalsCollectionViewCell.swift */; };
 		087BAA1E235100C6008FCD12 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BAA1D235100C6008FCD12 /* LoginViewController.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		058121D66A0A44677895E6CB /* Pods_studybash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_studybash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		08548AC92356C349002A37E4 /* AddGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalViewController.swift; sourceTree = "<group>"; };
 		08557BBB23528D85009944A2 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
 		08557BC92352A171009944A2 /* GoalsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCollectionViewCell.swift; sourceTree = "<group>"; };
 		087BAA1D235100C6008FCD12 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			children = (
 				08557BBB23528D85009944A2 /* GoalsViewController.swift */,
 				08557BC92352A171009944A2 /* GoalsCollectionViewCell.swift */,
+				08548AC92356C349002A37E4 /* AddGoalViewController.swift */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				087BAA272351015E008FCD12 /* ChangePasswordViewController.swift in Sources */,
 				087BAA2523510142008FCD12 /* EnterCodeViewController.swift in Sources */,
 				08557BBC23528D85009944A2 /* GoalsViewController.swift in Sources */,
+				08548ACA2356C349002A37E4 /* AddGoalViewController.swift in Sources */,
 				087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */,
 				457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */,
 				08A9A104234AB40A00B3C45A /* AppDelegate.swift in Sources */,
