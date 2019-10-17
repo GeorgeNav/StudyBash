@@ -16,6 +16,6 @@ class AddGoalViewController: UIViewController {
 
     @IBAction func createGoalButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-        performSegue(withIdentifier: <#T##String#>, sender: <#T##Any?#>)
+        performSegue(withIdentifier: "add_goal_to_goal", sender: self)
     }
 }

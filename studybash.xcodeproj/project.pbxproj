@@ -15,6 +15,8 @@
 		087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BAA212351010F008FCD12 /* ResetPasswordViewController.swift */; };
 		087BAA2523510142008FCD12 /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BAA2423510142008FCD12 /* EnterCodeViewController.swift */; };
 		087BAA272351015E008FCD12 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BAA262351015E008FCD12 /* ChangePasswordViewController.swift */; };
+		089C7D1F2358E96300647FAF /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C7D1E2358E96300647FAF /* GoalViewController.swift */; };
+		089C7D232358F41000647FAF /* SubGoalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C7D222358F41000647FAF /* SubGoalsTableViewCell.swift */; };
 		08A9A104234AB40A00B3C45A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9A103234AB40A00B3C45A /* AppDelegate.swift */; };
 		08A9A106234AB40A00B3C45A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9A105234AB40A00B3C45A /* SceneDelegate.swift */; };
 		08A9A108234AB40A00B3C45A /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9A107234AB40A00B3C45A /* SplashScreenViewController.swift */; };
@@ -40,6 +42,8 @@
 		087BAA212351010F008FCD12 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		087BAA2423510142008FCD12 /* EnterCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewController.swift; sourceTree = "<group>"; };
 		087BAA262351015E008FCD12 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		089C7D1E2358E96300647FAF /* GoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalViewController.swift; sourceTree = "<group>"; };
+		089C7D222358F41000647FAF /* SubGoalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalsTableViewCell.swift; sourceTree = "<group>"; };
 		08A9A100234AB40A00B3C45A /* studybash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = studybash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08A9A103234AB40A00B3C45A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08A9A105234AB40A00B3C45A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +85,7 @@
 		08557BB923528D5B009944A2 /* Goals */ = {
 			isa = PBXGroup;
 			children = (
+				089C7D1D2358E94E00647FAF /* Goal */,
 				08557BBB23528D85009944A2 /* GoalsViewController.swift */,
 				08557BC92352A171009944A2 /* GoalsCollectionViewCell.swift */,
 				08548AC92356C349002A37E4 /* AddGoalViewController.swift */,
@@ -119,6 +124,15 @@
 				457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */,
 			);
 			path = ResetPassword;
+			sourceTree = "<group>";
+		};
+		089C7D1D2358E94E00647FAF /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				089C7D1E2358E96300647FAF /* GoalViewController.swift */,
+				089C7D222358F41000647FAF /* SubGoalsTableViewCell.swift */,
+			);
+			path = Goal;
 			sourceTree = "<group>";
 		};
 		08A9A0F7234AB40A00B3C45A = {
@@ -305,8 +319,10 @@
 				08557BCA2352A171009944A2 /* GoalsCollectionViewCell.swift in Sources */,
 				087BAA272351015E008FCD12 /* ChangePasswordViewController.swift in Sources */,
 				087BAA2523510142008FCD12 /* EnterCodeViewController.swift in Sources */,
+				089C7D1F2358E96300647FAF /* GoalViewController.swift in Sources */,
 				08557BBC23528D85009944A2 /* GoalsViewController.swift in Sources */,
 				08548ACA2356C349002A37E4 /* AddGoalViewController.swift in Sources */,
+				089C7D232358F41000647FAF /* SubGoalsTableViewCell.swift in Sources */,
 				087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */,
 				457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */,
 				08A9A104234AB40A00B3C45A /* AppDelegate.swift in Sources */,

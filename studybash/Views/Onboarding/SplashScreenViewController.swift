@@ -14,7 +14,6 @@ class SplashScreenViewController: UIViewController {
     @IBOutlet weak var animationView: UIView!
     var animation : AnimationView?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAnimation()
