@@ -10,9 +10,10 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
+let goalsCellIdentifier: String = "goal_cell"
+
 class GoalsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var goalsCV: UICollectionView!
-    let goalsCellIdentifier: String = "goal_cell"
     let db: Firestore = Firestore.firestore()
     var selectedGoalSubGoals: [[String: Any]] = [[String: Any]]()
     var allGoalData: [[String: Any]] = [[String: Any]]()
@@ -39,6 +40,7 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
             vc.subGoalsData = selectedGoalSubGoals
         } else if(segue.identifier == "goals_to_add_goal") {
             let vc = segue.destination as! AddGoalViewController
+            vc.uid = uid
             vc.typeNames = goalTypeNames
 //            vc.titleLabel = "Add Goal"
 //            vc.goalName.text = nil
@@ -79,8 +81,6 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
                 self.goalsCV.reloadData()
             })
         })
-        
-        //subGoalsDueOnDate(date: Date())
     }
     
     func goalSegue(withIdentifier identifier:String, goalName:String) {

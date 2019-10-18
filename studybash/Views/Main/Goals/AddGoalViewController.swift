@@ -8,12 +8,13 @@
 
 import UIKit
 import FSCalendar
+import FirebaseFirestore
 
 let typeCellIdentifier = "type_cell"
 
-class AddGoalViewController: UIViewController, UISearchBarDelegate {
+class AddGoalViewController: UIViewController {
+    let db: Firestore = Firestore.firestore()
     fileprivate weak var calendar: FSCalendar!
-    var selectedDate: Date = Date()
     @IBOutlet weak var time: UIDatePicker!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var timeButton: UIButton!
@@ -22,6 +23,8 @@ class AddGoalViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var notesTF: UITextField!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var typesCV: UICollectionView!
+    var uid: String = ""
+    var selectedDate: Date = Date()
     var typeNames = ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX",
     "Philadelphia, PA", "Phoenix, AZ", "San Diego, CA", "San Antonio, TX",
     "Dallas, TX", "Detroit, MI", "San Jose, CA", "Indianapolis, IN",
@@ -49,8 +52,26 @@ class AddGoalViewController: UIViewController, UISearchBarDelegate {
         calendar.isHidden = true
         self.calendar = calendar
     }
+    
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func addGoalButton(_ sender: Any) {
+        db.collection("users").document(uid).collection("goals").addDocument(data: [
+            "date_created": Timestamp(date: Date()),
+            "due_date": Timestamp(date: selectedDate),
+            "finished": false,
+            "name": goalName.text!,
+            "notes": notesTF.text!,
+            "statistics": [
+                "time_spent": 42
+            ],
+            "types": [
+                
+            ],
+            "uid": uid
+        ])
     }
     
     @IBAction func hideShowCalendar(_ sender: Any) {
@@ -85,7 +106,9 @@ extension AddGoalViewController: FSCalendarDataSource, FSCalendarDelegate {
         cell.imageView.contentMode = .scaleAspectFit
         return cell
     }
-    
+}
+
+extension AddGoalViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // When there is no text, filteredData is the same as the original data
         // When user has entered text into the search box
@@ -107,6 +130,7 @@ extension AddGoalViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = typesCV.dequeueReusableCell(withReuseIdentifier: typeCellIdentifier, for: indexPath) as! AddGoalCollectionViewCell
+        cell.type.tintColor = .cyan
         cell.type.setTitle(filteredData[indexPath.row], for: .normal)
         return cell
     }

@@ -523,7 +523,7 @@
             <objects>
                 <viewController title="Goals" id="17e-Bv-nJo" customClass="GoalsViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JM1-rQ-vjb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="HeaderBackground" translatesAutoresizingMaskIntoConstraints="NO" id="N06-BP-EeF">
@@ -632,6 +632,7 @@
                         <viewLayoutGuide key="safeArea" id="Ggz-p2-a3l"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Goals" image="GoalsIcon" id="w6g-gF-L0M"/>
+                    <navigationItem key="navigationItem" id="nVW-J0-EU9"/>
                     <connections>
                         <outlet property="goalsCV" destination="xjn-aW-aL7" id="2XD-gV-mMF"/>
                         <segue destination="BAG-X6-iwN" kind="show" identifier="goals_to_goal" id="bSu-WZ-zCI"/>
@@ -725,6 +726,7 @@
                                 <rect key="frame" x="363" y="69" width="22" height="22"/>
                                 <state key="normal" image="doneIcon"/>
                                 <connections>
+                                    <action selector="addGoalButton:" destination="HI2-ir-YLd" eventType="touchUpInside" id="vf0-Qs-Tqd"/>
                                     <action selector="createGoalButton:" destination="HI2-ir-YLd" eventType="touchUpInside" id="0b6-Uo-oaQ"/>
                                 </connections>
                             </button>
@@ -899,11 +901,12 @@
                         <outlet property="titleLabel" destination="R3n-af-gpl" id="NUg-ek-4Pl"/>
                         <outlet property="typesCV" destination="u0X-JN-QJS" id="D47-RP-56m"/>
                         <segue destination="BAG-X6-iwN" kind="show" identifier="add_goal_to_goal" id="wkW-21-acr"/>
+                        <segue destination="17e-Bv-nJo" kind="show" identifier="add_goal_to_goals" id="gys-wU-qRX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bjH-L4-zoM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2968.115942028986" y="2546.6517857142858"/>
+            <point key="canvasLocation" x="-2738" y="2547"/>
         </scene>
         <!--Goal View Controller-->
         <scene sceneID="2d8-xY-yqY">
@@ -918,14 +921,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sub_goal_cell" id="gtr-sM-HtR" customClass="SubGoalsTableViewCell" customModule="studybash" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gtr-sM-HtR" id="6M8-bL-TGO">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Goal Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g54-Ia-HUz">
-                                                    <rect key="frame" x="275" y="11.5" width="119" height="21.5"/>
+                                                    <rect key="frame" x="275" y="11.5" width="119" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1002,7 +1005,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mci-JZ-W8I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1972.4637681159422" y="2546.6517857142858"/>
+            <point key="canvasLocation" x="-1081" y="2547"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="T4g-h3-JTI">
@@ -1697,6 +1700,7 @@
         <image name="trashIcon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bSu-WZ-zCI"/>
+        <segue reference="wkW-21-acr"/>
+        <segue reference="gys-wU-qRX"/>
     </inferredMetricsTieBreakers>
 </document>
