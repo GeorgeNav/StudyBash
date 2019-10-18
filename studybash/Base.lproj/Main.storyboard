@@ -837,6 +837,9 @@
                                 <rect key="frame" x="28" y="69" width="10" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="ArrowBackButton"/>
+                                <connections>
+                                    <action selector="backButton:" destination="BAG-X6-iwN" eventType="touchUpInside" id="gO9-Si-Olr"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1641,6 +1644,6 @@
         <image name="trashIcon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bSu-WZ-zCI"/>
+        <segue reference="wkW-21-acr"/>
     </inferredMetricsTieBreakers>
 </document>

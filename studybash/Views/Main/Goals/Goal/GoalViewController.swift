@@ -22,6 +22,9 @@ class GoalViewController: UIViewController, UITableViewDataSource, UITableViewDe
         print(subGoalsData)
     }
     
+    @IBAction func backButton(_ sender: Any) {
+    }
+    
     func loadData(subGoalsData: [[String: Any]]) {
         self.subGoalsData = subGoalsData
     }
