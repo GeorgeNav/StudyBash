@@ -20,9 +20,18 @@ class GoalViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.subGoalsTV.dataSource = self
         self.subGoalsTV.delegate = self
         print(subGoalsData)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     @IBAction func backButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func loadData(subGoalsData: [[String: Any]]) {

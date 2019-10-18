@@ -17,6 +17,7 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
     var selectedGoalSubGoals: [[String: Any]] = [[String: Any]]()
     var allGoalData: [[String: Any]] = [[String: Any]]()
     var allGoalNames: [String] = [String]()
+    var goalTypeNames: [String] = [String]()
     var uid: String = ""
     var selectedGoalIndex: Int = 0
 
@@ -36,6 +37,12 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
             let vc = segue.destination as! GoalViewController
             vc.goalData = allGoalData[selectedGoalIndex]
             vc.subGoalsData = selectedGoalSubGoals
+        } else if(segue.identifier == "goals_to_add_goal") {
+            let vc = segue.destination as! AddGoalViewController
+            vc.typeNames = goalTypeNames
+//            vc.titleLabel = "Add Goal"
+//            vc.goalName.text = nil
+//            vc.goalName.placeholder = "Goal Name"
         }
     }
     
@@ -56,7 +63,7 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedGoalIndex = indexPath.row
-        customPerformSegue(withIdentifier: "goals_to_goal", goalName: allGoalNames[selectedGoalIndex])
+        goalSegue(withIdentifier: "goals_to_goal", goalName: allGoalNames[selectedGoalIndex])
     }
     
     func getUserData() {
@@ -76,7 +83,7 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
         //subGoalsDueOnDate(date: Date())
     }
     
-    func customPerformSegue(withIdentifier identifier:String, goalName:String) {
+    func goalSegue(withIdentifier identifier:String, goalName:String) {
         db.collection("users").document(uid).collection("goals")
         .document(allGoalData[selectedGoalIndex]["doc_id"]! as! String)
         .collection("sub_goals").addSnapshotListener({(snapshot, error) in
@@ -86,6 +93,17 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
                 self.selectedGoalSubGoals.append(doc.data())
             })
             self.performSegue(withIdentifier: identifier, sender: self)
+        })
+    }
+    
+    @IBAction func addNewGoalSegue(_ sender: Any) {
+        db.collection("goal_types").addSnapshotListener({(snapshot, error) in
+            guard snapshot != nil else { print("Error:", error!); return }
+            self.goalTypeNames = [String]()
+            snapshot!.documents.forEach({(doc) in
+                self.goalTypeNames.append(doc.data()["name"]! as! String)
+            })
+            self.performSegue(withIdentifier: "goals_to_add_goal", sender: self)
         })
     }
     

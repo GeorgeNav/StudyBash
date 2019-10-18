@@ -24,6 +24,7 @@
 		08A9A10D234AB40D00B3C45A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A10C234AB40D00B3C45A /* Assets.xcassets */; };
 		08A9A110234AB40D00B3C45A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */; };
 		08A9A118234AB6AD00B3C45A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A117234AB6AD00B3C45A /* GoogleService-Info.plist */; };
+		08F0A9942359A39700820E51 /* AddGoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F0A9932359A39700820E51 /* AddGoalCollectionViewCell.swift */; };
 		2192ACBE2065527441A29DAA /* Pods_studybash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 058121D66A0A44677895E6CB /* Pods_studybash.framework */; };
 		450DEF7C235263C2000F9EE6 /* AboutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450DEF7B235263C2000F9EE6 /* AboutScreen.swift */; };
 		450DEF802352659B000F9EE6 /* about.json in Resources */ = {isa = PBXBuildFile; fileRef = 450DEF7F2352659B000F9EE6 /* about.json */; };
@@ -53,6 +54,7 @@
 		08A9A10F234AB40D00B3C45A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08A9A111234AB40D00B3C45A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08A9A117234AB6AD00B3C45A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		08F0A9932359A39700820E51 /* AddGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		450DEF7B235263C2000F9EE6 /* AboutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutScreen.swift; sourceTree = "<group>"; };
 		450DEF7F2352659B000F9EE6 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = about.json; sourceTree = "<group>"; };
 		45395DB123502DEA005F7C67 /* time.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = time.json; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				08557BBB23528D85009944A2 /* GoalsViewController.swift */,
 				08557BC92352A171009944A2 /* GoalsCollectionViewCell.swift */,
 				08548AC92356C349002A37E4 /* AddGoalViewController.swift */,
+				08F0A9932359A39700820E51 /* AddGoalCollectionViewCell.swift */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				08557BBC23528D85009944A2 /* GoalsViewController.swift in Sources */,
 				08548ACA2356C349002A37E4 /* AddGoalViewController.swift in Sources */,
 				089C7D232358F41000647FAF /* SubGoalsTableViewCell.swift in Sources */,
+				08F0A9942359A39700820E51 /* AddGoalCollectionViewCell.swift in Sources */,
 				087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */,
 				457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */,
 				08A9A104234AB40A00B3C45A /* AppDelegate.swift in Sources */,
