@@ -58,7 +58,7 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
         selectedGoalIndex = indexPath.row
         customPerformSegue(withIdentifier: "goals_to_goal", goalName: allGoalNames[selectedGoalIndex])
     }
-
+    
     func getUserData() {
         db.collection("users").document(uid).collection("goals").addSnapshotListener({ (goalDocRefs, error) in
             guard goalDocRefs != nil else { print("Error: ", error!); return }
