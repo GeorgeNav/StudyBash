@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BAG-X6-iwN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="17e-Bv-nJo">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -902,7 +902,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bjH-L4-zoM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2738" y="2547"/>
+            <point key="canvasLocation" x="-2677" y="2565"/>
         </scene>
         <!--Goal View Controller-->
         <scene sceneID="2d8-xY-yqY">
@@ -917,14 +917,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sub_goal_cell" id="gtr-sM-HtR" customClass="SubGoalsTableViewCell" customModule="studybash" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gtr-sM-HtR" id="6M8-bL-TGO">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Goal Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g54-Ia-HUz">
-                                                    <rect key="frame" x="275" y="11.5" width="119" height="21"/>
+                                                    <rect key="frame" x="275" y="11.5" width="119" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -960,6 +960,9 @@
                                     <constraint firstAttribute="height" constant="78" id="7aG-HQ-FKM"/>
                                 </constraints>
                                 <state key="normal" image="AddButtonSmall"/>
+                                <connections>
+                                    <segue destination="HI2-ir-YLd" kind="show" id="txg-z6-Lql"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5we-m5-F2v">
                                 <rect key="frame" x="28" y="70" width="10" height="22"/>
@@ -968,7 +971,7 @@
                                 </constraints>
                                 <state key="normal" image="ArrowBackButton"/>
                                 <connections>
-                                    <action selector="backButton:" destination="BAG-X6-iwN" eventType="touchUpInside" id="gO9-Si-Olr"/>
+                                    <action selector="backButton:" destination="BAG-X6-iwN" eventType="touchUpInside" id="VPw-Oi-ep6"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00:00.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wOo-f8-nYy">
@@ -1008,7 +1011,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mci-JZ-W8I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1081.1594202898552" y="2546.6517857142858"/>
+            <point key="canvasLocation" x="-1214" y="2565"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="T4g-h3-JTI">
@@ -1558,6 +1561,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="b0W-h1-Qeb"/>
                     </view>
+                    <navigationItem key="navigationItem" id="iPy-th-bpZ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rqp-7V-7y3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1704,6 +1708,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wkW-21-acr"/>
+        <segue reference="OP7-Ii-Vxo"/>
         <segue reference="gys-wU-qRX"/>
     </inferredMetricsTieBreakers>
 </document>
