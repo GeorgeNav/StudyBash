@@ -38,17 +38,14 @@ class GoalsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "goals_to_goal") {
             let vc = segue.destination as! GoalViewController
-            vc.goalData = allGoalData[selectedGoalIndex]
-            vc.subGoalsData = selectedGoalSubGoals
+            vc.goalData = self.allGoalData[selectedGoalIndex]
+            vc.subGoalsData = self.selectedGoalSubGoals
+            vc.goalDocRef = self.selectedGoalDocRef!
         } else if(segue.identifier == "goals_to_add_goal") {
             let vc = segue.destination as! AddGoalViewController
-            vc.uid = self.uid
             vc.typeNames = self.goalTypeNames
             vc.goalsColRef = self.userGoalsColRef!
             vc.goalOrSubGoal = "goal"
-//            vc.titleLabel = "Add Goal"
-//            vc.goalName.text = nil
-//            vc.goalName.placeholder = "Goal Name"
         }
     }
     
