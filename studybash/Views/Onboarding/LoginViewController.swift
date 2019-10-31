@@ -36,15 +36,11 @@ class LoginViewController: UIViewController {
                 return
             }
             print(authResult!.user.email!, " is logged in!")
-            self.performSegue(withIdentifier: "sign_in_success", sender: self)
+            self.performSegue(withIdentifier: "sign_in_to_goals", sender: self)
         })
     }
 
     @IBAction func signInWithAppleButton(_ sender: Any) { // TODO: implement apple signin
-        auth.currentUser?.delete(completion: { (error) in
-            guard error == nil else { print("Error: \(error!)") ; return }
-            print("DELETED USER")
-        })
     }
     
     func signInRelatedStuff() {

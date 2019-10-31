@@ -8,9 +8,11 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class SignupViewController: UIViewController {
     var auth: Auth = Auth.auth()
+    let db: Firestore = Firestore.firestore()
     @IBOutlet weak var firstNameTF: UITextField!
     @IBOutlet weak var lastNameTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!
@@ -41,10 +43,28 @@ class SignupViewController: UIViewController {
                 print("Error: \(error!)")
                 return
             }
+            
             print(authResult!.user.email!, " account is created and logged in!")
-            self.dismiss(animated: true, completion: nil)
             authResult!.user.sendEmailVerification(completion: { (_) in
                 // Decide if there needs to be a pop up to tell the user to check their email to verify their account
+            })
+            
+            self.db.collection("users").document(self.auth.currentUser!.uid).setData([
+                "email": self.emailTF.text!,
+                "first_name": self.firstNameTF.text!,
+                "last_name": self.lastNameTF.text!,
+                "phone_number": "",
+            ], completion: { _ in             self.db.collection("users").document(self.auth.currentUser!.uid).collection("goals").addDocument(data: [
+                    "date_created": Timestamp(date: Date()),
+                    "finished": false,
+                    "name": "Your First Goal!",
+                    "statistics": [
+                        "time_spent": 42
+                    ],
+                    "types": [
+                        self.db.collection("goal_types").document("C4mCR1TM08fzLnsjBSFZ")
+                    ]
+            ], completion: { _ in self.dismiss(animated: true, completion: nil) })
             })
         })
     }

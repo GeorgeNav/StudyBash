@@ -14,10 +14,13 @@ let goalsCellIdentifier: String = "goal_cell"
 
 class GoalsViewController: UIViewController {
     @IBOutlet weak var goalsCV: UICollectionView!
+    
     let db: Firestore = Firestore.firestore()
-    var selectedGoalSubGoals: [[String: Any]] = [[String: Any]]()
-    var selectedGoalDocRef: DocumentReference?
+    var userDocRef: DocumentReference?
     var userGoalsColRef: CollectionReference?
+    var selectedGoalDocRef: DocumentReference?
+    
+    var selectedGoalSubGoals: [[String: Any]] = [[String: Any]]()
     var allGoalData: [[String: Any]] = [[String: Any]]()
     var allGoalNames: [String] = [String]()
     var goalTypeNames: [String] = [String]()
@@ -29,8 +32,7 @@ class GoalsViewController: UIViewController {
         self.view.addSubview(goalsCV)
         self.goalsCV.dataSource = self
         self.goalsCV.delegate = self
-        //uid = Auth.auth().currentUser!.uid
-        uid = "schema"
+        uid = Auth.auth().currentUser!.uid
         self.userGoalsColRef = db.collection("users").document(uid).collection("goals")
         getUserData()
     }
@@ -79,7 +81,7 @@ class GoalsViewController: UIViewController {
     }
     
     @IBAction func addNewGoalSegue(_ sender: Any) {
-        db.collection("goal_types").addSnapshotListener({(snapshot, error) in
+        db.collection("goal_types").getDocuments(completion: {(snapshot, error) in
             guard snapshot != nil else { print("Error:", error!); return }
             self.goalTypeNames = [String]()
             snapshot!.documents.forEach({(doc) in
