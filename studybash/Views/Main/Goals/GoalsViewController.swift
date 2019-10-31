@@ -12,16 +12,17 @@ import FirebaseFirestore
 
 let goalsCellIdentifier: String = "goal_cell"
 
-class GoalsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class GoalsViewController: UIViewController {
     @IBOutlet weak var goalsCV: UICollectionView!
     let db: Firestore = Firestore.firestore()
     var selectedGoalSubGoals: [[String: Any]] = [[String: Any]]()
+    var selectedGoalDocRef: DocumentReference?
+    var userGoalsColRef: CollectionReference?
     var allGoalData: [[String: Any]] = [[String: Any]]()
     var allGoalNames: [String] = [String]()
     var goalTypeNames: [String] = [String]()
     var uid: String = ""
     var selectedGoalIndex: Int = 0
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,7 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.goalsCV.delegate = self
         //uid = Auth.auth().currentUser!.uid
         uid = "schema"
+        self.userGoalsColRef = db.collection("users").document(uid).collection("goals")
         getUserData()
     }
     
@@ -40,13 +42,76 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
             vc.subGoalsData = selectedGoalSubGoals
         } else if(segue.identifier == "goals_to_add_goal") {
             let vc = segue.destination as! AddGoalViewController
-            vc.uid = uid
-            vc.typeNames = goalTypeNames
+            vc.uid = self.uid
+            vc.typeNames = self.goalTypeNames
+            vc.goalsColRef = self.userGoalsColRef!
+            vc.goalOrSubGoal = "goal"
 //            vc.titleLabel = "Add Goal"
 //            vc.goalName.text = nil
 //            vc.goalName.placeholder = "Goal Name"
         }
     }
+    
+    func getUserData() {
+        guard userGoalsColRef != nil else { return }
+        self.userGoalsColRef!.addSnapshotListener({ (goalDocRefs, error) in
+            guard goalDocRefs != nil else { print("Error: ", error!); return }
+            print("Number of Doc Changes: ", goalDocRefs!.documentChanges.count)
+            self.allGoalNames = [String]() // make sure allGoals is emtpy before update from firestore
+            goalDocRefs?.documents.forEach({ (doc) in
+                var goalData = doc.data()
+                goalData["ref"] = doc.reference
+                self.allGoalData.append(goalData)
+                self.allGoalNames.append(goalData["name"]! as! String)
+                self.goalsCV.reloadData()
+            })
+        })
+    }
+    
+    func goalSegue(withIdentifier identifier: String) {
+        self.selectedGoalDocRef!.collection("sub_goals").addSnapshotListener({(snapshot, error) in
+            guard snapshot != nil else { print("Error:", error!); return }
+            self.selectedGoalSubGoals = [[String: Any]]()
+            snapshot!.documents.forEach({(subGoalDoc) in
+                var subGoalData = subGoalDoc.data()
+                subGoalData["ref"] = subGoalDoc.reference
+                self.selectedGoalSubGoals.append(subGoalData)
+            })
+            self.performSegue(withIdentifier: identifier, sender: self)
+        })
+    }
+    
+    @IBAction func addNewGoalSegue(_ sender: Any) {
+        db.collection("goal_types").addSnapshotListener({(snapshot, error) in
+            guard snapshot != nil else { print("Error:", error!); return }
+            self.goalTypeNames = [String]()
+            snapshot!.documents.forEach({(doc) in
+                self.goalTypeNames.append(doc.data()["name"]! as! String)
+            })
+            self.performSegue(withIdentifier: "goals_to_add_goal", sender: self)
+        })
+    }
+    
+    func subGoalsDueOnDate(date: Date) {
+        db.collection("users").document(uid).addSnapshotListener({ (snapshot, error) in
+            guard snapshot != nil else { print("Error:", error!); return }
+            self.db.collectionGroup("sub_goals")
+            .whereField("due_date", onThisDay: date)
+            .whereField("uid", isEqualTo: self.uid)
+            .addSnapshotListener({ (snapshot, error) in
+                guard snapshot != nil else { print("Error:", error!); return }
+                print("Number of Doc Changes: ", snapshot!.documentChanges.count)
+                print(snapshot!.documents.count)
+                snapshot?.documents.forEach({ (subGoalDocRef) in
+                    let subGoalData = subGoalDocRef.data()
+                    print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
+                })
+            })
+        })
+    }
+}
+
+extension GoalsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return allGoalNames.count
@@ -64,65 +129,8 @@ class GoalsViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedGoalIndex = indexPath.row
-        goalSegue(withIdentifier: "goals_to_goal", goalName: allGoalNames[selectedGoalIndex])
-    }
-    
-    func getUserData() {
-        db.collection("users").document(uid).collection("goals").addSnapshotListener({ (goalDocRefs, error) in
-            guard goalDocRefs != nil else { print("Error: ", error!); return }
-            print("Number of Doc Changes: ", goalDocRefs!.documentChanges.count)
-            self.allGoalNames = [String]() // make sure allGoals is emtpy before update from firestore
-            goalDocRefs?.documents.forEach({ (doc) in
-                var goalData = doc.data()
-                goalData["doc_id"] = doc.documentID
-                self.allGoalData.append(goalData)
-                self.allGoalNames.append(goalData["name"]! as! String)
-                self.goalsCV.reloadData()
-            })
-        })
-    }
-    
-    func goalSegue(withIdentifier identifier:String, goalName:String) {
-        db.collection("users").document(uid).collection("goals")
-        .document(allGoalData[selectedGoalIndex]["doc_id"]! as! String)
-        .collection("sub_goals").addSnapshotListener({(snapshot, error) in
-            guard snapshot != nil else { print("Error:", error!); return }
-            self.selectedGoalSubGoals = [[String: Any]]()
-            snapshot!.documents.forEach({(doc) in
-                self.selectedGoalSubGoals.append(doc.data())
-            })
-            self.performSegue(withIdentifier: identifier, sender: self)
-        })
-    }
-    
-    @IBAction func addNewGoalSegue(_ sender: Any) {
-        db.collection("goal_types").addSnapshotListener({(snapshot, error) in
-            guard snapshot != nil else { print("Error:", error!); return }
-            self.goalTypeNames = [String]()
-            snapshot!.documents.forEach({(doc) in
-                self.goalTypeNames.append(doc.data()["name"]! as! String)
-            })
-            self.performSegue(withIdentifier: "goals_to_add_goal", sender: self)
-        })
-    }
-    
-    func subGoalsDueOnDate(date:Date) {
-        db.collection("users").document(uid).addSnapshotListener({ (snapshot, error) in
-            guard snapshot != nil else { print("Error:", error!); return }
-            self.db.collectionGroup("sub_goals")
-            .whereField("due_date", onThisDay: date)
-            .whereField("uid", isEqualTo: self.uid)
-            .addSnapshotListener({ (snapshot, error) in
-                guard snapshot != nil else { print("Error:", error!); return }
-                print("Number of Doc Changes: ", snapshot!.documentChanges.count)
-                print(snapshot!.documents.count)
-                snapshot?.documents.forEach({ (subGoalDocRef) in
-                    let subGoalData = subGoalDocRef.data()
-                    print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
-                })
-            })
-        })
+        self.selectedGoalDocRef = self.allGoalData[indexPath.row]["ref"] as? DocumentReference
+        goalSegue(withIdentifier: "goals_to_goal")
     }
 }
 

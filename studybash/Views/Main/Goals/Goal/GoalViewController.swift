@@ -10,7 +10,7 @@ import UIKit
 
 let subGoalCellIdentifier = "sub_goal_cell"
 
-class GoalViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class GoalViewController: UIViewController {
     @IBOutlet weak var subGoalsTV: UITableView!
     var goalData: [String: Any] = [String: Any]()
     var subGoalsData: [[String: Any]] = [[String: Any]]()
@@ -37,7 +37,11 @@ class GoalViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func loadData(subGoalsData: [[String: Any]]) {
         self.subGoalsData = subGoalsData
     }
+    
+}
 
+extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return subGoalsData.count
     }
@@ -47,6 +51,5 @@ class GoalViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.subGoalName.text = (subGoalsData[indexPath.row]["name"]! as! String)
         return cell
     }
-
-
+    
 }

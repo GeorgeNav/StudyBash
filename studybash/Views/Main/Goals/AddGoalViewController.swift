@@ -31,7 +31,9 @@ class AddGoalViewController: UIViewController {
     "Jacksonville, FL", "San Francisco, CA", "Columbus, OH", "Austin, TX",
     "Memphis, TN", "Baltimore, MD", "Charlotte, ND", "Fort Worth, TX"]
     var filteredData: [String] = [String]()
-
+    var goalsColRef: CollectionReference? // can be a goal or subgoal reference
+    var goalOrSubGoal: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         filteredData = typeNames
@@ -58,20 +60,27 @@ class AddGoalViewController: UIViewController {
     }
     
     @IBAction func addGoalButton(_ sender: Any) {
-        db.collection("users").document(uid).collection("goals").addDocument(data: [
+        var goalData: [String: Any] = [
             "date_created": Timestamp(date: Date()),
             "due_date": Timestamp(date: selectedDate),
             "finished": false,
             "name": goalName.text!,
-            "notes": notesTF.text!,
             "statistics": [
                 "time_spent": 42
             ],
             "types": [
                 
             ],
-            "uid": uid
-        ])
+            "uid": self.uid
+        ]
+        
+        if goalOrSubGoal == "sub_goal" {
+            goalData["notes"] =  notesTF.text!
+            goalData["reminder"] = "" // TODO: get reminder data somehow
+            goalData["study_bashes"] = []
+        }
+        
+        self.goalsColRef!.addDocument(data: goalData)
     }
     
     @IBAction func hideShowCalendar(_ sender: Any) {
@@ -84,6 +93,7 @@ class AddGoalViewController: UIViewController {
     
     @IBAction func getTime(_ sender: Any) {
         print(time.date)
+        // TODO: transfer the selected time to timeButton text
     }
     
     @IBAction func createGoalButton(_ sender: Any) {
