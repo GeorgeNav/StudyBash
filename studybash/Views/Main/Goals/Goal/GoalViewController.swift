@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 let subGoalCellIdentifier = "sub_goal_cell"
 
@@ -14,6 +15,7 @@ class GoalViewController: UIViewController {
     @IBOutlet weak var subGoalsTV: UITableView!
     var goalData: [String: Any] = [String: Any]()
     var subGoalsData: [[String: Any]] = [[String: Any]]()
+    var goalDocRef: DocumentReference?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,14 @@ class GoalViewController: UIViewController {
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goal_to_add_goal" {
+            let vc = segue.destination as! AddGoalViewController
+            vc.goalsColRef = self.goalDocRef!.collection("sub_goals")
+            vc.goalOrSubGoal = "sub_goal"
+        }
     }
     
     @objc func dismissKeyboard() {
@@ -38,6 +48,9 @@ class GoalViewController: UIViewController {
         self.subGoalsData = subGoalsData
     }
     
+    @IBAction func addSubGoalButton(_ sender: Any) {
+        performSegue(withIdentifier: "goal_to_add_goal", sender: self)
+    }
 }
 
 extension GoalViewController: UITableViewDataSource, UITableViewDelegate {

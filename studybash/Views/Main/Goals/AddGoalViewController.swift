@@ -23,7 +23,6 @@ class AddGoalViewController: UIViewController {
     @IBOutlet weak var notesTF: UITextField!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var typesCV: UICollectionView!
-    var uid: String = ""
     var selectedDate: Date = Date()
     var typeNames = ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX",
     "Philadelphia, PA", "Phoenix, AZ", "San Diego, CA", "San Antonio, TX",
@@ -55,6 +54,20 @@ class AddGoalViewController: UIViewController {
         self.calendar = calendar
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if goalOrSubGoal == "goal" {
+            titleLabel.text = "Add Goal"
+            goalName.text = nil
+            goalName.placeholder = "Goal Name"
+            // TODO: hide notes and reminder
+        } else if goalOrSubGoal == "sub_goal" {
+            titleLabel.text = "Add Sub-goal"
+            goalName.text = nil
+            goalName.placeholder = "Sub-goal Name"
+            // TODO: hide notes and reminder
+        }
+    }
+    
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -70,8 +83,7 @@ class AddGoalViewController: UIViewController {
             ],
             "types": [
                 
-            ],
-            "uid": self.uid
+            ]
         ]
         
         if goalOrSubGoal == "sub_goal" {
@@ -81,6 +93,7 @@ class AddGoalViewController: UIViewController {
         }
         
         self.goalsColRef!.addDocument(data: goalData)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func hideShowCalendar(_ sender: Any) {
@@ -94,11 +107,6 @@ class AddGoalViewController: UIViewController {
     @IBAction func getTime(_ sender: Any) {
         print(time.date)
         // TODO: transfer the selected time to timeButton text
-    }
-    
-    @IBAction func createGoalButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-        performSegue(withIdentifier: "add_goal_to_goal", sender: self)
     }
 }
 
