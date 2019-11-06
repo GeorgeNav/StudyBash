@@ -19,6 +19,7 @@ class GoalsViewController: UIViewController {
     var userDocRef: DocumentReference?
     var userGoalsColRef: CollectionReference?
     var selectedGoalDocRef: DocumentReference?
+    var goalListener: ListenerRegistration?
     
     var selectedGoalSubGoals: [[String: Any]] = [[String: Any]]()
     var allGoalData: [[String: Any]] = [[String: Any]]()
@@ -69,9 +70,16 @@ class GoalsViewController: UIViewController {
         })
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if goalListener != nil {
+            goalListener?.remove()
+            goalListener = nil
+        }
+    }
+    
     func goalSegue(withIdentifier identifier: String) {
         self.performSegue(withIdentifier: identifier, sender: self)
-        self.selectedGoalDocRef!.collection("sub_goals").addSnapshotListener({(snapshot, error) in
+        goalListener = self.selectedGoalDocRef!.collection("sub_goals").addSnapshotListener({(snapshot, error) in
             guard snapshot != nil else { print("Error:", error!); return }
             self.selectedGoalSubGoals = [[String: Any]]()
             snapshot!.documents.forEach({(subGoalDoc) in
