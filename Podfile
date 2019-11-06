@@ -5,16 +5,16 @@ target 'studybash' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # George's Pods for studybash
+  # George's Pods
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
   pod 'FSCalendar'
-  pod 'paper-onboarding'
-
+  pod 'Charts'
 
   # Mustafa's Pods
   pod 'lottie-ios'
   pod 'Protobuf', :inhibit_warnings => true
+  pod 'paper-onboarding'
 
 end

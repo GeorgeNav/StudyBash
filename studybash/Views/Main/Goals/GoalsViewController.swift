@@ -26,6 +26,7 @@ class GoalsViewController: UIViewController {
     var goalTypeNames: [String] = [String]()
     var uid: String = ""
     var selectedGoalIndex: Int = 0
+    var goalDelegate: UpdateGoalData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +41,10 @@ class GoalsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "goals_to_goal") {
             let vc = segue.destination as! GoalViewController
-            vc.goalData = self.allGoalData[selectedGoalIndex]
-            vc.subGoalsData = self.selectedGoalSubGoals
-            vc.goalDocRef = self.selectedGoalDocRef!
+            goalDelegate = vc
+//            vc.goalData = self.allGoalData[selectedGoalIndex]
+//            vc.subGoalsData = self.selectedGoalSubGoals
+//            vc.goalDocRef = self.selectedGoalDocRef!
         } else if(segue.identifier == "goals_to_add_goal") {
             let vc = segue.destination as! AddGoalViewController
             vc.typeNames = self.goalTypeNames
@@ -68,6 +70,7 @@ class GoalsViewController: UIViewController {
     }
     
     func goalSegue(withIdentifier identifier: String) {
+        self.performSegue(withIdentifier: identifier, sender: self)
         self.selectedGoalDocRef!.collection("sub_goals").addSnapshotListener({(snapshot, error) in
             guard snapshot != nil else { print("Error:", error!); return }
             self.selectedGoalSubGoals = [[String: Any]]()
@@ -76,7 +79,10 @@ class GoalsViewController: UIViewController {
                 subGoalData["ref"] = subGoalDoc.reference
                 self.selectedGoalSubGoals.append(subGoalData)
             })
-            self.performSegue(withIdentifier: identifier, sender: self)
+            self.goalDelegate?.updateGoalData(
+                goalData: self.allGoalData[self.selectedGoalIndex],
+                goalDocRef: self.selectedGoalDocRef!,
+                subGoalsData: self.selectedGoalSubGoals)
         })
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0821C0592372B825007BDB3D /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0821C0582372B825007BDB3D /* ActivityViewController.swift */; };
 		08548ACA2356C349002A37E4 /* AddGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08548AC92356C349002A37E4 /* AddGoalViewController.swift */; };
 		08557BBC23528D85009944A2 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08557BBB23528D85009944A2 /* GoalsViewController.swift */; };
 		08557BCA2352A171009944A2 /* GoalsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08557BC92352A171009944A2 /* GoalsCollectionViewCell.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		058121D66A0A44677895E6CB /* Pods_studybash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_studybash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0821C0582372B825007BDB3D /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		08548AC92356C349002A37E4 /* AddGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalViewController.swift; sourceTree = "<group>"; };
 		08557BBB23528D85009944A2 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
 		08557BC92352A171009944A2 /* GoalsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -93,9 +95,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0821C0552372B4BB007BDB3D /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				0821C0582372B825007BDB3D /* ActivityViewController.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
 		08557BB823528D3E009944A2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				0821C0552372B4BB007BDB3D /* Activity */,
 				458D03532372A66A008AC42B /* Settings */,
 				08557BB923528D5B009944A2 /* Goals */,
 			);
@@ -399,6 +410,7 @@
 				458D034523725F92008AC42B /* OnBoardingViewController.swift in Sources */,
 				08A9A106234AB40A00B3C45A /* SceneDelegate.swift in Sources */,
 				457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */,
+				0821C0592372B825007BDB3D /* ActivityViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

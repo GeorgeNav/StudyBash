@@ -11,7 +11,19 @@ import FirebaseFirestore
 
 let subGoalCellIdentifier = "sub_goal_cell"
 
-class GoalViewController: UIViewController {
+protocol UpdateGoalData {
+    func updateGoalData(goalData: [String : Any],
+                        goalDocRef: DocumentReference,
+                        subGoalsData: [[String : Any]])
+}
+
+class GoalViewController: UIViewController, UpdateGoalData {
+    func updateGoalData(goalData: [String : Any], goalDocRef: DocumentReference, subGoalsData: [[String : Any]]) {
+        self.subGoalsData = subGoalsData
+        self.goalData = goalData
+        self.goalDocRef = goalDocRef
+        subGoalsTV.reloadData()
+    }
     @IBOutlet weak var subGoalsTV: UITableView!
     var goalData: [String: Any] = [String: Any]()
     var subGoalsData: [[String: Any]] = [[String: Any]]()
