@@ -214,11 +214,36 @@
                                 <color key="textColor" red="0.086274509799999996" green="0.1215686275" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nop-dp-wsv">
+                                <rect key="frame" x="20" y="234" width="374" height="374"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="nop-dp-wsv" secondAttribute="height" multiplier="1:1" id="x8x-m3-Zvt"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Graph" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0i1-CA-cF5">
+                                <rect key="frame" x="183" y="197" width="48" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="0i1-CA-cF5" firstAttribute="centerX" secondItem="dz9-bp-1db" secondAttribute="centerX" id="7fg-2w-mDk"/>
+                            <constraint firstItem="nop-dp-wsv" firstAttribute="top" secondItem="0i1-CA-cF5" secondAttribute="bottom" constant="16" id="EJO-C4-XiA"/>
+                            <constraint firstItem="nop-dp-wsv" firstAttribute="centerX" secondItem="dz9-bp-1db" secondAttribute="centerX" id="Vif-e3-Wnz"/>
+                            <constraint firstItem="nop-dp-wsv" firstAttribute="leading" secondItem="qdQ-qp-r1l" secondAttribute="leading" constant="20" id="cC8-ys-SYZ"/>
+                            <constraint firstItem="nop-dp-wsv" firstAttribute="centerY" secondItem="dz9-bp-1db" secondAttribute="centerY" id="p25-nG-pnI"/>
+                            <constraint firstItem="qdQ-qp-r1l" firstAttribute="trailing" secondItem="nop-dp-wsv" secondAttribute="trailing" constant="20" id="wtg-u0-wg6"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="qdQ-qp-r1l"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Activity" image="ActivityIcon" id="MH1-qc-NGK"/>
+                    <connections>
+                        <outlet property="graphNameL" destination="0i1-CA-cF5" id="3xq-ti-isT"/>
+                        <outlet property="lineGraphV" destination="nop-dp-wsv" id="9P2-qk-hJ6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="otL-aT-kAG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -632,10 +657,13 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15q-vQ-JYY">
+                                                <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15q-vQ-JYY">
                                                     <rect key="frame" x="13" y="13" width="20" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="remove"/>
+                                                    <connections>
+                                                        <action selector="deleteGoalButton:" destination="19B-cV-RGQ" eventType="touchUpInside" id="g73-kC-Bye"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -648,6 +676,7 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
+                                            <outlet property="deleteGoal" destination="15q-vQ-JYY" id="Cu2-b9-P78"/>
                                             <outlet property="goalName" destination="0ID-Kg-msS" id="N22-hm-Iki"/>
                                             <outlet property="numSubGoalsDueToday" destination="C1i-Cp-8x9" id="kQw-ER-f4h"/>
                                             <outlet property="subGoalProgress" destination="oeN-nR-W6G" id="aP0-1G-dcn"/>
@@ -659,6 +688,9 @@
                                 <rect key="frame" x="20" y="70" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="EditIcon"/>
+                                <connections>
+                                    <action selector="toggleEditMode:" destination="17e-Bv-nJo" eventType="touchUpInside" id="80s-TO-EYv"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -674,7 +706,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v3p-w9-YRr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1912" y="1807"/>
+            <point key="canvasLocation" x="-1913.0434782608697" y="1806.6964285714284"/>
         </scene>
         <!--No Goals-->
         <scene sceneID="mmx-O3-hFu">
@@ -964,14 +996,24 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-db-rrj">
+                                                    <rect key="frame" x="16" y="11.5" width="20" height="22"/>
+                                                    <state key="normal" image="remove"/>
+                                                    <connections>
+                                                        <action selector="deleteSubGoalButton:" destination="gtr-sM-HtR" eventType="touchUpInside" id="Qep-27-Y3z"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="g54-Ia-HUz" firstAttribute="top" secondItem="6M8-bL-TGO" secondAttribute="topMargin" constant="0.5" id="LqJ-bg-buW"/>
                                                 <constraint firstItem="g54-Ia-HUz" firstAttribute="centerY" secondItem="6M8-bL-TGO" secondAttribute="centerY" id="YPR-7S-Cbo"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="g54-Ia-HUz" secondAttribute="trailing" id="fjq-hc-vkw"/>
+                                                <constraint firstItem="3dY-db-rrj" firstAttribute="leading" secondItem="6M8-bL-TGO" secondAttribute="leading" constant="16" id="muD-ld-vKf"/>
+                                                <constraint firstItem="3dY-db-rrj" firstAttribute="centerY" secondItem="6M8-bL-TGO" secondAttribute="centerY" id="nzZ-WH-TF3"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="deleteSubGoal" destination="3dY-db-rrj" id="Wqc-Wb-rmg"/>
                                             <outlet property="subGoalName" destination="g54-Ia-HUz" id="SO8-yd-Jb9"/>
                                         </connections>
                                     </tableViewCell>
@@ -1726,7 +1768,7 @@
         <image name="trashIcon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wkW-21-acr"/>
-        <segue reference="RfR-pq-mie"/>
+        <segue reference="bSu-WZ-zCI"/>
+        <segue reference="OP7-Ii-Vxo"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -28,6 +28,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
     var goalData: [String: Any] = [String: Any]()
     var subGoalsData: [[String: Any]] = [[String: Any]]()
     var goalDocRef: DocumentReference?
+    var editMode: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +74,12 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = subGoalsTV.dequeueReusableCell(withIdentifier: subGoalCellIdentifier, for: indexPath) as! SubGoalsTableViewCell
-        cell.subGoalName.text = (subGoalsData[indexPath.row]["name"]! as! String)
+        cell.subGoalName.text = subGoalsData[indexPath.row]["name"]! as? String
+        cell.subGoalDocRef = subGoalsData[indexPath.row]["ref"] as? DocumentReference
+        cell.deleteSubGoal.isHidden = !editMode
+        cell.deleteSubGoal.isEnabled = editMode
+        cell.deleteSubGoal.isUserInteractionEnabled = editMode
+        cell.contentView.isUserInteractionEnabled = editMode
         return cell
     }
     

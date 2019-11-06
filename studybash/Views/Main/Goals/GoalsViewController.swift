@@ -23,19 +23,17 @@ class GoalsViewController: UIViewController {
     
     var selectedGoalSubGoals: [[String: Any]] = [[String: Any]]()
     var allGoalData: [[String: Any]] = [[String: Any]]()
-    var allGoalNames: [String] = [String]()
     var goalTypeNames: [String] = [String]()
-    var uid: String = ""
     var selectedGoalIndex: Int = 0
     var goalDelegate: UpdateGoalData?
+    var editMode: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(goalsCV)
         self.goalsCV.dataSource = self
         self.goalsCV.delegate = self
-        uid = Auth.auth().currentUser!.uid
-        self.userGoalsColRef = db.collection("users").document(uid).collection("goals")
+        self.userGoalsColRef = db.collection("users").document(Auth.auth().currentUser!.uid).collection("goals")
         getUserData()
     }
     
@@ -43,9 +41,6 @@ class GoalsViewController: UIViewController {
         if(segue.identifier == "goals_to_goal") {
             let vc = segue.destination as! GoalViewController
             goalDelegate = vc
-//            vc.goalData = self.allGoalData[selectedGoalIndex]
-//            vc.subGoalsData = self.selectedGoalSubGoals
-//            vc.goalDocRef = self.selectedGoalDocRef!
         } else if(segue.identifier == "goals_to_add_goal") {
             let vc = segue.destination as! AddGoalViewController
             vc.typeNames = self.goalTypeNames
@@ -54,17 +49,21 @@ class GoalsViewController: UIViewController {
         }
     }
     
+    @IBAction func toggleEditMode(_ sender: Any) {
+        editMode = !editMode
+        goalsCV.reloadData()
+    }
+    
     func getUserData() {
         guard userGoalsColRef != nil else { return }
         self.userGoalsColRef!.addSnapshotListener({ (goalDocRefs, error) in
             guard goalDocRefs != nil else { print("Error: ", error!); return }
             print("Number of Doc Changes: ", goalDocRefs!.documentChanges.count)
-            self.allGoalNames = [String]() // make sure allGoals is emtpy before update from firestore
+            self.allGoalData = [[String: Any]]()
             goalDocRefs?.documents.forEach({ (doc) in
                 var goalData = doc.data()
                 goalData["ref"] = doc.reference
                 self.allGoalData.append(goalData)
-                self.allGoalNames.append(goalData["name"]! as! String)
                 self.goalsCV.reloadData()
             })
         })
@@ -75,23 +74,6 @@ class GoalsViewController: UIViewController {
             goalListener?.remove()
             goalListener = nil
         }
-    }
-    
-    func goalSegue(withIdentifier identifier: String) {
-        self.performSegue(withIdentifier: identifier, sender: self)
-        goalListener = self.selectedGoalDocRef!.collection("sub_goals").addSnapshotListener({(snapshot, error) in
-            guard snapshot != nil else { print("Error:", error!); return }
-            self.selectedGoalSubGoals = [[String: Any]]()
-            snapshot!.documents.forEach({(subGoalDoc) in
-                var subGoalData = subGoalDoc.data()
-                subGoalData["ref"] = subGoalDoc.reference
-                self.selectedGoalSubGoals.append(subGoalData)
-            })
-            self.goalDelegate?.updateGoalData(
-                goalData: self.allGoalData[self.selectedGoalIndex],
-                goalDocRef: self.selectedGoalDocRef!,
-                subGoalsData: self.selectedGoalSubGoals)
-        })
     }
     
     @IBAction func addNewGoalSegue(_ sender: Any) {
@@ -106,11 +88,10 @@ class GoalsViewController: UIViewController {
     }
     
     func subGoalsDueOnDate(date: Date) {
-        db.collection("users").document(uid).addSnapshotListener({ (snapshot, error) in
+        db.collection("users").document(Auth.auth().currentUser!.uid).addSnapshotListener({ (snapshot, error) in
             guard snapshot != nil else { print("Error:", error!); return }
             self.db.collectionGroup("sub_goals")
             .whereField("due_date", onThisDay: date)
-            .whereField("uid", isEqualTo: self.uid)
             .addSnapshotListener({ (snapshot, error) in
                 guard snapshot != nil else { print("Error:", error!); return }
                 print("Number of Doc Changes: ", snapshot!.documentChanges.count)
@@ -127,23 +108,42 @@ class GoalsViewController: UIViewController {
 extension GoalsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allGoalNames.count
+        return allGoalData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = goalsCV.dequeueReusableCell(withReuseIdentifier: goalsCellIdentifier, for: indexPath) as! GoalsCollectionViewCell
-        cell.goalName.text = allGoalNames[indexPath.row]
+        cell.goalName.text = self.allGoalData[indexPath.row]["name"] as? String
+        cell.goalDocRef = self.allGoalData[indexPath.row]["ref"] as? DocumentReference
+        cell.deleteGoal.isHidden = !editMode
+        cell.deleteGoal.isEnabled = editMode
+        cell.deleteGoal.isUserInteractionEnabled = editMode
+        cell.contentView.isUserInteractionEnabled = editMode
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenSize = UIScreen.main.bounds
-        return CGSize(width: screenSize.width/2.5, height: screenSize.width/2.5)
+        return CGSize(width: screenSize.width/2.25, height: screenSize.width/2.25)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard !editMode else { return }
         self.selectedGoalDocRef = self.allGoalData[indexPath.row]["ref"] as? DocumentReference
-        goalSegue(withIdentifier: "goals_to_goal")
+        self.performSegue(withIdentifier: "goals_to_goal", sender: self)
+        goalListener = self.selectedGoalDocRef!.collection("sub_goals").addSnapshotListener({(snapshot, error) in
+            guard snapshot != nil else { print("Error:", error!); return }
+            self.selectedGoalSubGoals = [[String: Any]]()
+            snapshot!.documents.forEach({(subGoalDoc) in
+                var subGoalData = subGoalDoc.data()
+                subGoalData["ref"] = subGoalDoc.reference
+                self.selectedGoalSubGoals.append(subGoalData)
+            })
+            self.goalDelegate?.updateGoalData(
+                goalData: self.allGoalData[self.selectedGoalIndex],
+                goalDocRef: self.selectedGoalDocRef!,
+                subGoalsData: self.selectedGoalSubGoals)
+        })
     }
 }
 
@@ -162,7 +162,6 @@ extension Date {
 
             return self.addingTimeInterval(targetOffset - localOffeset)
         }
-
         return nil
     }
 }

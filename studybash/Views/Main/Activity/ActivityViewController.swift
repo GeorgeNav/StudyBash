@@ -9,7 +9,9 @@
 import UIKit
 
 class ActivityViewController: UIViewController {
-
+    @IBOutlet weak var graphNameL: UILabel!
+    @IBOutlet weak var lineGraphV: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

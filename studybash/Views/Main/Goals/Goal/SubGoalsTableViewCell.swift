@@ -7,19 +7,23 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class SubGoalsTableViewCell: UITableViewCell {
     @IBOutlet weak var subGoalName: UILabel!
-
+    @IBOutlet weak var deleteSubGoal: UIButton!
+    var subGoalDocRef: DocumentReference?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
+    @IBAction func deleteSubGoalButton(_ sender: Any) {
+        print("deleting sub goal")
+        subGoalDocRef?.delete()
+    }
 }
