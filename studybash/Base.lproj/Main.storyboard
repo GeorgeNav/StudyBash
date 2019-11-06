@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Uqj-lN-9cJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qkf-3g-v15">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--On Boarding View Controller-->
+        <scene sceneID="dGW-S7-xFY">
+            <objects>
+                <viewController id="Qkf-3g-v15" customClass="OnBoardingViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Imp-Jq-QqO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YFd-ku-XTh" customClass="PaperOnboarding" customModule="paper_onboarding">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUm-lb-PBc">
+                                        <rect key="frame" x="351" y="67" width="43" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                        <state key="normal" title="Skip">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="skipButtonTapped:" destination="Qkf-3g-v15" eventType="touchUpInside" id="MTn-Rn-fbf"/>
+                                            <segue destination="Uqj-lN-9cJ" kind="show" id="tUi-fA-ecP"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="qXD-wR-Lej"/>
+                    </view>
+                    <connections>
+                        <outlet property="skipButton" destination="eUm-lb-PBc" id="dxQ-kK-a6G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SGj-hF-qhR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2004.3478260869567" y="-548.4375"/>
+        </scene>
         <!--LunchScreen-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -55,12 +94,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-146" y="90"/>
+            <point key="canvasLocation" x="-203" y="90"/>
         </scene>
         <!--Login-->
         <scene sceneID="qmP-tJ-vDf">
             <objects>
-                <viewController title="Login" id="Uqj-lN-9cJ" customClass="LoginViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Login" modalPresentationStyle="fullScreen" id="Uqj-lN-9cJ" customClass="LoginViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4IR-8e-yWq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -150,7 +189,6 @@
                         <viewLayoutGuide key="safeArea" id="MxG-Ih-RaJ"/>
                     </view>
                     <navigationItem key="navigationItem" id="10X-sw-IMH"/>
-                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="emailTF" destination="L8O-vS-LBD" id="yYh-tz-thn"/>
                         <outlet property="passwordTF" destination="cxQ-4X-RjX" id="wGl-c0-PaF"/>
@@ -736,14 +774,14 @@
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Due Date" placeholder="Main Goal Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z6B-Jo-KdW">
-                                <rect key="frame" x="54" y="306" width="92.5" height="28"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Due Date" placeholder="Main Goal Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z6B-Jo-KdW">
+                                <rect key="frame" x="54" y="306" width="92.5" height="27"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SBg-AI-fmi">
-                                <rect key="frame" x="343" y="306" width="51" height="28"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SBg-AI-fmi">
+                                <rect key="frame" x="343" y="305" width="51" height="28"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                 <state key="normal" title="5:00 AM">
@@ -753,11 +791,11 @@
                                     <action selector="hideShowTimePicker:" destination="HI2-ir-YLd" eventType="touchUpInside" id="wL1-gG-muh"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dueDateIcon" translatesAutoresizingMaskIntoConstraints="NO" id="15g-2K-6FF">
-                                <rect key="frame" x="18" y="310" width="22" height="24"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dueDateIcon" translatesAutoresizingMaskIntoConstraints="NO" id="15g-2K-6FF">
+                                <rect key="frame" x="18" y="310" width="22" height="23"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="155" translatesAutoresizingMaskIntoConstraints="NO" id="IdW-j2-oGs">
-                                <rect key="frame" x="54" y="343" width="340" height="17.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="155" translatesAutoresizingMaskIntoConstraints="NO" id="IdW-j2-oGs">
+                                <rect key="frame" x="54" y="342" width="340" height="17.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Reminder" placeholder="Main Goal Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gFc-eB-4k6">
                                         <rect key="frame" x="0.0" y="0.0" width="92.5" height="17.5"/>
@@ -773,8 +811,8 @@
                                     </textField>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tagIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fCJ-EI-qMP">
-                                <rect key="frame" x="17" y="382" width="24" height="24"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tagIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fCJ-EI-qMP">
+                                <rect key="frame" x="17" y="381" width="24" height="24"/>
                             </imageView>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for a Goal/Sub-goal" translatesAutoresizingMaskIntoConstraints="NO" id="NoZ-ho-JRT">
                                 <rect key="frame" x="48" y="418" width="350" height="56"/>
@@ -824,8 +862,8 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UA3-sx-s06">
-                                <rect key="frame" x="246" y="306" width="78" height="28"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UA3-sx-s06">
+                                <rect key="frame" x="246" y="305" width="78" height="28"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                 <state key="normal" title="12 May 2019">
@@ -915,14 +953,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sub_goal_cell" id="gtr-sM-HtR" customClass="SubGoalsTableViewCell" customModule="studybash" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gtr-sM-HtR" id="6M8-bL-TGO">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Goal Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g54-Ia-HUz">
-                                                    <rect key="frame" x="275" y="11.5" width="119" height="21"/>
+                                                    <rect key="frame" x="275" y="11.5" width="119" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1039,7 +1077,7 @@
             <objects>
                 <viewController title="Signup" modalPresentationStyle="overCurrentContext" id="ZDf-OI-5cf" customClass="SignupViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q4F-Kf-xCx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="HeadCircleBackground-1" translatesAutoresizingMaskIntoConstraints="NO" id="9wI-7Y-HO8">
@@ -1706,7 +1744,7 @@
         <image name="trashIcon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wkW-21-acr"/>
+        <segue reference="bSu-WZ-zCI"/>
         <segue reference="OP7-Ii-Vxo"/>
     </inferredMetricsTieBreakers>
 </document>

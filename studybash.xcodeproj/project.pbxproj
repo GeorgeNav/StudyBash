@@ -31,6 +31,10 @@
 		45395DB223502DEA005F7C67 /* time.json in Resources */ = {isa = PBXBuildFile; fileRef = 45395DB123502DEA005F7C67 /* time.json */; };
 		457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */; };
 		457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */; };
+		458D034523725F92008AC42B /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D034423725F92008AC42B /* OnBoardingViewController.swift */; };
+		458D034723726A08008AC42B /* Constants in Resources */ = {isa = PBXBuildFile; fileRef = 458D034623726A07008AC42B /* Constants */; };
+		458D034E23726A21008AC42B /* Source in Resources */ = {isa = PBXBuildFile; fileRef = 458D034D23726A21008AC42B /* Source */; };
+		458D035023726A58008AC42B /* PaperOnboarding in Resources */ = {isa = PBXBuildFile; fileRef = 458D034F23726A58008AC42B /* PaperOnboarding */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +64,14 @@
 		45395DB123502DEA005F7C67 /* time.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = time.json; sourceTree = "<group>"; };
 		457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopoutViewController.swift; sourceTree = "<group>"; };
 		457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopoutViewController.swift; sourceTree = "<group>"; };
+		458D034423725F92008AC42B /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		458D034623726A07008AC42B /* Constants */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Constants; sourceTree = "<group>"; };
+		458D034923726A11008AC42B /* Nunito-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Light.ttf"; sourceTree = "<group>"; };
+		458D034A23726A11008AC42B /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
+		458D034B23726A11008AC42B /* Nunito-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Bold.ttf"; sourceTree = "<group>"; };
+		458D034C23726A11008AC42B /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		458D034D23726A21008AC42B /* Source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Source; sourceTree = "<group>"; };
+		458D034F23726A58008AC42B /* PaperOnboarding */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PaperOnboarding; sourceTree = "<group>"; };
 		5814EDFD53F944EFA6A55C90 /* Pods-studybash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studybash.debug.xcconfig"; path = "Target Support Files/Pods-studybash/Pods-studybash.debug.xcconfig"; sourceTree = "<group>"; };
 		CC3D71E03C82A67DCB5D0727 /* Pods-studybash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studybash.release.xcconfig"; path = "Target Support Files/Pods-studybash/Pods-studybash.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,6 +171,7 @@
 		08A9A102234AB40A00B3C45A /* studybash */ = {
 			isa = PBXGroup;
 			children = (
+				458D034323725F6E008AC42B /* On-Boarding */,
 				087BAA1B2350FF50008FCD12 /* Views */,
 				457CA50F23503B8600AF6B8C /* Animation */,
 				08A9A103234AB40A00B3C45A /* AppDelegate.swift */,
@@ -179,6 +192,29 @@
 				45395DB123502DEA005F7C67 /* time.json */,
 			);
 			path = Animation;
+			sourceTree = "<group>";
+		};
+		458D034323725F6E008AC42B /* On-Boarding */ = {
+			isa = PBXGroup;
+			children = (
+				458D034F23726A58008AC42B /* PaperOnboarding */,
+				458D034D23726A21008AC42B /* Source */,
+				458D034823726A11008AC42B /* Fonts */,
+				458D034623726A07008AC42B /* Constants */,
+				458D034423725F92008AC42B /* OnBoardingViewController.swift */,
+			);
+			path = "On-Boarding";
+			sourceTree = "<group>";
+		};
+		458D034823726A11008AC42B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				458D034923726A11008AC42B /* Nunito-Light.ttf */,
+				458D034A23726A11008AC42B /* Nunito-Regular.ttf */,
+				458D034B23726A11008AC42B /* Nunito-Bold.ttf */,
+				458D034C23726A11008AC42B /* OpenSans-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		EB1E86900B0D0D4AF1F6D67D /* Frameworks */ = {
@@ -260,10 +296,13 @@
 			files = (
 				08A9A110234AB40D00B3C45A /* LaunchScreen.storyboard in Resources */,
 				08A9A118234AB6AD00B3C45A /* GoogleService-Info.plist in Resources */,
+				458D035023726A58008AC42B /* PaperOnboarding in Resources */,
 				45395DB223502DEA005F7C67 /* time.json in Resources */,
 				450DEF802352659B000F9EE6 /* about.json in Resources */,
 				08A9A10D234AB40D00B3C45A /* Assets.xcassets in Resources */,
+				458D034723726A08008AC42B /* Constants in Resources */,
 				08A9A10B234AB40A00B3C45A /* Main.storyboard in Resources */,
+				458D034E23726A21008AC42B /* Source in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +370,7 @@
 				457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */,
 				08A9A104234AB40A00B3C45A /* AppDelegate.swift in Sources */,
 				450DEF7C235263C2000F9EE6 /* AboutScreen.swift in Sources */,
+				458D034523725F92008AC42B /* OnBoardingViewController.swift in Sources */,
 				08A9A106234AB40A00B3C45A /* SceneDelegate.swift in Sources */,
 				457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */,
 			);

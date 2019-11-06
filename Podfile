@@ -10,6 +10,8 @@ target 'studybash' do
   pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
   pod 'FSCalendar'
+  pod 'paper-onboarding'
+
 
   # Mustafa's Pods
   pod 'lottie-ios'
