@@ -52,18 +52,16 @@ class AddGoalViewController: UIViewController {
         calendar.backgroundColor = .white
         calendar.isHidden = true
         self.calendar = calendar
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+        
         if goalOrSubGoal == "goal" {
             titleLabel.text = "Add Goal"
-            goalName.text = nil
             goalName.placeholder = "Goal Name"
+            self.goalOrSubGoal = "goal"
             // TODO: hide notes and reminder
         } else if goalOrSubGoal == "sub_goal" {
             titleLabel.text = "Add Sub-goal"
-            goalName.text = nil
             goalName.placeholder = "Sub-goal Name"
+            self.goalOrSubGoal = "sub_goal"
             // TODO: hide notes and reminder
         }
     }
