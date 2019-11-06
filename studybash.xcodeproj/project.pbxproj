@@ -35,6 +35,8 @@
 		458D034723726A08008AC42B /* Constants in Resources */ = {isa = PBXBuildFile; fileRef = 458D034623726A07008AC42B /* Constants */; };
 		458D034E23726A21008AC42B /* Source in Resources */ = {isa = PBXBuildFile; fileRef = 458D034D23726A21008AC42B /* Source */; };
 		458D035023726A58008AC42B /* PaperOnboarding in Resources */ = {isa = PBXBuildFile; fileRef = 458D034F23726A58008AC42B /* PaperOnboarding */; };
+		458D03572372A6CA008AC42B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D03562372A6CA008AC42B /* SettingsViewController.swift */; };
+		458D03592372A6FC008AC42B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D03582372A6FC008AC42B /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,9 @@
 		458D034C23726A11008AC42B /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		458D034D23726A21008AC42B /* Source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Source; sourceTree = "<group>"; };
 		458D034F23726A58008AC42B /* PaperOnboarding */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PaperOnboarding; sourceTree = "<group>"; };
+		458D03512372997C008AC42B /* studybash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = studybash.entitlements; sourceTree = "<group>"; };
+		458D03562372A6CA008AC42B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		458D03582372A6FC008AC42B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5814EDFD53F944EFA6A55C90 /* Pods-studybash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studybash.debug.xcconfig"; path = "Target Support Files/Pods-studybash/Pods-studybash.debug.xcconfig"; sourceTree = "<group>"; };
 		CC3D71E03C82A67DCB5D0727 /* Pods-studybash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studybash.release.xcconfig"; path = "Target Support Files/Pods-studybash/Pods-studybash.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +96,7 @@
 		08557BB823528D3E009944A2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				458D03532372A66A008AC42B /* Settings */,
 				08557BB923528D5B009944A2 /* Goals */,
 			);
 			path = Main;
@@ -111,14 +117,14 @@
 		087BAA1B2350FF50008FCD12 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				458D034323725F6E008AC42B /* On-Boarding */,
 				08557BB823528D3E009944A2 /* Main */,
-				087BAA1C2350FFDA008FCD12 /* Onboarding */,
-				450DEF7B235263C2000F9EE6 /* AboutScreen.swift */,
+				087BAA1C2350FFDA008FCD12 /* Auth Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		087BAA1C2350FFDA008FCD12 /* Onboarding */ = {
+		087BAA1C2350FFDA008FCD12 /* Auth Views */ = {
 			isa = PBXGroup;
 			children = (
 				087BAA232351011E008FCD12 /* ResetPassword */,
@@ -126,7 +132,7 @@
 				087BAA1D235100C6008FCD12 /* LoginViewController.swift */,
 				087BAA1F235100E9008FCD12 /* SignupViewController.swift */,
 			);
-			path = Onboarding;
+			path = "Auth Views";
 			sourceTree = "<group>";
 		};
 		087BAA232351011E008FCD12 /* ResetPassword */ = {
@@ -171,14 +177,14 @@
 		08A9A102234AB40A00B3C45A /* studybash */ = {
 			isa = PBXGroup;
 			children = (
-				458D034323725F6E008AC42B /* On-Boarding */,
 				087BAA1B2350FF50008FCD12 /* Views */,
 				457CA50F23503B8600AF6B8C /* Animation */,
 				08A9A103234AB40A00B3C45A /* AppDelegate.swift */,
 				08A9A105234AB40A00B3C45A /* SceneDelegate.swift */,
 				08A9A109234AB40A00B3C45A /* Main.storyboard */,
-				08A9A10C234AB40D00B3C45A /* Assets.xcassets */,
 				08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */,
+				458D035223729D48008AC42B /* Supporting Files */,
+				458D03512372997C008AC42B /* studybash.entitlements */,
 				08A9A111234AB40D00B3C45A /* Info.plist */,
 				08A9A117234AB6AD00B3C45A /* GoogleService-Info.plist */,
 			);
@@ -215,6 +221,24 @@
 				458D034C23726A11008AC42B /* OpenSans-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		458D035223729D48008AC42B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				08A9A10C234AB40D00B3C45A /* Assets.xcassets */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		458D03532372A66A008AC42B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				450DEF7B235263C2000F9EE6 /* AboutScreen.swift */,
+				458D03562372A6CA008AC42B /* SettingsViewController.swift */,
+				458D03582372A6FC008AC42B /* ProfileViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		EB1E86900B0D0D4AF1F6D67D /* Frameworks */ = {
@@ -357,9 +381,11 @@
 			files = (
 				087BAA1E235100C6008FCD12 /* LoginViewController.swift in Sources */,
 				087BAA20235100E9008FCD12 /* SignupViewController.swift in Sources */,
+				458D03592372A6FC008AC42B /* ProfileViewController.swift in Sources */,
 				08A9A108234AB40A00B3C45A /* SplashScreenViewController.swift in Sources */,
 				08557BCA2352A171009944A2 /* GoalsCollectionViewCell.swift in Sources */,
 				087BAA272351015E008FCD12 /* ChangePasswordViewController.swift in Sources */,
+				458D03572372A6CA008AC42B /* SettingsViewController.swift in Sources */,
 				087BAA2523510142008FCD12 /* EnterCodeViewController.swift in Sources */,
 				089C7D1F2358E96300647FAF /* GoalViewController.swift in Sources */,
 				08557BBC23528D85009944A2 /* GoalsViewController.swift in Sources */,
@@ -517,15 +543,18 @@
 			baseConfigurationReference = 5814EDFD53F944EFA6A55C90 /* Pods-studybash.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = studybash/studybash.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U5Q86744AS;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 99E236FR8T;
 				INFOPLIST_FILE = studybash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.navality.studybash;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -539,15 +568,18 @@
 			baseConfigurationReference = CC3D71E03C82A67DCB5D0727 /* Pods-studybash.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = studybash/studybash.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U5Q86744AS;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 99E236FR8T;
 				INFOPLIST_FILE = studybash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.navality.studybash;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
