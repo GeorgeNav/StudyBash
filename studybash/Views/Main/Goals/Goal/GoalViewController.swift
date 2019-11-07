@@ -53,6 +53,10 @@ class GoalViewController: UIViewController, UpdateGoalData {
         view.endEditing(true)
     }
     
+    @IBAction func toggleEditMode(_ sender: Any) {
+        editMode = !editMode
+    }
+
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -81,6 +85,25 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         cell.deleteSubGoal.isUserInteractionEnabled = editMode
         cell.contentView.isUserInteractionEnabled = editMode
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let stopAction = UIContextualAction(style: .normal, title:  "Stop", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("Stop!")
+            success(true)
+        })
+        stopAction.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [stopAction])
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let startAction = UIContextualAction(style: .normal, title:  "Start", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("Start!")
+            success(true)
+        })
+        startAction.backgroundColor = .green
+        return UISwipeActionsConfiguration(actions: [startAction])
     }
     
 }
