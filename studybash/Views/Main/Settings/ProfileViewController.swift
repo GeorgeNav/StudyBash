@@ -48,7 +48,7 @@ class ProfileViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    @IBAction func saveUserData(_ sender: Any) {
+    func saveUserData() {
         userDocRef?.setData([
             "first_name": firstNameTextField.text!,
             "last_name": lastNameTextField.text!,
