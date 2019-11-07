@@ -18,17 +18,13 @@ protocol UpdateGoalData {
 }
 
 class GoalViewController: UIViewController, UpdateGoalData {
-    func updateGoalData(goalData: [String : Any], goalDocRef: DocumentReference, subGoalsData: [[String : Any]]) {
-        self.subGoalsData = subGoalsData
-        self.goalData = goalData
-        self.goalDocRef = goalDocRef
-        subGoalsTV.reloadData()
-    }
     @IBOutlet weak var subGoalsTV: UITableView!
     var goalData: [String: Any] = [String: Any]()
     var subGoalsData: [[String: Any]] = [[String: Any]]()
     var goalDocRef: DocumentReference?
     var editMode: Bool = false
+    var studyBash: [String: Any]?
+    var timer: Timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +49,13 @@ class GoalViewController: UIViewController, UpdateGoalData {
         view.endEditing(true)
     }
     
+    func updateGoalData(goalData: [String : Any], goalDocRef: DocumentReference, subGoalsData: [[String : Any]]) {
+        self.subGoalsData = subGoalsData
+        self.goalData = goalData
+        self.goalDocRef = goalDocRef
+        subGoalsTV.reloadData()
+    }
+    
     @IBAction func toggleEditMode(_ sender: Any) {
         editMode = !editMode
     }
@@ -67,6 +70,36 @@ class GoalViewController: UIViewController, UpdateGoalData {
     
     @IBAction func addSubGoalButton(_ sender: Any) {
         performSegue(withIdentifier: "goal_to_add_goal", sender: self)
+    }
+    
+    func studyBashStop(subGoalDocRef: DocumentReference) {
+        guard studyBash != nil else { return }
+        studyBash!["stop"] = Timestamp(date: Date())
+        
+        // TODO: Perform math to calculate amount of seconds between start and stop times
+        let start = studyBash!["start"]! as! Timestamp
+        let stop = studyBash!["stop"]! as! Timestamp
+        studyBash!["elapsed_time"] = stop.seconds - start.seconds
+        print("Stop \(subGoalDocRef.documentID)! \(studyBash!["elapsed_time"]!) seconds")
+        studyBash!.removeValue(forKey: "ref")
+        subGoalDocRef.updateData(["study_bashes": FieldValue.arrayUnion([studyBash!])])
+        studyBash = nil
+    }
+    
+    func studyBashStart(subGoalDocRef: DocumentReference) {
+        guard studyBash == nil else { // Stop current studybash
+            let studyBashDocRef = studyBash!["ref"]! as! DocumentReference
+            if studyBashDocRef.documentID == subGoalDocRef.documentID { return }
+            studyBashStop(subGoalDocRef: studyBashDocRef)
+            studyBashStart(subGoalDocRef: subGoalDocRef)
+            return
+        }
+        
+        print("Start \(subGoalDocRef.documentID)!")
+        studyBash = [
+            "ref": subGoalDocRef,
+            "start": Timestamp(date: Date())
+        ]
     }
 }
 
@@ -89,7 +122,8 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let stopAction = UIContextualAction(style: .normal, title:  "Stop", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("Stop!")
+            let subGoalData = self.subGoalsData[indexPath.row]
+            self.studyBashStop(subGoalDocRef: subGoalData["ref"]! as! DocumentReference)
             success(true)
         })
         stopAction.backgroundColor = .red
@@ -97,9 +131,9 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
         let startAction = UIContextualAction(style: .normal, title:  "Start", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("Start!")
+            let subGoalData = self.subGoalsData[indexPath.row]
+            self.studyBashStart(subGoalDocRef: subGoalData["ref"]! as! DocumentReference)
             success(true)
         })
         startAction.backgroundColor = .green

@@ -19,7 +19,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        
+        emailTF.text = "george.g.navarro@gmail.com"
+        passwordTF.text = "Dangaroni1"
     }
     
     @objc func dismissKeyboard() {
