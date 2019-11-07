@@ -88,6 +88,13 @@ class SignupViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+            
+        else if (type == "emailFormat"){
+            let alert = UIAlertController(title: "Invalid Email", message: "Email address is not valid. Please try again", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+            
         else if (type == "password"){
             let alert = UIAlertController(title: "Missing password", message: "Please enter your password", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
@@ -159,6 +166,9 @@ class SignupViewController: UIViewController {
             auth.createUser(withEmail: email, password: password, completion: { (authResult, error) in
                 guard authResult != nil else {
                     print("Error: \(error!)")
+                    if(error!.localizedDescription == "The email address is badly formatted."){
+                        self.emptyFieldAlert(type: "emailFormat")
+                    }
                     return
                 }
                 
