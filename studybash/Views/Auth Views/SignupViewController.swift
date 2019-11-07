@@ -72,7 +72,7 @@ class SignupViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func emptyFieldAlert(type: String){
+    func createTextFieldAlert(type: String){
         if (type == "name"){
             let alert = UIAlertController(title: "Missing First Name", message: "Please enter your first name", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
@@ -95,6 +95,12 @@ class SignupViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
             
+        else if (type == "emailExists"){
+            let alert = UIAlertController(title: "Invalid Email", message: "Email address is already in use. Try resetting your password if you forgot it.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+            
         else if (type == "password"){
             let alert = UIAlertController(title: "Missing password", message: "Please enter your password", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
@@ -106,7 +112,7 @@ class SignupViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
         else if (type == "mismatch"){
-            let alert = UIAlertController(title: "Password Mismatch!", message: "Your passwords did not match. Check for typos", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Password Mismatch", message: "Your passwords did not match. Check for typos", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -119,7 +125,7 @@ class SignupViewController: UIViewController {
             firstName = firstNameTF.text!
         }
         else {
-            emptyFieldAlert(type: "name")
+            createTextFieldAlert(type: "name")
             return
         }
         
@@ -127,7 +133,7 @@ class SignupViewController: UIViewController {
             lastName = lastNameTF.text!
         }
         else {
-            emptyFieldAlert(type: "lastName")
+            createTextFieldAlert(type: "lastName")
             return
         }
         
@@ -135,7 +141,7 @@ class SignupViewController: UIViewController {
             email = emailTF.text!
         }
         else {
-            emptyFieldAlert(type: "email")
+            createTextFieldAlert(type: "email")
             return
         }
         
@@ -143,7 +149,7 @@ class SignupViewController: UIViewController {
             password = passwordTF.text!
         }
         else {
-            emptyFieldAlert(type: "password")
+            createTextFieldAlert(type: "password")
             return
         }
         
@@ -151,14 +157,14 @@ class SignupViewController: UIViewController {
             passConfirmation = passConfirmationTF.text!
         }
         else {
-            emptyFieldAlert(type: "passConfirmation")
+            createTextFieldAlert(type: "passConfirmation")
             return
         }
         
         let validPass: Bool = ((password.count > 0 && passConfirmation.count > 0) && (password == passConfirmation))
         
         if (!validPass){
-            emptyFieldAlert(type: "mismatch")
+            createTextFieldAlert(type: "mismatch")
             return
         }
         
@@ -167,7 +173,10 @@ class SignupViewController: UIViewController {
                 guard authResult != nil else {
                     print("Error: \(error!)")
                     if(error!.localizedDescription == "The email address is badly formatted."){
-                        self.emptyFieldAlert(type: "emailFormat")
+                        self.createTextFieldAlert(type: "emailFormat")
+                    }
+                    else if(error!.localizedDescription == "The email address is already in use by another account."){
+                        self.createTextFieldAlert(type: "emailExists")
                     }
                     return
                 }

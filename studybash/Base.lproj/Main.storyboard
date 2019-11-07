@@ -121,7 +121,7 @@
                                 <rect key="frame" x="261" y="374" width="101" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Forget Password?">
+                                <state key="normal" title="Forgot Password?">
                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -1878,6 +1878,7 @@
         <image name="trashIcon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="bzP-Bx-97M"/>
         <segue reference="bSu-WZ-zCI"/>
         <segue reference="OP7-Ii-Vxo"/>
         <segue reference="joD-yP-VZC"/>
