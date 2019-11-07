@@ -58,6 +58,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
     
     @IBAction func toggleEditMode(_ sender: Any) {
         editMode = !editMode
+        subGoalsTV.reloadData()
     }
 
     @IBAction func backButton(_ sender: Any) {
