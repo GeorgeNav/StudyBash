@@ -9,6 +9,9 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import UserNotifications
+import NotificationCenter
+
 
 class SignupViewController: UIViewController {
     var auth: Auth = Auth.auth()
@@ -18,17 +21,49 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     
+    
+    var isKeyboardAppear = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
     }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if !isKeyboardAppear {
+            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+                if self.view.frame.origin.y == 0 {
+                    self.view.frame.origin.y -= 40
+                }
+            }
+            isKeyboardAppear = true
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if isKeyboardAppear {
+            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+                if self.view.frame.origin.y != 0{
+                    self.view.frame.origin.y = 0
+                }
+            }
+             isKeyboardAppear = false
+        }
+    }
+
+    
+    
     
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-
+    
     @IBAction func returnToSignInButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -54,7 +89,7 @@ class SignupViewController: UIViewController {
                 "first_name": self.firstNameTF.text!,
                 "last_name": self.lastNameTF.text!,
                 "phone_number": "",
-            ], completion: { _ in             self.db.collection("users").document(self.auth.currentUser!.uid).collection("goals").addDocument(data: [
+                ], completion: { _ in             self.db.collection("users").document(self.auth.currentUser!.uid).collection("goals").addDocument(data: [
                     "date_created": Timestamp(date: Date()),
                     "finished": false,
                     "name": "Your First Goal!",
@@ -64,7 +99,7 @@ class SignupViewController: UIViewController {
                     "types": [
                         self.db.collection("goal_types").document("C4mCR1TM08fzLnsjBSFZ")
                     ]
-            ], completion: { _ in self.dismiss(animated: true, completion: nil) })
+                ], completion: { _ in self.dismiss(animated: true, completion: nil) })
             })
         })
     }

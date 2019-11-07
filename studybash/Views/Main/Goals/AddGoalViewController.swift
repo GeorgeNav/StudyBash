@@ -9,6 +9,8 @@
 import UIKit
 import FSCalendar
 import FirebaseFirestore
+import NotificationCenter
+import UserNotifications
 
 let typeCellIdentifier = "type_cell"
 
@@ -52,6 +54,9 @@ class AddGoalViewController: UIViewController {
         calendar.backgroundColor = .white
         calendar.isHidden = true
         self.calendar = calendar
+        
+        let tab = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tab)
         
         if goalOrSubGoal == "goal" {
             titleLabel.text = "Add Goal"
@@ -106,6 +111,8 @@ class AddGoalViewController: UIViewController {
         print(time.date)
         // TODO: transfer the selected time to timeButton text
     }
+    
+
 }
 
 extension AddGoalViewController: FSCalendarDataSource, FSCalendarDelegate {

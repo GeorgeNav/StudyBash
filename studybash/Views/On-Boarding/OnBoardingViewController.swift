@@ -12,14 +12,14 @@ class OnBoardingViewController: UIViewController {
                            title: "Set Your Goals",
                            description: "Add your goals that you want to achieve and track your progress",
                            pageIcon: UIImage(named: "Wallet")!,
-                           color: UIColor(red:0.29, green:0.77, blue:0.63, alpha:1.0),
+                           color: UIColor(red:0.19, green:0.22, blue:0.87, alpha:1.0),
                            titleColor: UIColor.white, descriptionColor: UIColor.white, titleFont: titleFont, descriptionFont: descriptionFont),
         
         OnboardingItemInfo(informationImage: UIImage(named: "Schedule")!,
                            title: "Set Your Calendar",
                            description: "All of your events and due dates are in one place to view",
                            pageIcon: UIImage(named: "Wallet")!,
-                           color: UIColor(red:0.19, green:0.22, blue:0.87, alpha:1.0),
+                           color: UIColor(red:0.38, green:0.13, blue:0.80, alpha:1.0),
                            titleColor: UIColor.white, descriptionColor: UIColor.white, titleFont: titleFont, descriptionFont: descriptionFont),
         
         OnboardingItemInfo(informationImage: UIImage(named: "Time")!,
@@ -74,7 +74,7 @@ extension OnBoardingViewController: PaperOnboardingDelegate {
     
     func onboardingConfigurationItem(_ item: OnboardingContentViewItem, index: Int) {
         // configure item
-        item.imageView?.contentMode = .scaleAspectFit
+        item.imageView?.contentMode = .scaleAspectFill
     }
 }
 
