@@ -63,9 +63,6 @@ class SignupViewController: UIViewController {
         }
     }
 
-    
-    
-    
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
@@ -107,6 +104,7 @@ class SignupViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
     
     @IBAction func signUpButton(_ sender: Any) {
         

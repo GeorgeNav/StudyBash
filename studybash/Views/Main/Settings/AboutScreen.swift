@@ -7,6 +7,7 @@ import Lottie
 
 class AboutScreen: UIViewController {
     
+    @IBOutlet weak var mustafa: UITextView!
     
     @IBOutlet weak var animationView: UIView!
     var animation : AnimationView?
@@ -17,7 +18,12 @@ class AboutScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAnimation()
+        
+       
+    
     }
+    
+
     
     func setupAnimation() {
         animation = AnimationView(name: "about")
@@ -27,4 +33,8 @@ class AboutScreen: UIViewController {
         animation?.contentMode = .scaleAspectFit
         animation?.play()
     }
+    
 }
+
+
+
