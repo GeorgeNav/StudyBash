@@ -13,9 +13,11 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func myProfileButton(_ sender: Any) {
+        performSegue(withIdentifier: "settings_to_profile", sender: nil)
     }
     
     @IBAction func aboutButton(_ sender: Any) {
+        performSegue(withIdentifier: "settings_to_about", sender: nil)
     }
     
     @IBAction func logOutButton(_ sender: Any) {

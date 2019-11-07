@@ -35,8 +35,6 @@ class GoalsViewController: UIViewController {
         self.goalsCV.delegate = self
         self.userGoalsColRef = db.collection("users").document(Auth.auth().currentUser!.uid).collection("goals")
         getUserData()
-        
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

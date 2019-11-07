@@ -3,10 +3,12 @@
 import UIKit
 import UserNotifications
 import NotificationCenter
+import FirebaseAuth
+import FirebaseFirestore
+
 
 
 class ProfileViewController: UIViewController {
-    
     //Labels
     @IBOutlet weak var myProfileLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -23,16 +25,35 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var confrimPasswordTextField: UITextField!
     
     var isKeyboardAppear = false
-
+    
+    let db: Firestore = Firestore.firestore()
+    var auth: Auth = Auth.auth()
+    var userDocRef: DocumentReference?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userDocRef = db.collection("users").document(auth.currentUser!.uid)
+        userDocRef?.getDocument(completion: {(snapshot, error) in
+            guard snapshot != nil else { print("Error:", error!); return }
+            let userData = snapshot!.data()!
+            self.firstNameTextField.text = userData["first_name"]! as? String
+            self.lastNameTextField.text = userData["last_name"]! as? String
+            self.emailTextField.text = userData["email"]! as? String
+        })
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func saveUserData() {
+        userDocRef?.setData([
+            "first_name": firstNameTextField.text!,
+            "last_name": lastNameTextField.text!,
+            "email": emailTextField.text!
+        ])
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
