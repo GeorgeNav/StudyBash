@@ -25,11 +25,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-<<<<<<< HEAD
         emailTF.text = "george.g.navarro@gmail.com"
         passwordTF.text = "Dangaroni1"
-=======
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -55,7 +52,6 @@ class LoginViewController: UIViewController {
             }
              isKeyboardAppear = false
         }
->>>>>>> 7b24b84ae57fea6ea15a02e2d1777cee74473593
     }
     
     @objc func dismissKeyboard() {
