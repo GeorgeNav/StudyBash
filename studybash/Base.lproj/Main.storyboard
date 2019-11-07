@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qkf-3g-v15">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qkf-3g-v15">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,7 +12,7 @@
         <!--On Boarding View Controller-->
         <scene sceneID="dGW-S7-xFY">
             <objects>
-                <viewController storyboardIdentifier="OnBoarding" id="Qkf-3g-v15" customClass="OnBoardingViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OnBoarding" id="Qkf-3g-v15" customClass="OnBoardingViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Imp-Jq-QqO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -51,7 +51,7 @@
         <!--LunchScreen-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="LunchScreen" id="BYZ-38-t0r" customClass="SplashScreenViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LunchScreen" id="BYZ-38-t0r" customClass="SplashScreenViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -95,7 +95,7 @@
         <!--Login-->
         <scene sceneID="qmP-tJ-vDf">
             <objects>
-                <viewController title="Login" modalPresentationStyle="fullScreen" id="Uqj-lN-9cJ" customClass="LoginViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Login" modalPresentationStyle="fullScreen" id="Uqj-lN-9cJ" customClass="LoginViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4IR-8e-yWq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -194,7 +194,7 @@
         <!--Activity-->
         <scene sceneID="hpW-Sd-HmX">
             <objects>
-                <viewController title="Activity" id="cw8-ed-dwc" customClass="ActivityViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Activity" id="cw8-ed-dwc" customClass="ActivityViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dz9-bp-1db">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -248,7 +248,7 @@
         <!--Settings-->
         <scene sceneID="AiI-pL-5it">
             <objects>
-                <viewController title="Settings" id="zYe-V2-ay3" customClass="SettingsViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Settings" id="zYe-V2-ay3" customClass="SettingsViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wyp-3d-LQy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -354,7 +354,7 @@
         <!--My Profile-->
         <scene sceneID="MDu-xN-laq">
             <objects>
-                <viewController title="My Profile" id="MQx-nn-4eM" customClass="ProfileViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="My Profile" id="MQx-nn-4eM" customClass="ProfileViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qPq-EU-Pz1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -488,7 +488,7 @@
         <!--About-->
         <scene sceneID="AbG-0d-OYz">
             <objects>
-                <viewController title="About" id="1YO-K6-5XM" customClass="AboutScreen" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="About" id="1YO-K6-5XM" customClass="AboutScreen" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4sh-mN-y7B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -575,7 +575,7 @@
         <!--Goals-->
         <scene sceneID="QoR-RT-9ok">
             <objects>
-                <viewController title="Goals" id="17e-Bv-nJo" customClass="GoalsViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Goals" id="17e-Bv-nJo" customClass="GoalsViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JM1-rQ-vjb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -610,7 +610,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="goal_cell" id="19B-cV-RGQ" customClass="GoalsCollectionViewCell" customModule="studybash" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="goal_cell" id="19B-cV-RGQ" customClass="GoalsCollectionViewCell" customModule="StudyBash" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="cGU-Gf-C2P">
@@ -621,25 +621,25 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="sSs-aD-NeB">
-                                                    <rect key="frame" x="50" y="19" width="100" height="162.5"/>
+                                                    <rect key="frame" x="55.5" y="44" width="89" height="112.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Data Structure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ID-Kg-msS">
-                                                            <rect key="frame" x="5.5" y="0.0" width="89" height="14.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data Structure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ID-Kg-msS">
+                                                            <rect key="frame" x="0.0" y="0.0" width="89" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                             <color key="textColor" red="0.086274509799999996" green="0.1215686275" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="goalIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EW8-dW-Lu0">
-                                                            <rect key="frame" x="0.0" y="23.5" width="100" height="100"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goalIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EW8-dW-Lu0">
+                                                            <rect key="frame" x="19.5" y="23.5" width="50" height="50"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="12 Sub Goals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-Cp-8x9">
-                                                            <rect key="frame" x="21.5" y="132.5" width="57.5" height="11"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 Sub Goals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-Cp-8x9">
+                                                            <rect key="frame" x="16" y="82.5" width="57.5" height="11"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="12% Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-nR-W6G">
-                                                            <rect key="frame" x="19.5" y="152.5" width="61.5" height="10"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12% Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-nR-W6G">
+                                                            <rect key="frame" x="14" y="102.5" width="61.5" height="10"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -752,7 +752,7 @@
         <!--Add Goal-->
         <scene sceneID="RwQ-Dn-gCo">
             <objects>
-                <viewController title="Add Goal" id="HI2-ir-YLd" customClass="AddGoalViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Add Goal" id="HI2-ir-YLd" customClass="AddGoalViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EJZ-jF-EL2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -850,7 +850,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="type_cell" id="y8J-MB-4Qh" customClass="AddGoalCollectionViewCell" customModule="studybash" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="type_cell" id="y8J-MB-4Qh" customClass="AddGoalCollectionViewCell" customModule="StudyBash" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="134" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Wf7-xk-aDm">
@@ -970,7 +970,7 @@
         <!--Goal View Controller-->
         <scene sceneID="2d8-xY-yqY">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="BAG-X6-iwN" customClass="GoalViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="BAG-X6-iwN" customClass="GoalViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tP8-Hq-pZ6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -979,21 +979,21 @@
                                 <rect key="frame" x="0.0" y="280" width="414" height="582"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sub_goal_cell" id="gtr-sM-HtR" customClass="SubGoalsTableViewCell" customModule="studybash" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sub_goal_cell" id="gtr-sM-HtR" customClass="SubGoalsTableViewCell" customModule="StudyBash" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gtr-sM-HtR" id="6M8-bL-TGO">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Goal Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g54-Ia-HUz">
-                                                    <rect key="frame" x="275" y="11.5" width="119" height="21.5"/>
+                                                    <rect key="frame" x="275" y="11.5" width="119" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-db-rrj">
-                                                    <rect key="frame" x="16" y="11.5" width="20" height="22"/>
+                                                    <rect key="frame" x="16" y="11" width="20" height="22"/>
                                                     <state key="normal" image="remove"/>
                                                     <connections>
                                                         <action selector="deleteSubGoalButton:" destination="gtr-sM-HtR" eventType="touchUpInside" id="Qep-27-Y3z"/>
@@ -1113,7 +1113,7 @@
         <!--Signup-->
         <scene sceneID="QOP-gp-xGf">
             <objects>
-                <viewController title="Signup" modalPresentationStyle="fullScreen" id="ZDf-OI-5cf" customClass="SignupViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Signup" modalPresentationStyle="fullScreen" id="ZDf-OI-5cf" customClass="SignupViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q4F-Kf-xCx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1237,6 +1237,7 @@
                         <outlet property="emailTF" destination="rFR-et-hNE" id="q2H-3D-WI4"/>
                         <outlet property="firstNameTF" destination="04f-Hq-yLg" id="Unt-Br-VMC"/>
                         <outlet property="lastNameTF" destination="Qhe-Pc-IYx" id="Luk-yl-OQ8"/>
+                        <outlet property="passConfirmationTF" destination="2x1-Xu-Kud" id="Kq1-am-iIN"/>
                         <outlet property="passwordTF" destination="Lov-TF-kRo" id="Ch7-KJ-iGP"/>
                     </connections>
                 </viewController>
@@ -1247,7 +1248,7 @@
         <!--Reset Password-->
         <scene sceneID="31g-rG-Rai">
             <objects>
-                <viewController title="Reset Password" id="cH3-Yg-3a6" customClass="ResetPasswordViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Reset Password" id="cH3-Yg-3a6" customClass="ResetPasswordViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6gP-AI-4Cv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1315,7 +1316,7 @@
         <!--Enter Code-->
         <scene sceneID="L4O-Oj-gF0">
             <objects>
-                <viewController title="Enter Code" id="SWr-Gy-UoQ" customClass="EnterCodeViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Enter Code" id="SWr-Gy-UoQ" customClass="EnterCodeViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oWx-Xb-Mk6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1380,7 +1381,7 @@
         <!--Change Password-->
         <scene sceneID="eT0-3J-7Cx">
             <objects>
-                <viewController title="Change Password" id="auZ-7V-mxt" customClass="ChangePasswordViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Change Password" id="auZ-7V-mxt" customClass="ChangePasswordViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YKY-Mx-Wjf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1448,7 +1449,7 @@
         <!--Success-->
         <scene sceneID="l5U-fN-6Zs">
             <objects>
-                <viewController title="Success" modalPresentationStyle="overCurrentContext" id="n6W-aG-d20" customClass="SuccessPopoutViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Success" modalPresentationStyle="overCurrentContext" id="n6W-aG-d20" customClass="SuccessPopoutViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Zw-qI-xgI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1508,7 +1509,7 @@
         <!--Error-->
         <scene sceneID="M7N-iE-mfb">
             <objects>
-                <viewController title="Error" modalPresentationStyle="overCurrentContext" id="gPt-Xq-6K5" customClass="ErrorPopoutViewController" customModule="studybash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Error" modalPresentationStyle="overCurrentContext" id="gPt-Xq-6K5" customClass="ErrorPopoutViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FnY-Hc-6Im">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
