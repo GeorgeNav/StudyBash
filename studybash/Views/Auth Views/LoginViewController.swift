@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseAuth
+import NotificationCenter
+import UserNotifications
 import AuthenticationServices // Apple Login Auth.
 
 class LoginViewController: UIViewController {
@@ -15,11 +17,40 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     
+    
+    var isKeyboardAppear = false
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if !isKeyboardAppear {
+            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+                if self.view.frame.origin.y == 0 {
+                    self.view.frame.origin.y -= 60
+                }
+            }
+            isKeyboardAppear = true
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if isKeyboardAppear {
+            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+                if self.view.frame.origin.y != 0{
+                    self.view.frame.origin.y = 0
+                }
+            }
+             isKeyboardAppear = false
+        }
     }
     
     @objc func dismissKeyboard() {

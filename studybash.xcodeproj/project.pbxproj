@@ -23,12 +23,12 @@
 		08A9A108234AB40A00B3C45A /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9A107234AB40A00B3C45A /* SplashScreenViewController.swift */; };
 		08A9A10B234AB40A00B3C45A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A109234AB40A00B3C45A /* Main.storyboard */; };
 		08A9A10D234AB40D00B3C45A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A10C234AB40D00B3C45A /* Assets.xcassets */; };
-		08A9A110234AB40D00B3C45A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */; };
 		08A9A118234AB6AD00B3C45A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A117234AB6AD00B3C45A /* GoogleService-Info.plist */; };
 		08F0A9942359A39700820E51 /* AddGoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F0A9932359A39700820E51 /* AddGoalCollectionViewCell.swift */; };
 		2192ACBE2065527441A29DAA /* Pods_studybash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 058121D66A0A44677895E6CB /* Pods_studybash.framework */; };
 		450DEF7C235263C2000F9EE6 /* AboutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450DEF7B235263C2000F9EE6 /* AboutScreen.swift */; };
 		450DEF802352659B000F9EE6 /* about.json in Resources */ = {isa = PBXBuildFile; fileRef = 450DEF7F2352659B000F9EE6 /* about.json */; };
+		451A3FA22373B89F0096CA03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */; };
 		45395DB223502DEA005F7C67 /* time.json in Resources */ = {isa = PBXBuildFile; fileRef = 45395DB123502DEA005F7C67 /* time.json */; };
 		457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */; };
 		457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */; };
@@ -53,7 +53,7 @@
 		087BAA262351015E008FCD12 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		089C7D1E2358E96300647FAF /* GoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalViewController.swift; sourceTree = "<group>"; };
 		089C7D222358F41000647FAF /* SubGoalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalsTableViewCell.swift; sourceTree = "<group>"; };
-		08A9A100234AB40A00B3C45A /* studybash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = studybash.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		08A9A100234AB40A00B3C45A /* StudyBash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyBash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08A9A103234AB40A00B3C45A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08A9A105234AB40A00B3C45A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		08A9A107234AB40A00B3C45A /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 		08A9A101234AB40A00B3C45A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				08A9A100234AB40A00B3C45A /* studybash.app */,
+				08A9A100234AB40A00B3C45A /* StudyBash.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -189,11 +189,11 @@
 			isa = PBXGroup;
 			children = (
 				087BAA1B2350FF50008FCD12 /* Views */,
-				457CA50F23503B8600AF6B8C /* Animation */,
 				08A9A103234AB40A00B3C45A /* AppDelegate.swift */,
 				08A9A105234AB40A00B3C45A /* SceneDelegate.swift */,
 				08A9A109234AB40A00B3C45A /* Main.storyboard */,
 				08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */,
+				457CA50F23503B8600AF6B8C /* Animation */,
 				458D035223729D48008AC42B /* Supporting Files */,
 				458D03512372997C008AC42B /* studybash.entitlements */,
 				08A9A111234AB40D00B3C45A /* Info.plist */,
@@ -288,7 +288,7 @@
 			);
 			name = studybash;
 			productName = studybash;
-			productReference = 08A9A100234AB40A00B3C45A /* studybash.app */;
+			productReference = 08A9A100234AB40A00B3C45A /* StudyBash.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -329,7 +329,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08A9A110234AB40D00B3C45A /* LaunchScreen.storyboard in Resources */,
+				451A3FA22373B89F0096CA03 /* LaunchScreen.storyboard in Resources */,
 				08A9A118234AB6AD00B3C45A /* GoogleService-Info.plist in Resources */,
 				458D035023726A58008AC42B /* PaperOnboarding in Resources */,
 				45395DB223502DEA005F7C67 /* time.json in Resources */,
@@ -568,7 +568,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.navality.studybash;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = StudyBash;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -593,7 +593,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.navality.studybash;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = StudyBash;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
