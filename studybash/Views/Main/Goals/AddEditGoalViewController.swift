@@ -23,7 +23,7 @@ class AddEditGoalViewController: UIViewController {
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var timeButton: UIButton!
     @IBOutlet weak var goalName: UITextField!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleL: UILabel!
     @IBOutlet weak var notesTF: UITextField!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var typesCV: UICollectionView!
@@ -34,7 +34,7 @@ class AddEditGoalViewController: UIViewController {
     var filteredData: [String] = [String]()
     var goalsColRef: CollectionReference?
     var useCase: String = ""
-    var goalData: [String: Any]?
+    var goalData: [String: Any] = [String: Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,19 +60,25 @@ class AddEditGoalViewController: UIViewController {
         view.addGestureRecognizer(tab)
         
         if useCase == "add_goal" {
-            titleLabel.text = "Add Goal"
+            titleL.text = "Add Goal"
             goalName.placeholder = "Goal Name"
-            self.useCase = "goal"
             // TODO: hide notes and reminder
         } else if useCase == "add_sub_goal" {
-            titleLabel.text = "Add Sub-goal"
+            titleL.text = "Add Sub-goal"
             goalName.placeholder = "Sub-goal Name"
-            self.useCase = "sub_goal"
         } else if useCase == "edit_goal" || useCase == "edit_sub_goal" {
-            let dueDate = (goalData!["due_date"]! as! Timestamp).dateValue()
-            let f1 = DateFormatter()
-            f1.dateFormat = "MMMM dd, yyyy"
-            dateButton.setTitle(f1.string(from: dueDate), for: .normal)
+            let dueDate = (goalData["due_date"]! as! Timestamp).dateValue()
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMMM dd, yyyy"
+            dateButton.setTitle(dateFormatter.string(from: dueDate), for: .normal)
+            
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "hh:mm a"
+            timeButton.setTitle(timeFormatter.string(from: dueDate), for: .normal)
+            
+            titleL.text = "Goal"
+            goalName.text = goalData["name"]! as? String
             
             time.date = dueDate
             self.calendar.select(dueDate)
@@ -91,10 +97,8 @@ class AddEditGoalViewController: UIViewController {
     @IBAction func addEditGoalButton(_ sender: Any) {
         print("trying to add/modify goal: \(useCase)")
         if useCase == "add_goal" || useCase == "add_sub_goal" {
-            print("adding goal")
             addGoal()
-        } else if useCase == "add_goal" || useCase == "add_sub_goal" {
-            print("editing goal")
+        } else if useCase == "edit_goal" || useCase == "edit_sub_goal" {
             editGoal()
         }
     }
@@ -114,17 +118,28 @@ class AddEditGoalViewController: UIViewController {
         ]
         
         if useCase == "add_sub_goal" {
-            goalData!["notes"] =  notesTF.text!
-            goalData!["reminder"] = "" // TODO: get reminder data somehow
-            goalData!["study_bashes"] = []
+            goalData["notes"] =  notesTF.text!
+            goalData["reminder"] = "" // TODO: get reminder data somehow
+            goalData["study_bashes"] = []
         }
         
-        self.goalsColRef!.addDocument(data: goalData!)
+        self.goalsColRef!.addDocument(data: goalData)
         self.dismiss(animated: true, completion: nil)
     }
     
     func editGoal() {
-        // TODO: Edit goal data and store it
+        let goalDocRef = goalData.removeValue(forKey: "ref")! as! DocumentReference
+        print("editing goal.. \(goalDocRef.documentID)")
+        
+        goalData["due_date"] = Timestamp(date: selectedDate)
+        goalData["name"] = goalName.text!
+        
+        if useCase == "add_sub_goal" {
+            goalData["notes"] =  notesTF.text!
+            goalData["reminder"] = "" // TODO: get reminder data somehow
+        }
+        
+        goalDocRef.updateData(goalData)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -138,7 +153,12 @@ class AddEditGoalViewController: UIViewController {
     
     @IBAction func getTime(_ sender: Any) {
         print(time.date)
-        // TODO: transfer the selected time to timeButton text
+        let comp = Calendar.current.dateComponents([.hour, .minute], from: time.date)
+        selectedDate = selectedDate.setTime(hour: comp.hour!, min: comp.minute!, sec: 0)!
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+        timeButton.setTitle(timeFormatter.string(from: selectedDate), for: .normal)
     }
     
 

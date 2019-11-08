@@ -27,15 +27,13 @@ class GoalViewController: UIViewController, UpdateGoalData {
     var editMode: Bool = false
     var studyBash: [String: Any]?
     var timer: Timer = Timer()
+    var selectedSubGoalIndex: Int = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.subGoalsTV.dataSource = self
         self.subGoalsTV.delegate = self
         print(subGoalsData)
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -43,12 +41,14 @@ class GoalViewController: UIViewController, UpdateGoalData {
             let vc = segue.destination as! AddEditGoalViewController
             vc.goalsColRef = self.goalDocRef!.collection("sub_goals")
             vc.useCase = "add_sub_goal"
+        } else if segue.identifier == "goal_to_edit_sub_goal" {
+            let vc = segue.destination as! AddEditGoalViewController
+            vc.goalsColRef = self.goalDocRef!.collection("sub_goals")
+            vc.goalData = subGoalsData[selectedSubGoalIndex]
+            vc.useCase = "edit_sub_goal"
+        } else {
+            print("nope")
         }
-    }
-    
-    @objc func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
     }
     
     func updateGoalData(goalData: [String : Any], goalDocRef: DocumentReference, subGoalsData: [[String : Any]]) {
@@ -142,6 +142,14 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         })
         startAction.backgroundColor = .green
         return UISwipeActionsConfiguration(actions: [startAction])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         if editMode {
+            selectedSubGoalIndex = indexPath.row
+            print("selected: \(subGoalsData[indexPath.row]["name"]!)")
+            self.performSegue(withIdentifier: "goal_to_edit_sub_goal", sender: self)
+        }
     }
     
 }

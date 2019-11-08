@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qkf-3g-v15">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Uqj-lN-9cJ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -628,22 +628,22 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="sSs-aD-NeB">
                                                     <rect key="frame" x="50" y="19" width="100" height="162.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Data Structure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ID-Kg-msS">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data Structure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ID-Kg-msS">
                                                             <rect key="frame" x="5.5" y="0.0" width="89" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                             <color key="textColor" red="0.086274509799999996" green="0.1215686275" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="goalIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EW8-dW-Lu0">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goalIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EW8-dW-Lu0">
                                                             <rect key="frame" x="0.0" y="23.5" width="100" height="100"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="12 Sub Goals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-Cp-8x9">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 Sub Goals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-Cp-8x9">
                                                             <rect key="frame" x="21.5" y="132.5" width="57.5" height="11"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="12% Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-nR-W6G">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12% Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-nR-W6G">
                                                             <rect key="frame" x="19.5" y="152.5" width="61.5" height="10"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -964,9 +964,8 @@
                         <outlet property="searchBar" destination="NoZ-ho-JRT" id="uKv-3H-rka"/>
                         <outlet property="time" destination="sBu-NA-aOK" id="Nd2-gx-FEq"/>
                         <outlet property="timeButton" destination="SBg-AI-fmi" id="QPA-dU-Wmm"/>
-                        <outlet property="titleLabel" destination="R3n-af-gpl" id="NUg-ek-4Pl"/>
+                        <outlet property="titleL" destination="R3n-af-gpl" id="EH5-fr-gfg"/>
                         <outlet property="typesCV" destination="u0X-JN-QJS" id="D47-RP-56m"/>
-                        <segue destination="BAG-X6-iwN" kind="show" identifier="add_edit_goal_to_goal" id="wkW-21-acr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bjH-L4-zoM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1003,7 +1002,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-db-rrj">
-                                                    <rect key="frame" x="12" y="48" width="40" height="40"/>
+                                                    <rect key="frame" x="12" y="57" width="20" height="22"/>
                                                     <state key="normal" image="remove"/>
                                                     <connections>
                                                         <action selector="deleteSubGoalButton:" destination="gtr-sM-HtR" eventType="touchUpInside" id="Qep-27-Y3z"/>
@@ -1101,19 +1100,19 @@
                                 </prototypes>
                             </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HeaderBackground" translatesAutoresizingMaskIntoConstraints="NO" id="3jy-TZ-ZLk">
-                                <rect key="frame" x="0.0" y="0.0" width="828" height="144"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="144"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="144" id="1A0-vP-SA5"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data Structure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1n3-zT-JKx">
-                                <rect key="frame" x="128" y="66" width="572" height="38"/>
+                                <rect key="frame" x="128" y="66" width="158" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
                                 <color key="textColor" red="0.086274509799999996" green="0.1215686275" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jak-Lz-kIs">
-                                <rect key="frame" x="771" y="66" width="57" height="58"/>
+                                <rect key="frame" x="357" y="66" width="57" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="7aG-HQ-FKM"/>
                                 </constraints>
@@ -1130,7 +1129,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5we-m5-F2v">
-                                <rect key="frame" x="20" y="70" width="20" height="30"/>
+                                <rect key="frame" x="20" y="70" width="20" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="r97-Qm-Lch"/>
                                 </constraints>
@@ -1140,7 +1139,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nTb-Ih-aa7">
-                                <rect key="frame" x="739" y="70" width="24" height="25"/>
+                                <rect key="frame" x="325" y="70" width="24" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="Kqh-Zn-rpu"/>
                                     <constraint firstAttribute="height" constant="25" id="cg8-Fq-1qG"/>
@@ -1881,8 +1880,7 @@
         <image name="trashIcon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bSu-WZ-zCI"/>
-        <segue reference="OP7-Ii-Vxo"/>
-        <segue reference="joD-yP-VZC"/>
+        <segue reference="hb3-DC-vqb"/>
+        <segue reference="tUi-fA-ecP"/>
     </inferredMetricsTieBreakers>
 </document>

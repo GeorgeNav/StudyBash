@@ -46,6 +46,11 @@ class GoalsViewController: UIViewController {
             vc.typeNames = self.goalTypeNames
             vc.goalsColRef = self.userGoalsColRef!
             vc.useCase = "add_goal"
+        } else if(segue.identifier == "goals_to_edit_goal") {
+            let vc = segue.destination as! AddEditGoalViewController
+            vc.goalData = allGoalData[selectedGoalIndex]
+            print(allGoalData[selectedGoalIndex])
+            vc.useCase = "edit_goal"
         }
     }
     
@@ -128,22 +133,27 @@ extension GoalsViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard !editMode else { return }
         self.selectedGoalDocRef = self.allGoalData[indexPath.row]["ref"] as? DocumentReference
-        self.performSegue(withIdentifier: "goals_to_goal", sender: self)
-        goalListener = self.selectedGoalDocRef!.collection("sub_goals").addSnapshotListener({(snapshot, error) in
-            guard snapshot != nil else { print("Error:", error!); return }
-            self.selectedGoalSubGoals = [[String: Any]]()
-            snapshot!.documents.forEach({(subGoalDoc) in
-                var subGoalData = subGoalDoc.data()
-                subGoalData["ref"] = subGoalDoc.reference
-                self.selectedGoalSubGoals.append(subGoalData)
+        
+        if !editMode {
+            self.performSegue(withIdentifier: "goals_to_goal", sender: self)
+            goalListener = self.selectedGoalDocRef!.collection("sub_goals").addSnapshotListener({(snapshot, error) in
+                guard snapshot != nil else { print("Error:", error!); return }
+                self.selectedGoalSubGoals = [[String: Any]]()
+                snapshot!.documents.forEach({(subGoalDoc) in
+                    var subGoalData = subGoalDoc.data()
+                    subGoalData["ref"] = subGoalDoc.reference
+                    self.selectedGoalSubGoals.append(subGoalData)
+                })
+                self.goalDelegate?.updateGoalData(
+                    goalData: self.allGoalData[self.selectedGoalIndex],
+                    goalDocRef: self.selectedGoalDocRef!,
+                    subGoalsData: self.selectedGoalSubGoals)
             })
-            self.goalDelegate?.updateGoalData(
-                goalData: self.allGoalData[self.selectedGoalIndex],
-                goalDocRef: self.selectedGoalDocRef!,
-                subGoalsData: self.selectedGoalSubGoals)
-        })
+        } else if editMode {
+            selectedGoalIndex = indexPath.row
+            self.performSegue(withIdentifier: "goals_to_edit_goal", sender: self)
+        }
     }
 }
 
