@@ -14,8 +14,10 @@ import UserNotifications
 
 let typeCellIdentifier = "type_cell"
 
-class AddGoalViewController: UIViewController {
+class AddEditGoalViewController: UIViewController {
     let db: Firestore = Firestore.firestore()
+    
+    // UI Elements
     fileprivate weak var calendar: FSCalendar!
     @IBOutlet weak var time: UIDatePicker!
     @IBOutlet weak var dateButton: UIButton!
@@ -25,15 +27,14 @@ class AddGoalViewController: UIViewController {
     @IBOutlet weak var notesTF: UITextField!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var typesCV: UICollectionView!
+    
+    // Logic Elements
     var selectedDate: Date = Date()
-    var typeNames = ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX",
-    "Philadelphia, PA", "Phoenix, AZ", "San Diego, CA", "San Antonio, TX",
-    "Dallas, TX", "Detroit, MI", "San Jose, CA", "Indianapolis, IN",
-    "Jacksonville, FL", "San Francisco, CA", "Columbus, OH", "Austin, TX",
-    "Memphis, TN", "Baltimore, MD", "Charlotte, ND", "Fort Worth, TX"]
+    var typeNames: [String] = [String]()
     var filteredData: [String] = [String]()
-    var goalsColRef: CollectionReference? // can be a goal or subgoal reference
-    var goalOrSubGoal: String = ""
+    var goalsColRef: CollectionReference?
+    var useCase: String = ""
+    var goalData: [String: Any]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,16 +59,28 @@ class AddGoalViewController: UIViewController {
         let tab = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tab)
         
-        if goalOrSubGoal == "goal" {
+        if useCase == "add_goal" {
             titleLabel.text = "Add Goal"
             goalName.placeholder = "Goal Name"
-            self.goalOrSubGoal = "goal"
+            self.useCase = "goal"
             // TODO: hide notes and reminder
-        } else if goalOrSubGoal == "sub_goal" {
+        } else if useCase == "add_sub_goal" {
             titleLabel.text = "Add Sub-goal"
             goalName.placeholder = "Sub-goal Name"
-            self.goalOrSubGoal = "sub_goal"
-            // TODO: hide notes and reminder
+            self.useCase = "sub_goal"
+        } else if useCase == "edit_goal" || useCase == "edit_sub_goal" {
+            let dueDate = (goalData!["due_date"]! as! Timestamp).dateValue()
+            let f1 = DateFormatter()
+            f1.dateFormat = "MMMM dd, yyyy"
+            dateButton.setTitle(f1.string(from: dueDate), for: .normal)
+            
+            time.date = dueDate
+            self.calendar.select(dueDate)
+            if useCase == "edit_goal" {
+                // TODO: make UI different
+            } else if useCase == "edit_sub_goal" {
+                // TODO: make UI different
+            }
         }
     }
     
@@ -75,8 +88,19 @@ class AddGoalViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func addGoalButton(_ sender: Any) {
-        var goalData: [String: Any] = [
+    @IBAction func addEditGoalButton(_ sender: Any) {
+        print("trying to add/modify goal: \(useCase)")
+        if useCase == "add_goal" || useCase == "add_sub_goal" {
+            print("adding goal")
+            addGoal()
+        } else if useCase == "add_goal" || useCase == "add_sub_goal" {
+            print("editing goal")
+            editGoal()
+        }
+    }
+    
+    func addGoal() {
+        goalData = [
             "date_created": Timestamp(date: Date()),
             "due_date": Timestamp(date: selectedDate),
             "finished": false,
@@ -89,22 +113,27 @@ class AddGoalViewController: UIViewController {
             ]
         ]
         
-        if goalOrSubGoal == "sub_goal" {
-            goalData["notes"] =  notesTF.text!
-            goalData["reminder"] = "" // TODO: get reminder data somehow
-            goalData["study_bashes"] = []
+        if useCase == "add_sub_goal" {
+            goalData!["notes"] =  notesTF.text!
+            goalData!["reminder"] = "" // TODO: get reminder data somehow
+            goalData!["study_bashes"] = []
         }
         
-        self.goalsColRef!.addDocument(data: goalData)
+        self.goalsColRef!.addDocument(data: goalData!)
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func hideShowCalendar(_ sender: Any) {
-        calendar.isHidden = calendar.isHidden ? false : true
+    func editGoal() {
+        // TODO: Edit goal data and store it
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func hideShowTimePicker(_ sender: Any) {
-        time.isHidden = time.isHidden ? false : true
+    @IBAction func toggleCalendar(_ sender: Any) {
+        calendar.isHidden = !calendar.isHidden
+    }
+    
+    @IBAction func toggleTime(_ sender: Any) {
+        time.isHidden = !time.isHidden
     }
     
     @IBAction func getTime(_ sender: Any) {
@@ -115,7 +144,7 @@ class AddGoalViewController: UIViewController {
 
 }
 
-extension AddGoalViewController: FSCalendarDataSource, FSCalendarDelegate {
+extension AddEditGoalViewController: FSCalendarDataSource, FSCalendarDelegate {
     public func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.selectedDate = date
         let dateFormat = DateFormatter()
@@ -131,7 +160,7 @@ extension AddGoalViewController: FSCalendarDataSource, FSCalendarDelegate {
     }
 }
 
-extension AddGoalViewController: UISearchBarDelegate {
+extension AddEditGoalViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // When there is no text, filteredData is the same as the original data
         // When user has entered text into the search box
@@ -146,7 +175,7 @@ extension AddGoalViewController: UISearchBarDelegate {
     }
 }
 
-extension AddGoalViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension AddEditGoalViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredData.count
     }

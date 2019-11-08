@@ -42,10 +42,10 @@ class GoalsViewController: UIViewController {
             let vc = segue.destination as! GoalViewController
             goalDelegate = vc
         } else if(segue.identifier == "goals_to_add_goal") {
-            let vc = segue.destination as! AddGoalViewController
+            let vc = segue.destination as! AddEditGoalViewController
             vc.typeNames = self.goalTypeNames
             vc.goalsColRef = self.userGoalsColRef!
-            vc.goalOrSubGoal = "goal"
+            vc.useCase = "add_goal"
         }
     }
     
@@ -183,3 +183,4 @@ extension Query {
         return whereField("due_date", isGreaterThanOrEqualTo: startTimestamp).whereField("due_date", isLessThan: endTimestamp)
     }
 }
+

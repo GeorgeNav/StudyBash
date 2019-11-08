@@ -19,6 +19,8 @@ protocol UpdateGoalData {
 
 class GoalViewController: UIViewController, UpdateGoalData {
     @IBOutlet weak var subGoalsTV: UITableView!
+    @IBOutlet weak var goalNameL: UILabel!
+    
     var goalData: [String: Any] = [String: Any]()
     var subGoalsData: [[String: Any]] = [[String: Any]]()
     var goalDocRef: DocumentReference?
@@ -37,10 +39,10 @@ class GoalViewController: UIViewController, UpdateGoalData {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goal_to_add_goal" {
-            let vc = segue.destination as! AddGoalViewController
+        if segue.identifier == "goal_to_add_sub_goal" {
+            let vc = segue.destination as! AddEditGoalViewController
             vc.goalsColRef = self.goalDocRef!.collection("sub_goals")
-            vc.goalOrSubGoal = "sub_goal"
+            vc.useCase = "add_sub_goal"
         }
     }
     
@@ -53,6 +55,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
         self.subGoalsData = subGoalsData
         self.goalData = goalData
         self.goalDocRef = goalDocRef
+        self.goalNameL.text = goalData["name"]! as? String
         subGoalsTV.reloadData()
     }
     
@@ -70,7 +73,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
     }
     
     @IBAction func addSubGoalButton(_ sender: Any) {
-        performSegue(withIdentifier: "goal_to_add_goal", sender: self)
+        performSegue(withIdentifier: "goal_to_add_sub_goal", sender: self)
     }
     
     func studyBashStop(subGoalDocRef: DocumentReference) {

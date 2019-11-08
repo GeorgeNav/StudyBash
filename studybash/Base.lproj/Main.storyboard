@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qkf-3g-v15">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qkf-3g-v15">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -354,10 +354,10 @@
             </objects>
             <point key="canvasLocation" x="1320" y="1807"/>
         </scene>
-        <!--My Profile-->
+        <!--Profile-->
         <scene sceneID="MDu-xN-laq">
             <objects>
-                <viewController title="My Profile" id="MQx-nn-4eM" customClass="ProfileViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Profile" id="MQx-nn-4eM" customClass="ProfileViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qPq-EU-Pz1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -696,6 +696,7 @@
                         <outlet property="goalsCV" destination="xjn-aW-aL7" id="2XD-gV-mMF"/>
                         <segue destination="BAG-X6-iwN" kind="show" identifier="goals_to_goal" id="bSu-WZ-zCI"/>
                         <segue destination="HI2-ir-YLd" kind="show" identifier="goals_to_add_goal" id="OP7-Ii-Vxo"/>
+                        <segue destination="HI2-ir-YLd" kind="show" identifier="goals_to_edit_goal" id="4hh-gN-Mz7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v3p-w9-YRr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -754,22 +755,22 @@
             </objects>
             <point key="canvasLocation" x="-6641" y="1988"/>
         </scene>
-        <!--Add Goal-->
+        <!--Add Edit Goal-->
         <scene sceneID="RwQ-Dn-gCo">
             <objects>
-                <viewController title="Add Goal" id="HI2-ir-YLd" customClass="AddGoalViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Add Edit Goal" id="HI2-ir-YLd" customClass="AddEditGoalViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EJZ-jF-EL2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HeaderBackground" translatesAutoresizingMaskIntoConstraints="NO" id="9H7-N3-0dy">
-                                <rect key="frame" x="0.0" y="0.0" width="828" height="144"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="144"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="144" id="lFw-CF-kmF"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Goal/Sub-goal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3n-af-gpl">
-                                <rect key="frame" x="113" y="67" width="188" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3n-af-gpl">
+                                <rect key="frame" x="185" y="67" width="44" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
                                 <color key="textColor" red="0.086274509799999996" green="0.1215686275" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -782,7 +783,7 @@
                                 </constraints>
                                 <state key="normal" image="doneIcon"/>
                                 <connections>
-                                    <action selector="addGoalButton:" destination="HI2-ir-YLd" eventType="touchUpInside" id="vf0-Qs-Tqd"/>
+                                    <action selector="addEditGoalButton:" destination="HI2-ir-YLd" eventType="touchUpInside" id="vf0-Qs-Tqd"/>
                                 </connections>
                             </button>
                             <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="sBu-NA-aOK">
@@ -791,33 +792,33 @@
                                     <action selector="getTime:" destination="HI2-ir-YLd" eventType="valueChanged" id="mdM-KQ-z8U"/>
                                 </connections>
                             </datePicker>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Goal/Sub-goal Title " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rtt-OX-Phm">
-                                <rect key="frame" x="20" y="178" width="210" height="28"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Placeholder Text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rtt-OX-Phm">
+                                <rect key="frame" x="20" y="178" width="173.5" height="28"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Due Date" placeholder="Main Goal Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z6B-Jo-KdW">
-                                <rect key="frame" x="54" y="269" width="92.5" height="50"/>
+                                <rect key="frame" x="54" y="269" width="92.5" height="27"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SBg-AI-fmi">
-                                <rect key="frame" x="341" y="280" width="53" height="28"/>
+                                <rect key="frame" x="341" y="268" width="53" height="28"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                 <state key="normal" title="5:00 AM">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="hideShowTimePicker:" destination="HI2-ir-YLd" eventType="touchUpInside" id="wL1-gG-muh"/>
+                                    <action selector="toggleTime:" destination="HI2-ir-YLd" eventType="touchUpInside" id="wL1-gG-muh"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dueDateIcon" translatesAutoresizingMaskIntoConstraints="NO" id="15g-2K-6FF">
-                                <rect key="frame" x="16" y="273" width="44" height="46"/>
+                                <rect key="frame" x="18" y="273" width="22" height="23"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="155" translatesAutoresizingMaskIntoConstraints="NO" id="IdW-j2-oGs">
-                                <rect key="frame" x="54" y="328" width="340" height="17.5"/>
+                                <rect key="frame" x="54" y="305" width="340" height="17.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Reminder" placeholder="Main Goal Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gFc-eB-4k6">
                                         <rect key="frame" x="0.0" y="0.0" width="92.5" height="17.5"/>
@@ -834,19 +835,19 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tagIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fCJ-EI-qMP">
-                                <rect key="frame" x="14" y="367" width="48" height="48"/>
+                                <rect key="frame" x="17" y="344" width="24" height="24"/>
                             </imageView>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for a Goal/Sub-goal" translatesAutoresizingMaskIntoConstraints="NO" id="NoZ-ho-JRT">
-                                <rect key="frame" x="48" y="428" width="350" height="56"/>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Placeholder Text" translatesAutoresizingMaskIntoConstraints="NO" id="NoZ-ho-JRT">
+                                <rect key="frame" x="48" y="381" width="350" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LIK-4r-Rvn">
-                                <rect key="frame" x="54" y="506" width="68" height="40"/>
+                                <rect key="frame" x="54" y="459" width="68" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="u0X-JN-QJS">
-                                <rect key="frame" x="54" y="354" width="344" height="74"/>
+                                <rect key="frame" x="54" y="331" width="344" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GKQ-po-r5I">
                                     <size key="itemSize" width="134" height="50"/>
@@ -856,14 +857,14 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="type_cell" id="y8J-MB-4Qh" customClass="AddGoalCollectionViewCell" customModule="StudyBash" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="12" width="134" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="134" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Wf7-xk-aDm">
                                             <rect key="frame" x="0.0" y="0.0" width="134" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cqd-FU-GBz">
-                                                    <rect key="frame" x="8" y="-7" width="118" height="64"/>
+                                                    <rect key="frame" x="8" y="9" width="118" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="University" backgroundImage="catgBackground">
                                                         <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -885,18 +886,18 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UA3-sx-s06">
-                                <rect key="frame" x="244" y="269" width="78" height="50"/>
+                                <rect key="frame" x="244" y="268" width="78" height="28"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                 <state key="normal" title="12 May 2019">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="hideShowCalendar:" destination="HI2-ir-YLd" eventType="touchUpInside" id="jFI-3A-YCp"/>
+                                    <action selector="toggleCalendar:" destination="HI2-ir-YLd" eventType="touchUpInside" id="jFI-3A-YCp"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddNoteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="wuw-aO-ozG">
-                                <rect key="frame" x="20" y="506" width="36" height="40"/>
+                                <rect key="frame" x="20" y="459" width="18" height="20"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hn-Wo-sUg">
                                 <rect key="frame" x="29" y="69" width="16" height="22"/>
@@ -965,17 +966,17 @@
                         <outlet property="timeButton" destination="SBg-AI-fmi" id="QPA-dU-Wmm"/>
                         <outlet property="titleLabel" destination="R3n-af-gpl" id="NUg-ek-4Pl"/>
                         <outlet property="typesCV" destination="u0X-JN-QJS" id="D47-RP-56m"/>
-                        <segue destination="BAG-X6-iwN" kind="show" identifier="add_goal_to_goal" id="wkW-21-acr"/>
+                        <segue destination="BAG-X6-iwN" kind="show" identifier="add_edit_goal_to_goal" id="wkW-21-acr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bjH-L4-zoM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1594" y="2621"/>
         </scene>
-        <!--Goal View Controller-->
+        <!--Goal-->
         <scene sceneID="2d8-xY-yqY">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="BAG-X6-iwN" customClass="GoalViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Goal" modalPresentationStyle="fullScreen" id="BAG-X6-iwN" customClass="GoalViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tP8-Hq-pZ6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1177,8 +1178,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="5tn-H5-hj3"/>
                     <connections>
+                        <outlet property="goalNameL" destination="1n3-zT-JKx" id="MfF-cV-bIw"/>
                         <outlet property="subGoalsTV" destination="0EC-Xj-OvQ" id="g57-mU-Qkb"/>
-                        <segue destination="HI2-ir-YLd" kind="show" identifier="goal_to_add_goal" id="RfR-pq-mie"/>
+                        <segue destination="HI2-ir-YLd" kind="show" identifier="goal_to_add_sub_goal" id="RfR-pq-mie"/>
+                        <segue destination="HI2-ir-YLd" kind="show" identifier="goal_to_edit_sub_goal" id="hb3-DC-vqb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mci-JZ-W8I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
