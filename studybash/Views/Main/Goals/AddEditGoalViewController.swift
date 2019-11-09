@@ -82,9 +82,15 @@ class AddEditGoalViewController: UIViewController {
                 "date_created": Timestamp(date: currentDate),
                 "due_date": Timestamp(date: currentDate),
                 "finished": false,
-                "statistics": [],
+                "notes": "",
+                "reminder": [
+                    "type": "none",
+                    "value": 0
+                ],
+                "statistics": [
+                    "time_spent": 0
+                ],
                 "types": [],
-                "notes": ""
             ]
             
             if useCase == "add_sub_goal" {
@@ -169,6 +175,9 @@ class AddEditGoalViewController: UIViewController {
         goalData["name"] = goalName.text!
     }
     
+    @IBAction func getNotes(_ sender: Any) {
+        goalData["notes"] = notesTF.text!
+    }
 }
 
 extension AddEditGoalViewController: FSCalendarDataSource, FSCalendarDelegate {

@@ -33,6 +33,8 @@ class GoalViewController: UIViewController, UpdateGoalData {
         super.viewDidLoad()
         self.subGoalsTV.dataSource = self
         self.subGoalsTV.delegate = self
+        subGoalsTV.rowHeight = UITableView.automaticDimension
+        subGoalsTV.estimatedRowHeight = UITableView.automaticDimension
         print(subGoalsData)
     }
     
@@ -112,11 +114,36 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return subGoalsData.count
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = subGoalsTV.dequeueReusableCell(withIdentifier: subGoalCellIdentifier, for: indexPath) as! SubGoalsTableViewCell
         cell.subGoalName.text = subGoalsData[indexPath.row]["name"]! as? String
         cell.subGoalDocRef = subGoalsData[indexPath.row]["ref"] as? DocumentReference
+        
+        let notes = subGoalsData[indexPath.row]["notes"]! as? String
+        cell.notesL.text = notes
+        
+        // TODO: Show category
+        
+        let stats = subGoalsData[indexPath.row]["statistics"]! as! [String: Any]
+        let timeSpent = stats["time_spent"]! as! Int
+        cell.hoursSpentL.text = "\(timeSpent / 60)"
+        
+        let dueDate = (subGoalsData[indexPath.row]["due_date"]! as! Timestamp).dateValue()
+        let days = dueDate.days(sinceDate: Date())!
+        cell.daysLeftL.text = "\(days)"
+        
+        let df = DateFormatter()
+        df.dateFormat = "MM/dd/yyyy"
+        let tf = DateFormatter()
+        tf.dateFormat = "h:mm a"
+        cell.dueDateL.text = df.string(from: dueDate) + "\n"
+            + tf.string(from: dueDate)
+        
         cell.deleteSubGoal.isHidden = !editMode
         cell.deleteSubGoal.isEnabled = editMode
         cell.deleteSubGoal.isUserInteractionEnabled = editMode
@@ -152,4 +179,32 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+}
+
+extension Date {
+
+    func years(sinceDate: Date) -> Int? {
+        return Calendar.current.dateComponents([.year], from: sinceDate, to: self).year
+    }
+
+    func months(sinceDate: Date) -> Int? {
+        return Calendar.current.dateComponents([.month], from: sinceDate, to: self).month
+    }
+
+    func days(sinceDate: Date) -> Int? {
+        return Calendar.current.dateComponents([.day], from: sinceDate, to: self).day
+    }
+
+    func hours(sinceDate: Date) -> Int? {
+        return Calendar.current.dateComponents([.hour], from: sinceDate, to: self).hour
+    }
+
+    func minutes(sinceDate: Date) -> Int? {
+        return Calendar.current.dateComponents([.minute], from: sinceDate, to: self).minute
+    }
+
+    func seconds(sinceDate: Date) -> Int? {
+        return Calendar.current.dateComponents([.second], from: sinceDate, to: self).second
+    }
+
 }
