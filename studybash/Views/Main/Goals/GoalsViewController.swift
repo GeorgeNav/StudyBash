@@ -21,9 +21,9 @@ class GoalsViewController: UIViewController {
     var selectedGoalDocRef: DocumentReference?
     var goalListener: ListenerRegistration?
     
-    var selectedGoalSubGoals: [[String: Any]] = [[String: Any]]()
-    var allGoalData: [[String: Any]] = [[String: Any]]()
-    var goalTypeNames: [String] = [String]()
+    var selectedGoalSubGoals = [[String: Any]]()
+    var allGoalData = [[String: Any]]()
+    var goalTypes = [[String: Any]]()
     var selectedGoalIndex: Int = 0
     var goalDelegate: UpdateGoalData?
     var editMode: Bool = false
@@ -43,7 +43,7 @@ class GoalsViewController: UIViewController {
             goalDelegate = vc
         } else if(segue.identifier == "goals_to_add_goal") {
             let vc = segue.destination as! AddEditGoalViewController
-            vc.typeNames = self.goalTypeNames
+            vc.goalTypes = self.goalTypes
             vc.goalsColRef = self.userGoalsColRef!
             vc.useCase = "add_goal"
         } else if(segue.identifier == "goals_to_edit_goal") {
@@ -84,9 +84,11 @@ class GoalsViewController: UIViewController {
     @IBAction func addNewGoalSegue(_ sender: Any) {
         db.collection("goal_types").getDocuments(completion: {(snapshot, error) in
             guard snapshot != nil else { print("Error:", error!); return }
-            self.goalTypeNames = [String]()
+            self.goalTypes = [[String: Any]]()
             snapshot!.documents.forEach({(doc) in
-                self.goalTypeNames.append(doc.data()["name"]! as! String)
+                var data = doc.data()
+                data["ref"] = doc.reference
+                self.goalTypes.append(data)
             })
             self.performSegue(withIdentifier: "goals_to_add_goal", sender: self)
         })

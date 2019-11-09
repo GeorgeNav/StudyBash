@@ -29,7 +29,9 @@ class AddEditGoalViewController: UIViewController {
     @IBOutlet weak var typesCV: UICollectionView!
     
     // Logic Elements
-    var typeNames: [String] = [String]()
+    var goalTypes = [[String: Any]]()
+    var typeNames = [String]()
+    var typeDocRefs = [DocumentReference]()
     var filteredData: [String] = [String]()
     var goalsColRef: CollectionReference?
     var useCase: String = ""
@@ -37,6 +39,12 @@ class AddEditGoalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        typeNames = goalTypes.map({ (goalTypeData) -> String in
+            return goalTypeData["name"]! as! String
+        })
+        typeDocRefs = goalTypes.map({ (goalTypeData) -> DocumentReference in
+            return goalTypeData["ref"]! as! DocumentReference
+        })
         filteredData = typeNames
         typesCV.delegate = self
         typesCV.dataSource = self
@@ -55,8 +63,9 @@ class AddEditGoalViewController: UIViewController {
         calendar.isHidden = true
         self.calendar = calendar
         
-//        let tab = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
-//        view.addGestureRecognizer(tab)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
         
         if ["add_goal", "add_sub_goal"].contains(useCase) {
             let currentDate = Date()
@@ -120,6 +129,11 @@ class AddEditGoalViewController: UIViewController {
                 titleL.text = "Your Sub-goal"
             }
         }
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     @IBAction func cancelButton(_ sender: Any) {
@@ -218,9 +232,13 @@ extension AddEditGoalViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = typesCV.dequeueReusableCell(withReuseIdentifier: typeCellIdentifier, for: indexPath) as! AddGoalCollectionViewCell
-        cell.type.tintColor = .cyan
+        
         cell.type.setTitle(filteredData[indexPath.row], for: .normal)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        typesCV.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
