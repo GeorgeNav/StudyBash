@@ -30,6 +30,9 @@
 		450DEF802352659B000F9EE6 /* about.json in Resources */ = {isa = PBXBuildFile; fileRef = 450DEF7F2352659B000F9EE6 /* about.json */; };
 		451A3FA22373B89F0096CA03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */; };
 		45395DB223502DEA005F7C67 /* time.json in Resources */ = {isa = PBXBuildFile; fileRef = 45395DB123502DEA005F7C67 /* time.json */; };
+		456467522377C33100CC8B3B /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456467512377C33100CC8B3B /* ScheduleViewController.swift */; };
+		456467552377C39F00CC8B3B /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456467532377C39F00CC8B3B /* DateCollectionViewCell.swift */; };
+		456467562377C39F00CC8B3B /* CalendarVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456467542377C39F00CC8B3B /* CalendarVars.swift */; };
 		457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */; };
 		457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */; };
 		458D034523725F92008AC42B /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D034423725F92008AC42B /* OnBoardingViewController.swift */; };
@@ -66,6 +69,9 @@
 		450DEF7B235263C2000F9EE6 /* AboutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutScreen.swift; sourceTree = "<group>"; };
 		450DEF7F2352659B000F9EE6 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = about.json; sourceTree = "<group>"; };
 		45395DB123502DEA005F7C67 /* time.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = time.json; sourceTree = "<group>"; };
+		456467512377C33100CC8B3B /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		456467532377C39F00CC8B3B /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		456467542377C39F00CC8B3B /* CalendarVars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarVars.swift; sourceTree = "<group>"; };
 		457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopoutViewController.swift; sourceTree = "<group>"; };
 		457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopoutViewController.swift; sourceTree = "<group>"; };
 		458D034423725F92008AC42B /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
@@ -106,9 +112,10 @@
 		08557BB823528D3E009944A2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				08557BB923528D5B009944A2 /* Goals */,
+				456467502377C12900CC8B3B /* Schedule */,
 				0821C0552372B4BB007BDB3D /* Activity */,
 				458D03532372A66A008AC42B /* Settings */,
-				08557BB923528D5B009944A2 /* Goals */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -129,8 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				458D034323725F6E008AC42B /* On-Boarding */,
-				08557BB823528D3E009944A2 /* Main */,
 				087BAA1C2350FFDA008FCD12 /* Auth Views */,
+				08557BB823528D3E009944A2 /* Main */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,6 +207,16 @@
 				08A9A117234AB6AD00B3C45A /* GoogleService-Info.plist */,
 			);
 			path = studybash;
+			sourceTree = "<group>";
+		};
+		456467502377C12900CC8B3B /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				456467542377C39F00CC8B3B /* CalendarVars.swift */,
+				456467532377C39F00CC8B3B /* DateCollectionViewCell.swift */,
+				456467512377C33100CC8B3B /* ScheduleViewController.swift */,
+			);
+			path = Schedule;
 			sourceTree = "<group>";
 		};
 		457CA50F23503B8600AF6B8C /* Animation */ = {
@@ -393,18 +410,21 @@
 				087BAA1E235100C6008FCD12 /* LoginViewController.swift in Sources */,
 				087BAA20235100E9008FCD12 /* SignupViewController.swift in Sources */,
 				458D03592372A6FC008AC42B /* ProfileViewController.swift in Sources */,
+				456467562377C39F00CC8B3B /* CalendarVars.swift in Sources */,
 				08A9A108234AB40A00B3C45A /* SplashScreenViewController.swift in Sources */,
 				08557BCA2352A171009944A2 /* GoalsCollectionViewCell.swift in Sources */,
 				087BAA272351015E008FCD12 /* ChangePasswordViewController.swift in Sources */,
 				458D03572372A6CA008AC42B /* SettingsViewController.swift in Sources */,
 				087BAA2523510142008FCD12 /* EnterCodeViewController.swift in Sources */,
 				089C7D1F2358E96300647FAF /* GoalViewController.swift in Sources */,
+				456467522377C33100CC8B3B /* ScheduleViewController.swift in Sources */,
 				08548ACA2356C349002A37E4 /* AddEditGoalViewController.swift in Sources */,
 				089C7D232358F41000647FAF /* SubGoalsTableViewCell.swift in Sources */,
 				08F0A9942359A39700820E51 /* AddGoalCollectionViewCell.swift in Sources */,
 				087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */,
 				457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */,
 				087A45EF2375400500A964B1 /* GoalsViewController.swift in Sources */,
+				456467552377C39F00CC8B3B /* DateCollectionViewCell.swift in Sources */,
 				08A9A104234AB40A00B3C45A /* AppDelegate.swift in Sources */,
 				450DEF7C235263C2000F9EE6 /* AboutScreen.swift in Sources */,
 				458D034523725F92008AC42B /* OnBoardingViewController.swift in Sources */,
@@ -559,7 +579,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U5Q86744AS;
+				DEVELOPMENT_TEAM = 99E236FR8T;
 				INFOPLIST_FILE = studybash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -584,7 +604,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U5Q86744AS;
+				DEVELOPMENT_TEAM = 99E236FR8T;
 				INFOPLIST_FILE = studybash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
