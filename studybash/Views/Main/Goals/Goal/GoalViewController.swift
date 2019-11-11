@@ -31,10 +31,11 @@ class GoalViewController: UIViewController, UpdateGoalData {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        subGoalsTV.dataSource = self
-        subGoalsTV.delegate = self
+        self.subGoalsTV.dataSource = self
+        self.subGoalsTV.delegate = self
         subGoalsTV.rowHeight = UITableView.automaticDimension
         subGoalsTV.estimatedRowHeight = UITableView.automaticDimension
+        print(subGoalsData)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

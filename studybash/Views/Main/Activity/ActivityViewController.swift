@@ -34,8 +34,5 @@ class ActivityViewController: UIViewController {
         }
         return result
     }
-    
-    
-    
-    
+
 }
