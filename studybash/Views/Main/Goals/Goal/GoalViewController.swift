@@ -24,7 +24,6 @@ class GoalViewController: UIViewController, UpdateGoalData {
     var goalData: [String: Any] = [String: Any]()
     var subGoalsData: [[String: Any]] = [[String: Any]]()
     var goalDocRef: DocumentReference?
-    var editMode: Bool = false
     var studyBash: [String: Any]?
     var timer: Timer = Timer()
     var selectedSubGoalIndex: Int = Int()
@@ -58,11 +57,6 @@ class GoalViewController: UIViewController, UpdateGoalData {
         self.goalData = goalData
         self.goalDocRef = goalDocRef
         self.goalNameL.text = goalData["name"]! as? String
-        subGoalsTV.reloadData()
-    }
-    
-    @IBAction func toggleEditMode(_ sender: Any) {
-        editMode = !editMode
         subGoalsTV.reloadData()
     }
 
@@ -143,11 +137,6 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         tf.dateFormat = "h:mm a"
         cell.dueDateL.text = df.string(from: dueDate) + "\n"
             + tf.string(from: dueDate)
-        
-        cell.deleteSubGoal.isHidden = !editMode
-        cell.deleteSubGoal.isEnabled = editMode
-        cell.deleteSubGoal.isUserInteractionEnabled = editMode
-        cell.contentView.isUserInteractionEnabled = editMode
         return cell
     }
     
@@ -172,11 +161,9 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         if editMode {
-            selectedSubGoalIndex = indexPath.row
-            print("selected: \(subGoalsData[indexPath.row]["name"]!)")
-            self.performSegue(withIdentifier: "goal_to_edit_sub_goal", sender: self)
-        }
+        selectedSubGoalIndex = indexPath.row
+        print("selected: \(subGoalsData[indexPath.row]["name"]!)")
+        self.performSegue(withIdentifier: "goal_to_edit_sub_goal", sender: self)
     }
     
 }

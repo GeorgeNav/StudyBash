@@ -17,8 +17,6 @@ class ActivityViewController: UIViewController {
         curvedlineChart.isCurved = true
         
         // BarChart
-        
-        
     }
     
     // LineChart

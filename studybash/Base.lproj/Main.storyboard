@@ -737,25 +737,25 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="sSs-aD-NeB">
-                                                    <rect key="frame" x="50" y="19" width="100" height="162.5"/>
+                                                    <rect key="frame" x="55.5" y="44" width="89" height="112.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Data Structure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ID-Kg-msS">
-                                                            <rect key="frame" x="5.5" y="0.0" width="89" height="14.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="89" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                             <color key="textColor" red="0.086274509799999996" green="0.1215686275" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="goalIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EW8-dW-Lu0">
-                                                            <rect key="frame" x="0.0" y="23.5" width="100" height="100"/>
+                                                            <rect key="frame" x="19.5" y="23.5" width="50" height="50"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="12 Sub Goals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-Cp-8x9">
-                                                            <rect key="frame" x="21.5" y="132.5" width="57.5" height="11"/>
+                                                            <rect key="frame" x="16" y="82.5" width="57.5" height="11"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="12% Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-nR-W6G">
-                                                            <rect key="frame" x="19.5" y="152.5" width="61.5" height="10"/>
+                                                            <rect key="frame" x="14" y="102.5" width="61.5" height="10"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -964,7 +964,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cqd-FU-GBz">
-                                                    <rect key="frame" x="8" y="-7" width="118" height="64"/>
+                                                    <rect key="frame" x="8" y="9" width="118" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="Type/Category" backgroundImage="catgBackground">
                                                         <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -997,7 +997,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddNoteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="wuw-aO-ozG">
-                                <rect key="frame" x="16" y="475.5" width="36" height="40"/>
+                                <rect key="frame" x="16" y="475.5" width="18" height="20"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hn-Wo-sUg">
                                 <rect key="frame" x="29" y="69" width="16" height="22"/>
@@ -1023,10 +1023,10 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dueDateIcon" translatesAutoresizingMaskIntoConstraints="NO" id="15g-2K-6FF">
-                                <rect key="frame" x="16" y="240" width="44" height="46"/>
+                                <rect key="frame" x="16" y="251.5" width="22" height="23"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tagIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fCJ-EI-qMP">
-                                <rect key="frame" x="16" y="354.5" width="48" height="48"/>
+                                <rect key="frame" x="16" y="366.5" width="24" height="24"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1188,9 +1188,6 @@
                                                 <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-db-rrj">
                                                     <rect key="frame" x="24" y="56" width="20" height="22"/>
                                                     <state key="normal" image="remove"/>
-                                                    <connections>
-                                                        <action selector="deleteSubGoalButton:" destination="gtr-sM-HtR" eventType="touchUpInside" id="Qep-27-Y3z"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1205,7 +1202,6 @@
                                         <connections>
                                             <outlet property="categoryL" destination="o49-Xr-Xkf" id="fn7-zR-CUY"/>
                                             <outlet property="daysLeftL" destination="34e-oG-cv2" id="fzc-Px-yqe"/>
-                                            <outlet property="deleteSubGoal" destination="3dY-db-rrj" id="Wqc-Wb-rmg"/>
                                             <outlet property="dueDateL" destination="3SP-RX-pZV" id="a4w-I8-t6q"/>
                                             <outlet property="hoursSpentL" destination="Eqb-BE-wlI" id="dgU-8K-41K"/>
                                             <outlet property="notesL" destination="KgO-TE-cPn" id="j32-Ns-elb"/>
@@ -1246,22 +1242,10 @@
                                     <action selector="backButton:" destination="BAG-X6-iwN" eventType="touchUpInside" id="VPw-Oi-ep6"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nTb-Ih-aa7">
-                                <rect key="frame" x="325" y="70" width="24" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="Kqh-Zn-rpu"/>
-                                    <constraint firstAttribute="height" constant="25" id="cg8-Fq-1qG"/>
-                                </constraints>
-                                <state key="normal" image="EditIcon"/>
-                                <connections>
-                                    <action selector="toggleEditMode:" destination="BAG-X6-iwN" eventType="touchUpInside" id="VNf-du-cr2"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="0EC-Xj-OvQ" firstAttribute="top" secondItem="3jy-TZ-ZLk" secondAttribute="bottom" constant="-22" id="4TO-fV-yhQ"/>
-                            <constraint firstItem="Jak-Lz-kIs" firstAttribute="leading" secondItem="nTb-Ih-aa7" secondAttribute="trailing" constant="8" id="4el-mq-NdA"/>
                             <constraint firstItem="3jy-TZ-ZLk" firstAttribute="trailing" secondItem="Jak-Lz-kIs" secondAttribute="trailing" id="9Ru-79-rlK"/>
                             <constraint firstItem="0EC-Xj-OvQ" firstAttribute="bottom" secondItem="F5t-gc-4cr" secondAttribute="bottom" id="Itc-TG-10Z"/>
                             <constraint firstItem="F5t-gc-4cr" firstAttribute="trailing" secondItem="0EC-Xj-OvQ" secondAttribute="trailing" id="L9K-96-23A"/>
@@ -1272,13 +1256,11 @@
                             <constraint firstItem="1n3-zT-JKx" firstAttribute="top" secondItem="F5t-gc-4cr" secondAttribute="top" constant="22" id="Qed-Vf-WKJ"/>
                             <constraint firstItem="0EC-Xj-OvQ" firstAttribute="bottom" secondItem="F5t-gc-4cr" secondAttribute="bottom" id="RgQ-oo-o92"/>
                             <constraint firstItem="0EC-Xj-OvQ" firstAttribute="leading" secondItem="F5t-gc-4cr" secondAttribute="leading" id="a39-GQ-wxh"/>
-                            <constraint firstItem="nTb-Ih-aa7" firstAttribute="leading" secondItem="1n3-zT-JKx" secondAttribute="trailing" constant="39" id="eKg-SS-CDy"/>
                             <constraint firstItem="3jy-TZ-ZLk" firstAttribute="centerX" secondItem="1n3-zT-JKx" secondAttribute="centerX" id="eh3-63-sy1"/>
                             <constraint firstItem="5we-m5-F2v" firstAttribute="leading" secondItem="F5t-gc-4cr" secondAttribute="leading" constant="20" id="gHB-AU-DWl"/>
                             <constraint firstItem="5we-m5-F2v" firstAttribute="top" secondItem="F5t-gc-4cr" secondAttribute="top" constant="26" id="ioQ-6Q-0NU"/>
                             <constraint firstItem="1n3-zT-JKx" firstAttribute="leading" secondItem="5we-m5-F2v" secondAttribute="trailing" constant="88" id="muP-NW-57J"/>
                             <constraint firstItem="Jak-Lz-kIs" firstAttribute="leading" secondItem="1n3-zT-JKx" secondAttribute="trailing" constant="71" id="rbl-eL-eug"/>
-                            <constraint firstItem="nTb-Ih-aa7" firstAttribute="top" secondItem="F5t-gc-4cr" secondAttribute="top" constant="26" id="wVA-hA-DaS"/>
                             <constraint firstItem="0EC-Xj-OvQ" firstAttribute="bottom" secondItem="F5t-gc-4cr" secondAttribute="bottom" id="x7t-qo-Owm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="F5t-gc-4cr"/>
@@ -2150,7 +2132,7 @@
         <image name="trashIcon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RfR-pq-mie"/>
+        <segue reference="hb3-DC-vqb"/>
         <segue reference="joD-yP-VZC"/>
     </inferredMetricsTieBreakers>
 </document>
