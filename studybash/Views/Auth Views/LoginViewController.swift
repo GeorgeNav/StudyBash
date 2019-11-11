@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 import NotificationCenter
 import UserNotifications
-import AuthenticationServices // Apple Login Auth.
+import Lottie
 
 class LoginViewController: UIViewController {
     var auth: Auth = Auth.auth()
@@ -22,6 +23,10 @@ class LoginViewController: UIViewController {
     var isKeyboardAppear = false
     
     
+    @IBOutlet weak var animationView: UIView!
+    var animation : AnimationView?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
@@ -30,6 +35,7 @@ class LoginViewController: UIViewController {
         passwordTF.text = "testing"
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -100,10 +106,14 @@ class LoginViewController: UIViewController {
                 print("Error: \(error!)")
                 return
             }
+            self.setupAnimation()
             print(authResult!.user.email!, " is logged in!")
             self.performSegue(withIdentifier: "sign_in_to_goals", sender: self)
         })
     }
+    
+
+
     
     
     @IBAction func signInWithAppleButton(_ sender: Any) {
@@ -116,5 +126,14 @@ class LoginViewController: UIViewController {
         //        })
     }
     
+    
+    func setupAnimation() {
+        animation = AnimationView(name: "loading")
+        animation?.frame = animationView.bounds
+        animationView.addSubview(animation!)
+        animation?.loopMode = .loop
+        animation?.contentMode = .scaleAspectFit
+        animation?.play()
+    }
 }
 

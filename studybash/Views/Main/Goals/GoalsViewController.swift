@@ -74,6 +74,11 @@ class GoalsViewController: UIViewController {
         })
     }
     
+    
+ 
+    
+
+    
     override func viewDidAppear(_ animated: Bool) {
         if goalListener != nil {
             goalListener?.remove()

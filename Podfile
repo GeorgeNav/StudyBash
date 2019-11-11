@@ -18,5 +18,7 @@ target 'studybash' do
   pod 'Protobuf', :inhibit_warnings => true
   pod 'paper-onboarding'
   pod 'JTAppleCalendar'
+  pod "Macaw", "0.9.5"
+
 
 end
