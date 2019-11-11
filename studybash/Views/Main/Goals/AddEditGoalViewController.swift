@@ -31,21 +31,15 @@ class AddEditGoalViewController: UIViewController {
     // Logic Elements
     var goalTypes = [[String: Any]]()
     var typeNames = [String]()
-    var typeDocRefs = [DocumentReference]()
-    var filteredData: [String] = [String]()
+    var filteredTypes = [[String: Any]]()
+    var types = [[String: Any]]()
     var goalsColRef: CollectionReference?
     var useCase: String = ""
     var goalData: [String: Any] = [String: Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        typeNames = goalTypes.map({ (goalTypeData) -> String in
-            return goalTypeData["name"]! as! String
-        })
-        typeDocRefs = goalTypes.map({ (goalTypeData) -> DocumentReference in
-            return goalTypeData["ref"]! as! DocumentReference
-        })
-        filteredData = typeNames
+        filteredTypes = goalTypes
         typesCV.delegate = self
         typesCV.dataSource = self
         searchBar.delegate = self
@@ -98,8 +92,7 @@ class AddEditGoalViewController: UIViewController {
                 ],
                 "statistics": [
                     "time_spent": 0
-                ],
-                "types": [],
+                ]
             ]
             
             if useCase == "add_sub_goal" {
@@ -217,23 +210,28 @@ extension AddEditGoalViewController: UISearchBarDelegate {
         // Use the filter method to iterate over all items in the data array
         // For each item, return true if the item should be included and false if the
         // item should NOT be included
-        filteredData = searchText.isEmpty ? typeNames : typeNames.filter { (item: String) -> Bool in
-            // If dataItem matches the searchText, return true to include it
-            return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
-        }
+//        filteredTypes = searchText.isEmpty ? typeNames : typeNames.filter)  (item: [String: Any]) -> Bool in
+//            // If dataItem matches the searchText, return true to include it
+//            let nameValue = item["name"]! as? String
+//            return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil{
+//        }
+        filteredTypes = searchText.isEmpty ? types : types.filter({ (type) -> Bool in
+            let nameValue = type["name"]! as! String
+            return nameValue.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        })
         typesCV.reloadData()
     }
 }
 
 extension AddEditGoalViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredData.count
+        return filteredTypes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = typesCV.dequeueReusableCell(withReuseIdentifier: typeCellIdentifier, for: indexPath) as! AddGoalCollectionViewCell
         
-        cell.type.setTitle(filteredData[indexPath.row], for: .normal)
+        cell.type.setTitle(filteredTypes[indexPath.row]["name"]! as? String, for: .normal)
         return cell
     }
     
