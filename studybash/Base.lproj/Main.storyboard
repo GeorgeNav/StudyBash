@@ -1109,14 +1109,14 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414.00000000000006" height="134"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sub Goal Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g54-Ia-HUz">
-                                                    <rect key="frame" x="69" y="32" width="114.5" height="18"/>
+                                                    <rect key="frame" x="52" y="27" width="114.5" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgO-TE-cPn">
-                                                    <rect key="frame" x="69" y="51" width="289" height="23"/>
+                                                    <rect key="frame" x="52" y="49" width="141" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <string key="text">Do Assignment 1 from chapter One. 
 </string>
@@ -1186,7 +1186,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-db-rrj">
-                                                    <rect key="frame" x="34" y="56" width="20" height="22"/>
+                                                    <rect key="frame" x="24" y="56" width="20" height="22"/>
                                                     <state key="normal" image="remove"/>
                                                     <connections>
                                                         <action selector="deleteSubGoalButton:" destination="gtr-sM-HtR" eventType="touchUpInside" id="Qep-27-Y3z"/>
@@ -1197,7 +1197,7 @@
                                                 <constraint firstItem="4dI-wm-ulQ" firstAttribute="top" secondItem="6M8-bL-TGO" secondAttribute="top" id="1gu-Bf-8gK"/>
                                                 <constraint firstAttribute="trailing" secondItem="4dI-wm-ulQ" secondAttribute="trailing" id="JTe-W9-VbU"/>
                                                 <constraint firstItem="3dY-db-rrj" firstAttribute="centerY" secondItem="6M8-bL-TGO" secondAttribute="centerY" id="Nm4-R7-B2K"/>
-                                                <constraint firstItem="3dY-db-rrj" firstAttribute="leading" secondItem="6M8-bL-TGO" secondAttribute="leadingMargin" constant="14" id="jQ2-Ws-Lh4"/>
+                                                <constraint firstItem="3dY-db-rrj" firstAttribute="leading" secondItem="6M8-bL-TGO" secondAttribute="leadingMargin" constant="4" id="jQ2-Ws-Lh4"/>
                                                 <constraint firstAttribute="bottom" secondItem="4dI-wm-ulQ" secondAttribute="bottom" id="tJo-Cs-IJm"/>
                                                 <constraint firstItem="4dI-wm-ulQ" firstAttribute="leading" secondItem="6M8-bL-TGO" secondAttribute="leading" id="y9H-lP-Dyr"/>
                                             </constraints>
