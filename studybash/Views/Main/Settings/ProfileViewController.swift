@@ -60,7 +60,7 @@ class ProfileViewController: UIViewController {
         if !isKeyboardAppear {
             if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
                 if self.view.frame.origin.y == 0 {
-                    self.view.frame.origin.y -= 60
+                    self.view.frame.origin.y -= 50
                 }
             }
             isKeyboardAppear = true

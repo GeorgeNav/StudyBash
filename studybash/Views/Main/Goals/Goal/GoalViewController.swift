@@ -135,8 +135,7 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         df.dateFormat = "MM/dd/yyyy"
         let tf = DateFormatter()
         tf.dateFormat = "h:mm a"
-        cell.dueDateL.text = df.string(from: dueDate) + "\n"
-            + tf.string(from: dueDate)
+        cell.dueDateL.text = "Due Date: " + df.string(from: dueDate) + " " + tf.string(from: dueDate)
         return cell
     }
     

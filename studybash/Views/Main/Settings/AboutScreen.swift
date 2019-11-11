@@ -22,9 +22,7 @@ class AboutScreen: UIViewController {
        
     
     }
-    
 
-    
     func setupAnimation() {
         animation = AnimationView(name: "about")
         animation?.frame = animationView.bounds

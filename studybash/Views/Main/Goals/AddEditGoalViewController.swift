@@ -37,6 +37,9 @@ class AddEditGoalViewController: UIViewController {
     var useCase: String = ""
     var goalData: [String: Any] = [String: Any]()
     
+    var isKeyboardAppear = false
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         filteredTypes = goalTypes
@@ -57,9 +60,12 @@ class AddEditGoalViewController: UIViewController {
         calendar.isHidden = true
         self.calendar = calendar
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         if ["add_goal", "add_sub_goal"].contains(useCase) {
             let currentDate = Date()
@@ -121,6 +127,28 @@ class AddEditGoalViewController: UIViewController {
                 // TODO: make UI different
                 titleL.text = "Your Sub-goal"
             }
+        }
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if !isKeyboardAppear {
+            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+                if self.view.frame.origin.y == 0 {
+                    self.view.frame.origin.y -= 65
+                }
+            }
+            isKeyboardAppear = true
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if isKeyboardAppear {
+            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+                if self.view.frame.origin.y != 0{
+                    self.view.frame.origin.y = 0
+                }
+            }
+             isKeyboardAppear = false
         }
     }
     
