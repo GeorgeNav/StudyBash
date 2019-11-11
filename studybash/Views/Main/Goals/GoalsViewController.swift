@@ -75,8 +75,25 @@ class GoalsViewController: UIViewController {
         })
     }
     
+<<<<<<< HEAD
     func getGoalTypesData() {
         goalTypesListener = db.collection("goal_types").addSnapshotListener({ (snapshot, error) in
+=======
+    
+ 
+    
+
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if goalListener != nil {
+            goalListener?.remove()
+            goalListener = nil
+        }
+    }
+    
+    @IBAction func addNewGoalSegue(_ sender: Any) {
+        db.collection("goal_types").getDocuments(completion: {(snapshot, error) in
+>>>>>>> master
             guard snapshot != nil else { print("Error:", error!); return }
             self.goalTypes = [[String: Any]]()
             snapshot!.documents.forEach({(doc) in

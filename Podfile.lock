@@ -117,6 +117,8 @@ PODS:
   - JTAppleCalendar (8.0.2)
   - leveldb-library (1.22)
   - lottie-ios (3.1.5)
+  - Macaw (0.9.5):
+    - SWXMLHash
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -124,6 +126,7 @@ PODS:
   - nanopb/encode (0.3.9011)
   - paper-onboarding (6.1.4)
   - Protobuf (3.10.0)
+  - SWXMLHash (5.0.1)
 
 DEPENDENCIES:
   - Charts
@@ -133,6 +136,7 @@ DEPENDENCIES:
   - FSCalendar
   - JTAppleCalendar
   - lottie-ios
+  - Macaw (= 0.9.5)
   - paper-onboarding
   - Protobuf
 
@@ -160,9 +164,11 @@ SPEC REPOS:
     - JTAppleCalendar
     - leveldb-library
     - lottie-ios
+    - Macaw
     - nanopb
     - paper-onboarding
     - Protobuf
+    - SWXMLHash
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -187,10 +193,12 @@ SPEC CHECKSUMS:
   JTAppleCalendar: bb3dd3752e2bcc85cb798ab763fbdd6e142715fc
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   lottie-ios: 32bf84389337d86fbc8b12266e88452e0abf1dee
+  Macaw: 10bf9e327cb75f24e3225d5229a80ed544df85f0
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   paper-onboarding: d3f16416e6f42add686117e8b32bfffaad899a79
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
+  SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
 
-PODFILE CHECKSUM: cdaac524fe79be3e372a09b6f8da1846f0224ea8
+PODFILE CHECKSUM: 0d658b330a823dd031087309b69484ed047da5a0
 
 COCOAPODS: 1.8.4

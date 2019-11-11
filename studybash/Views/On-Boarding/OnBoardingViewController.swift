@@ -1,6 +1,8 @@
 
 import UIKit
 import paper_onboarding
+import Firebase
+
 
 
 class OnBoardingViewController: UIViewController {
@@ -59,6 +61,7 @@ class OnBoardingViewController: UIViewController {
         }
     }
 }
+
 
 
 // MARK: Actions

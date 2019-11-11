@@ -57,7 +57,7 @@ class AddEditGoalViewController: UIViewController {
         calendar.isHidden = true
         self.calendar = calendar
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddEditGoalViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         
