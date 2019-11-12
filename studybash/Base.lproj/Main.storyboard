@@ -205,14 +205,14 @@
             <objects>
                 <viewController title="Activity" modalPresentationStyle="fullScreen" id="cw8-ed-dwc" customClass="ActivityViewController" customModule="StudyBash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dz9-bp-1db">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="1546"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1676"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEm-DV-NY6">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="1546"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="1676"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s1g-XV-rV5">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1598"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1676"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="HeaderBackground" translatesAutoresizingMaskIntoConstraints="NO" id="bdQ-Hz-Rxm">
                                                 <rect key="frame" x="0.0" y="52" width="414" height="92"/>
@@ -329,15 +329,31 @@
                                                 <rect key="frame" x="15" y="869" width="385" height="311"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Mf-YS-MUC" customClass="BarChartView" customModule="Charts">
-                                                <rect key="frame" x="35" y="890" width="345" height="269"/>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Mf-YS-MUC" customClass="MacawChartView" customModule="StudyBash" customModuleProvider="target">
+                                                <rect key="frame" x="45" y="890" width="335" height="269"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Studying Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ds5-vC-C2v">
+                                                <rect key="frame" x="21" y="1213" width="234" height="33"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="activityBackground" translatesAutoresizingMaskIntoConstraints="NO" id="apa-QI-3ay">
+                                                <rect key="frame" x="15" y="1253" width="385" height="311"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <view contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CM7-gO-QEE" customClass="PieChartView" customModule="Charts">
+                                                <rect key="frame" x="46" y="1275" width="322" height="267"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1598" id="qn4-tU-CjL"/>
+                                            <constraint firstAttribute="height" constant="1676" id="qn4-tU-CjL"/>
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="activityBackground" translatesAutoresizingMaskIntoConstraints="NO" id="d9F-ck-RJg">
@@ -371,10 +387,11 @@
                         <viewLayoutGuide key="safeArea" id="qdQ-qp-r1l"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Activity" image="ActivityIcon" id="MH1-qc-NGK"/>
-                    <size key="freeformSize" width="414" height="1600"/>
+                    <size key="freeformSize" width="414" height="1730"/>
                     <connections>
-                        <outlet property="barChart" destination="0Mf-YS-MUC" id="dwU-8q-Ki1"/>
+                        <outlet property="barChartView" destination="0Mf-YS-MUC" id="ne2-Gp-zNt"/>
                         <outlet property="curvedlineChart" destination="E3O-GK-gAS" id="gZ7-4Q-Tdd"/>
+                        <outlet property="pieChart" destination="CM7-gO-QEE" id="cmJ-94-7st"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="otL-aT-kAG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -737,25 +754,25 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="sSs-aD-NeB">
-                                                    <rect key="frame" x="50" y="19" width="100" height="162.5"/>
+                                                    <rect key="frame" x="55.5" y="44" width="89" height="112.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Data Structure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ID-Kg-msS">
-                                                            <rect key="frame" x="5.5" y="0.0" width="89" height="14.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data Structure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ID-Kg-msS">
+                                                            <rect key="frame" x="0.0" y="0.0" width="89" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                             <color key="textColor" red="0.086274509799999996" green="0.1215686275" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="goalIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EW8-dW-Lu0">
-                                                            <rect key="frame" x="0.0" y="23.5" width="100" height="100"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goalIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EW8-dW-Lu0">
+                                                            <rect key="frame" x="19.5" y="23.5" width="50" height="50"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="12 Sub Goals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-Cp-8x9">
-                                                            <rect key="frame" x="21.5" y="132.5" width="57.5" height="11"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 Sub Goals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-Cp-8x9">
+                                                            <rect key="frame" x="16" y="82.5" width="57.5" height="11"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="12% Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-nR-W6G">
-                                                            <rect key="frame" x="19.5" y="152.5" width="61.5" height="10"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12% Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-nR-W6G">
+                                                            <rect key="frame" x="14" y="102.5" width="61.5" height="10"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -2079,7 +2096,7 @@
         <image name="AddButtonSmall" width="69" height="69"/>
         <image name="AddNoteIcon" width="18" height="20"/>
         <image name="ArrowBackButton" width="10" height="15"/>
-        <image name="BackButton" width="10" height="15"/>
+        <image name="BackButton" width="32" height="32"/>
         <image name="ChangePassButton" width="315" height="52"/>
         <image name="DoneButton" width="292" height="74"/>
         <image name="DoneLogo" width="201" height="113"/>

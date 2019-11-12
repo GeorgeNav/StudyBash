@@ -35,6 +35,7 @@
 		456467562377C39F00CC8B3B /* CalendarVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456467542377C39F00CC8B3B /* CalendarVars.swift */; };
 		457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */; };
 		457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */; };
+		457F17C52379EBC100543E79 /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457F17C42379EBC100543E79 /* BarChart.swift */; };
 		458D034523725F92008AC42B /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D034423725F92008AC42B /* OnBoardingViewController.swift */; };
 		458D034723726A08008AC42B /* Constants in Resources */ = {isa = PBXBuildFile; fileRef = 458D034623726A07008AC42B /* Constants */; };
 		458D034E23726A21008AC42B /* Source in Resources */ = {isa = PBXBuildFile; fileRef = 458D034D23726A21008AC42B /* Source */; };
@@ -78,6 +79,7 @@
 		456467542377C39F00CC8B3B /* CalendarVars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarVars.swift; sourceTree = "<group>"; };
 		457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopoutViewController.swift; sourceTree = "<group>"; };
 		457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopoutViewController.swift; sourceTree = "<group>"; };
+		457F17C42379EBC100543E79 /* BarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
 		458D034423725F92008AC42B /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		458D034623726A07008AC42B /* Constants */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Constants; sourceTree = "<group>"; };
 		458D034923726A11008AC42B /* Nunito-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Light.ttf"; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		0821C0552372B4BB007BDB3D /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				457F17C12379EAB800543E79 /* BarChart */,
 				45D863752378D72400FBDC7F /* studying hours charts */,
 				0821C0582372B825007BDB3D /* ActivityViewController.swift */,
 			);
@@ -236,6 +239,14 @@
 				45395DB123502DEA005F7C67 /* time.json */,
 			);
 			path = Animation;
+			sourceTree = "<group>";
+		};
+		457F17C12379EAB800543E79 /* BarChart */ = {
+			isa = PBXGroup;
+			children = (
+				457F17C42379EBC100543E79 /* BarChart.swift */,
+			);
+			path = BarChart;
 			sourceTree = "<group>";
 		};
 		458D034323725F6E008AC42B /* On-Boarding */ = {
@@ -442,6 +453,7 @@
 				08548ACA2356C349002A37E4 /* AddEditGoalViewController.swift in Sources */,
 				089C7D232358F41000647FAF /* SubGoalsTableViewCell.swift in Sources */,
 				08F0A9942359A39700820E51 /* AddGoalCollectionViewCell.swift in Sources */,
+				457F17C52379EBC100543E79 /* BarChart.swift in Sources */,
 				087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */,
 				457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */,
 				087A45EF2375400500A964B1 /* GoalsViewController.swift in Sources */,
