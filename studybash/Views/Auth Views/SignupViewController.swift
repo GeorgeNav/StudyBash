@@ -19,15 +19,10 @@ class SignupViewController: UIViewController {
     
     @IBOutlet weak var firstNameTF: UITextField!
     @IBOutlet weak var lastNameTF: UITextField!
+    @IBOutlet weak var phoneNumberTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var passConfirmationTF: UITextField!
-    
-    var firstName: String = ""
-    var lastName: String = ""
-    var email: String = ""
-    var password: String = ""
-    var passConfirmation = ""
     
     var isKeyboardAppear = false
     
@@ -72,104 +67,57 @@ class SignupViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func createTextFieldAlert(type: String){
-        if (type == "name"){
-            let alert = UIAlertController(title: "Missing First Name", message: "Please enter your first name", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+    func createTextFieldAlert(type: String) {
+        var title = ""
+        var message = ""
+        
+        switch type {
+        case "name":
+            title = "Missing First Name"
+            message = "Please enter your first name"
+        case "lastName":
+            title = "Missing Last Name"
+            message = "Please enter your last name"
+        case "email":
+            title = "Missing Email"
+            message = "Please enter your email"
+        case "emailFormat":
+            title = "Invalid Email"
+            message = "Email address is not valid. Please try again"
+        case "emailExists":
+            title = "Invalid Email"
+            message = "Email address is already in use. Try resetting your password if you forgot it."
+        case "password":
+            title = "Missing password"
+            message = "Please enter your password"
+        case "passConfirmation":
+            title = "Missing password confirmation"
+            message = "Please enter your password again"
+        case "mismatch":
+            title = "Password Mismatch"
+            message = "Your passwords did not match. Check for typos"
+        default:
+            title = ""
+            message = ""
         }
-        else if (type == "lastName"){
-            let alert = UIAlertController(title: "Missing Last Name", message: "Please enter your last name", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-        else if (type == "email"){
-            let alert = UIAlertController(title: "Missing email", message: "Please enter your email", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-            
-        else if (type == "emailFormat"){
-            let alert = UIAlertController(title: "Invalid Email", message: "Email address is not valid. Please try again", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-            
-        else if (type == "emailExists"){
-            let alert = UIAlertController(title: "Invalid Email", message: "Email address is already in use. Try resetting your password if you forgot it.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-            
-        else if (type == "password"){
-            let alert = UIAlertController(title: "Missing password", message: "Please enter your password", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-        else if (type == "passConfirmation"){
-            let alert = UIAlertController(title: "Missing password confirmation", message: "Please enter your password again", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-        else if (type == "mismatch"){
-            let alert = UIAlertController(title: "Password Mismatch", message: "Your passwords did not match. Check for typos", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
+
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     
     @IBAction func signUpButton(_ sender: Any) {
+        guard firstNameTF.text!.count > 0 else { createTextFieldAlert(type: "name"); return }
+        guard lastNameTF.text!.count > 0 else { createTextFieldAlert(type: "lastName"); return }
+        guard emailTF.text!.count > 0 else { createTextFieldAlert(type: "email"); return }
+        guard passwordTF.text!.count > 0 else { createTextFieldAlert(type: "password"); return }
+        guard passConfirmationTF.text!.count > 0 else { createTextFieldAlert(type: "passConfirmation"); return }
+        let validPass: Bool = ((passwordTF.text!.count > 0 && passConfirmationTF.text!.count > 0) && (passwordTF.text! == passConfirmationTF.text!))
+        guard validPass else { createTextFieldAlert(type: "mismatch"); return }
         
-        if (firstNameTF.text!.count > 0){
-            firstName = firstNameTF.text!
-        }
-        else {
-            createTextFieldAlert(type: "name")
-            return
-        }
-        
-        if (lastNameTF.text!.count > 0){
-            lastName = lastNameTF.text!
-        }
-        else {
-            createTextFieldAlert(type: "lastName")
-            return
-        }
-        
-        if (emailTF.text!.count > 0){
-            email = emailTF.text!
-        }
-        else {
-            createTextFieldAlert(type: "email")
-            return
-        }
-        
-        if (passwordTF.text!.count > 0){
-            password = passwordTF.text!
-        }
-        else {
-            createTextFieldAlert(type: "password")
-            return
-        }
-        
-        if (passConfirmationTF.text!.count > 0){
-            passConfirmation = passConfirmationTF.text!
-        }
-        else {
-            createTextFieldAlert(type: "passConfirmation")
-            return
-        }
-        
-        let validPass: Bool = ((password.count > 0 && passConfirmation.count > 0) && (password == passConfirmation))
-        
-        if (!validPass){
-            createTextFieldAlert(type: "mismatch")
-            return
-        }
-        
-        if (firstName.count > 0 && lastName.count > 0 && email.count > 0 && validPass){
-            auth.createUser(withEmail: email, password: password, completion: { (authResult, error) in
+        if (firstNameTF.text!.count > 0 && lastNameTF.text!.count > 0 && emailTF.text!.count > 0 && validPass){
+            auth.createUser(withEmail: emailTF.text!, password: passwordTF.text!, completion: { (authResult, error) in
                 guard authResult != nil else {
                     print("Error: \(error!)")
                     if(error!.localizedDescription == "The email address is badly formatted."){
@@ -190,7 +138,7 @@ class SignupViewController: UIViewController {
                     "email": self.emailTF.text!,
                     "first_name": self.firstNameTF.text!,
                     "last_name": self.lastNameTF.text!,
-                    "phone_number": "",
+                    "phone_number": self.phoneNumberTF.text!,
                 ], completion: { _ in             self.db.collection("users").document(self.auth.currentUser!.uid).collection("goals").addDocument(data: [
                         "date_created": Timestamp(date: Date()),
                         "finished": false,

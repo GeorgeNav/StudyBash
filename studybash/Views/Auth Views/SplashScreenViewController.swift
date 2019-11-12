@@ -28,5 +28,4 @@ class SplashScreenViewController: UIViewController {
         animation?.play()
     }
     
-
 }

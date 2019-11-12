@@ -107,16 +107,15 @@ class LoginViewController: UIViewController {
                 return
             }
             self.setupAnimation()
+            DispatchQueue.main.asyncAfter(deadline:.now() + 1.0, execute: {
+                self.performSegue(withIdentifier: "sign_in_to_goals", sender: self)
+            })
             print(authResult!.user.email!, " is logged in!")
-            self.performSegue(withIdentifier: "sign_in_to_goals", sender: self)
         })
     }
     
-
-
-    
-    
     @IBAction func signInWithAppleButton(_ sender: Any) {
+        
     }
     
     func signInRelatedStuff() {
@@ -125,7 +124,6 @@ class LoginViewController: UIViewController {
         //            print("Error: \(error!)")
         //        })
     }
-    
     
     func setupAnimation() {
         animation = AnimationView(name: "loading")

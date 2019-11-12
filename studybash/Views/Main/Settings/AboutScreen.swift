@@ -6,9 +6,6 @@ import UIKit
 import Lottie
 
 class AboutScreen: UIViewController {
-    
-    @IBOutlet weak var mustafa: UITextView!
-    
     @IBOutlet weak var animationView: UIView!
     var animation : AnimationView?
     
@@ -18,9 +15,6 @@ class AboutScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAnimation()
-        
-       
-    
     }
 
     func setupAnimation() {
@@ -32,6 +26,9 @@ class AboutScreen: UIViewController {
         animation?.play()
     }
     
+    @IBAction func backButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 

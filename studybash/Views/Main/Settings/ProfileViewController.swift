@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController {
     //TextBox Input
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var phoneNumberTF: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confrimPasswordTextField: UITextField!
@@ -52,7 +53,8 @@ class ProfileViewController: UIViewController {
         userDocRef?.setData([
             "first_name": firstNameTextField.text!,
             "last_name": lastNameTextField.text!,
-            "email": emailTextField.text!
+            "email": emailTextField.text!,
+            "phone_number": phoneNumberTF.text!
         ])
     }
     
@@ -66,7 +68,11 @@ class ProfileViewController: UIViewController {
             isKeyboardAppear = true
         }
     }
-
+    
+    @IBAction func backButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func keyboardWillHide(notification: NSNotification) {
         if isKeyboardAppear {
             if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
@@ -78,12 +84,10 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-    
     
     @IBAction func saveButton(_ sender: Any) {
         
