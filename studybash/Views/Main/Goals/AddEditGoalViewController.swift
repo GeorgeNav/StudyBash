@@ -35,6 +35,8 @@ class AddEditGoalViewController: UIViewController {
     var goalsColRef: CollectionReference?
     var useCase: String = ""
     var goalData: [String: Any] = [String: Any]()
+    let dateTimeFormat = DateFormatter()
+    let timeFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +65,8 @@ class AddEditGoalViewController: UIViewController {
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        dateTimeFormat.dateFormat = "MMMM dd, yyyy  hh:mm:ss"
+        timeFormatter.dateFormat = "h:mm a"
         if ["add_goal", "add_sub_goal"].contains(useCase) {
             let currentDate = Date()
             // Prep calendar and date button
@@ -71,6 +75,10 @@ class AddEditGoalViewController: UIViewController {
             self.dateButton.setTitle(dateFormat.string(from: currentDate), for: .normal)
             self.calendar.select(currentDate)
             time.setDate(currentDate, animated: true)
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "hh:mm a"
+            timeButton.setTitle(timeFormatter.string(from: currentDate), for: .normal)
+            time.date = currentDate
             
             // Prep textual labels and fields
             if useCase == "add_goal" {
@@ -191,14 +199,16 @@ class AddEditGoalViewController: UIViewController {
     }
     
     @IBAction func getTime(_ sender: Any) {
-        print(time.date)
-        let comp = Calendar.current.dateComponents([.hour, .minute], from: time.date)
+        let cal = Calendar.current
+        let timeComp = cal.dateComponents([.hour, .minute, .timeZone], from: time.date)
         let date = (goalData["due_date"]! as! Timestamp).dateValue()
-        goalData["due_date"] = Timestamp(date: date.setTime(hour: comp.hour!, min: comp.minute!, sec: 0)!)
+        let newDate = date.setTime(hour: timeComp.hour!, min: timeComp.minute!, sec: 0, timeZoneAbbrev: timeComp.timeZone!.abbreviation()!)!
         
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "h:mm a"
-        timeButton.setTitle(timeFormatter.string(from: date), for: .normal)
+        print(dateTimeFormat.string(from: newDate))
+        
+        goalData["due_date"] = Timestamp(date: newDate)
+        
+        timeButton.setTitle(timeFormatter.string(from: newDate), for: .normal)
     }
     
     @IBAction func getGoalName(_ sender: Any) {

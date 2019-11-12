@@ -914,10 +914,10 @@
                                     <action selector="addEditGoalButton:" destination="HI2-ir-YLd" eventType="touchUpInside" id="vf0-Qs-Tqd"/>
                                 </connections>
                             </button>
-                            <datePicker hidden="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="sBu-NA-aOK">
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="sBu-NA-aOK">
                                 <rect key="frame" x="0.0" y="563.5" width="414" height="216"/>
                                 <connections>
-                                    <action selector="getTime:" destination="HI2-ir-YLd" eventType="valueChanged" id="mdM-KQ-z8U"/>
+                                    <action selector="getTime:" destination="HI2-ir-YLd" eventType="valueChanged" id="AmG-YQ-v6T"/>
                                 </connections>
                             </datePicker>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Placeholder Text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rtt-OX-Phm">
@@ -1053,6 +1053,7 @@
                             <constraint firstItem="NoZ-ho-JRT" firstAttribute="top" secondItem="u0X-JN-QJS" secondAttribute="bottom" id="3ci-NQ-wOg"/>
                             <constraint firstItem="LIK-4r-Rvn" firstAttribute="top" secondItem="wuw-aO-ozG" secondAttribute="top" id="6CS-8n-rgU"/>
                             <constraint firstItem="sBu-NA-aOK" firstAttribute="top" secondItem="LIK-4r-Rvn" secondAttribute="bottom" constant="16" id="71e-Th-GDz"/>
+                            <constraint firstItem="sBu-NA-aOK" firstAttribute="trailing" secondItem="SG2-mE-bSJ" secondAttribute="trailing" id="DDb-yq-vhT"/>
                             <constraint firstItem="15g-2K-6FF" firstAttribute="leading" secondItem="SG2-mE-bSJ" secondAttribute="leading" constant="16" id="DlT-bg-9Kf"/>
                             <constraint firstItem="Rtt-OX-Phm" firstAttribute="leading" secondItem="SG2-mE-bSJ" secondAttribute="leading" constant="50" id="G7v-7e-sTF"/>
                             <constraint firstItem="R3n-af-gpl" firstAttribute="top" secondItem="SG2-mE-bSJ" secondAttribute="top" constant="67" id="HLb-WZ-DFa"/>
@@ -1068,6 +1069,7 @@
                             <constraint firstItem="NoZ-ho-JRT" firstAttribute="leading" secondItem="u0X-JN-QJS" secondAttribute="leading" id="UUt-Uz-D36"/>
                             <constraint firstItem="UA3-sx-s06" firstAttribute="centerY" secondItem="Z6B-Jo-KdW" secondAttribute="centerY" id="Uny-A3-NGi"/>
                             <constraint firstItem="u0X-JN-QJS" firstAttribute="top" secondItem="gFc-eB-4k6" secondAttribute="bottom" constant="32" id="XaX-H8-fMC"/>
+                            <constraint firstItem="sBu-NA-aOK" firstAttribute="leading" secondItem="SG2-mE-bSJ" secondAttribute="leading" id="alr-QZ-Xa1"/>
                             <constraint firstItem="SG2-mE-bSJ" firstAttribute="trailing" secondItem="Rtt-OX-Phm" secondAttribute="trailing" constant="50" id="aqM-b0-uhy"/>
                             <constraint firstItem="SG2-mE-bSJ" firstAttribute="trailing" secondItem="3xy-xW-NcE" secondAttribute="trailing" constant="16" id="bbF-E4-fO9"/>
                             <constraint firstItem="SBg-AI-fmi" firstAttribute="leading" secondItem="UA3-sx-s06" secondAttribute="trailing" constant="16" id="dJs-y8-tWH"/>
