@@ -32,13 +32,9 @@ class AddEditGoalViewController: UIViewController {
     var goalTypes = [[String: Any]]()
     var typeNames = [String]()
     var filteredTypes = [[String: Any]]()
-    var types = [[String: Any]]()
     var goalsColRef: CollectionReference?
     var useCase: String = ""
     var goalData: [String: Any] = [String: Any]()
-    
-    var isKeyboardAppear = false
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,12 +56,12 @@ class AddEditGoalViewController: UIViewController {
         calendar.isHidden = true
         self.calendar = calendar
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+//        tap.cancelsTouchesInView = false
+//        view.addGestureRecognizer(tap)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         if ["add_goal", "add_sub_goal"].contains(useCase) {
             let currentDate = Date()
@@ -98,7 +94,8 @@ class AddEditGoalViewController: UIViewController {
                 ],
                 "statistics": [
                     "time_spent": 0
-                ]
+                ],
+                "types": []
             ]
             
             if useCase == "add_sub_goal" {
@@ -130,27 +127,27 @@ class AddEditGoalViewController: UIViewController {
         }
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if !isKeyboardAppear {
-            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-                if self.view.frame.origin.y == 0 {
-                    self.view.frame.origin.y -= 65
-                }
-            }
-            isKeyboardAppear = true
-        }
-    }
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if !isKeyboardAppear {
+//            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+//                if self.view.frame.origin.y == 0 {
+//                    self.view.frame.origin.y -= 65
+//                }
+//            }
+//            isKeyboardAppear = true
+//        }
+//    }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if isKeyboardAppear {
-            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-                if self.view.frame.origin.y != 0{
-                    self.view.frame.origin.y = 0
-                }
-            }
-             isKeyboardAppear = false
-        }
-    }
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        if isKeyboardAppear {
+//            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+//                if self.view.frame.origin.y != 0{
+//                    self.view.frame.origin.y = 0
+//                }
+//            }
+//             isKeyboardAppear = false
+//        }
+//    }
     
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
@@ -162,7 +159,6 @@ class AddEditGoalViewController: UIViewController {
     }
     
     @IBAction func addEditGoalButton(_ sender: Any) {
-        print("trying to add/modify goal: \(useCase)")
         if useCase == "add_goal" || useCase == "add_sub_goal" {
             addGoal()
         } else if useCase == "edit_goal" || useCase == "edit_sub_goal" {
@@ -181,7 +177,6 @@ class AddEditGoalViewController: UIViewController {
     
     func editGoal() {
         let goalDocRef = goalData.removeValue(forKey: "ref")! as! DocumentReference
-        print("editing goal.. \(goalDocRef.documentID)")
         
         goalDocRef.updateData(goalData)
         self.dismiss(animated: true, completion: nil)
@@ -243,7 +238,7 @@ extension AddEditGoalViewController: UISearchBarDelegate {
 //            let nameValue = item["name"]! as? String
 //            return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil{
 //        }
-        filteredTypes = searchText.isEmpty ? types : types.filter({ (type) -> Bool in
+        filteredTypes = searchText.isEmpty ? goalTypes : goalTypes.filter({ (type) -> Bool in
             let nameValue = type["name"]! as! String
             return nameValue.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         })
@@ -258,12 +253,24 @@ extension AddEditGoalViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = typesCV.dequeueReusableCell(withReuseIdentifier: typeCellIdentifier, for: indexPath) as! AddGoalCollectionViewCell
-        
+        let goalTypesRefs = goalData["types"]! as! [DocumentReference]
+        let selectedType = filteredTypes[indexPath.row]["ref"]! as! DocumentReference
+        cell.type.backgroundColor = goalTypesRefs.contains(selectedType) ? .blue : .gray
         cell.type.setTitle(filteredTypes[indexPath.row]["name"]! as? String, for: .normal)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var typeRefs = goalData["types"]! as! [DocumentReference]
+        let selectedType = filteredTypes[indexPath.row]["ref"] as! DocumentReference
+        if typeRefs.contains(selectedType) {
+            typeRefs = typeRefs.filter({ (typeRef) -> Bool in
+                return typeRef != selectedType
+            })
+        } else {
+            typeRefs.append(selectedType)
+        }
+        goalData["types"] = typeRefs
         typesCV.reloadData()
     }
     

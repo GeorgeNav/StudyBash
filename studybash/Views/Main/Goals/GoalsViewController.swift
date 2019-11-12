@@ -14,17 +14,20 @@ let goalsCellIdentifier: String = "goal_cell"
 
 class GoalsViewController: UIViewController {
     @IBOutlet weak var goalsCV: UICollectionView!
-    
     let db: Firestore = Firestore.firestore()
+    
+    // All
     var userDocRef: DocumentReference?
     var userGoalsColRef: CollectionReference?
-    var selectedGoalDocRef: DocumentReference?
-    var goalListener: ListenerRegistration?
+    var userGoalsData = [[String: Any]]()
     
+    // Selected
+    var selectedGoalData = [String: Any]()
+    var selectedGoalListener: ListenerRegistration?
+    var selectedGoalDocRef: DocumentReference?
     var selectedGoalSubGoals = [[String: Any]]()
-    var allGoalData = [[String: Any]]()
+    
     var goalTypes = [[String: Any]]()
-    var selectedGoalIndex: Int = 0
     var goalDelegate: UpdateGoalData?
     var editMode: Bool = false
     
@@ -35,23 +38,61 @@ class GoalsViewController: UIViewController {
         self.goalsCV.delegate = self
         self.userGoalsColRef = db.collection("users").document(Auth.auth().currentUser!.uid).collection("goals")
         getUserData()
+        getGoalTypesListener()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "goals_to_goal") {
             let vc = segue.destination as! GoalViewController
             goalDelegate = vc
+            vc.goalTypes = goalTypes
+            getSelectedGoalDataListener()
         } else if(segue.identifier == "goals_to_add_goal") {
             let vc = segue.destination as! AddEditGoalViewController
-            vc.goalTypes = self.goalTypes
             vc.goalsColRef = self.userGoalsColRef!
+            vc.goalTypes = self.goalTypes
             vc.useCase = "add_goal"
         } else if(segue.identifier == "goals_to_edit_goal") {
             let vc = segue.destination as! AddEditGoalViewController
-            vc.goalData = allGoalData[selectedGoalIndex]
-            print(allGoalData[selectedGoalIndex])
+            vc.goalTypes = self.goalTypes
+            vc.goalData = selectedGoalData
             vc.useCase = "edit_goal"
         }
+    }
+    
+    func getSelectedGoalDataListener() {
+        selectedGoalListener = self.selectedGoalDocRef!.collection("sub_goals").addSnapshotListener({(snapshot, error) in
+            guard snapshot != nil else { print("Error:", error!); return }
+            self.selectedGoalSubGoals = [[String: Any]]()
+            snapshot!.documents.forEach({(subGoalDoc) in
+                var subGoalData = subGoalDoc.data()
+                subGoalData["ref"] = subGoalDoc.reference
+                self.selectedGoalSubGoals.append(subGoalData)
+            })
+            self.goalDelegate?.updateGoalData(
+                goalData: self.selectedGoalData,
+                goalDocRef: self.selectedGoalDocRef!,
+                subGoalsData: self.selectedGoalSubGoals)
+        })
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if selectedGoalListener != nil {
+            selectedGoalListener?.remove()
+            selectedGoalListener = nil
+        }
+    }
+    
+    func getGoalTypesListener() {
+        db.collection("goal_types").getDocuments(completion: { (snapshot, error) in
+            guard snapshot != nil else { print("Error:", error!); return }
+            self.goalTypes = [[String: Any]]()
+            snapshot!.documents.forEach({ (doc) in
+                var data = doc.data()
+                data["ref"] = doc.reference
+                self.goalTypes.append(data)
+            })
+        })
     }
     
     @IBAction func toggleEditMode(_ sender: Any) {
@@ -64,39 +105,18 @@ class GoalsViewController: UIViewController {
         self.userGoalsColRef!.addSnapshotListener({ (goalDocRefs, error) in
             guard goalDocRefs != nil else { print("Error: ", error!); return }
             print("Number of Doc Changes: ", goalDocRefs!.documentChanges.count)
-            self.allGoalData = [[String: Any]]()
+            self.userGoalsData = [[String: Any]]()
             goalDocRefs?.documents.forEach({ (doc) in
                 var goalData = doc.data()
                 goalData["ref"] = doc.reference
-                self.allGoalData.append(goalData)
+                self.userGoalsData.append(goalData)
                 self.goalsCV.reloadData()
             })
         })
     }
     
-    
- 
-    
-
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if goalListener != nil {
-            goalListener?.remove()
-            goalListener = nil
-        }
-    }
-    
     @IBAction func addNewGoalSegue(_ sender: Any) {
-        db.collection("goal_types").getDocuments(completion: {(snapshot, error) in
-            guard snapshot != nil else { print("Error:", error!); return }
-            self.goalTypes = [[String: Any]]()
-            snapshot!.documents.forEach({(doc) in
-                var data = doc.data()
-                data["ref"] = doc.reference
-                self.goalTypes.append(data)
-            })
-            self.performSegue(withIdentifier: "goals_to_add_goal", sender: self)
-        })
+        self.performSegue(withIdentifier: "goals_to_add_goal", sender: self)
     }
     
     func subGoalsDueOnDate(date: Date) {
@@ -120,13 +140,13 @@ class GoalsViewController: UIViewController {
 extension GoalsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allGoalData.count
+        return userGoalsData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = goalsCV.dequeueReusableCell(withReuseIdentifier: goalsCellIdentifier, for: indexPath) as! GoalsCollectionViewCell
-        cell.goalName.text = self.allGoalData[indexPath.row]["name"] as? String
-        cell.goalDocRef = self.allGoalData[indexPath.row]["ref"] as? DocumentReference
+        cell.goalName.text = self.userGoalsData[indexPath.row]["name"] as? String
+        cell.goalDocRef = self.userGoalsData[indexPath.row]["ref"] as? DocumentReference
         cell.deleteGoal.isHidden = !editMode
         cell.deleteGoal.isEnabled = editMode
         cell.deleteGoal.isUserInteractionEnabled = editMode
@@ -140,25 +160,12 @@ extension GoalsViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedGoalDocRef = self.allGoalData[indexPath.row]["ref"] as? DocumentReference
+        self.selectedGoalDocRef = self.userGoalsData[indexPath.row]["ref"] as? DocumentReference
         
+        selectedGoalData = userGoalsData[indexPath.row]
         if !editMode {
             self.performSegue(withIdentifier: "goals_to_goal", sender: self)
-            goalListener = self.selectedGoalDocRef!.collection("sub_goals").addSnapshotListener({(snapshot, error) in
-                guard snapshot != nil else { print("Error:", error!); return }
-                self.selectedGoalSubGoals = [[String: Any]]()
-                snapshot!.documents.forEach({(subGoalDoc) in
-                    var subGoalData = subGoalDoc.data()
-                    subGoalData["ref"] = subGoalDoc.reference
-                    self.selectedGoalSubGoals.append(subGoalData)
-                })
-                self.goalDelegate?.updateGoalData(
-                    goalData: self.allGoalData[self.selectedGoalIndex],
-                    goalDocRef: self.selectedGoalDocRef!,
-                    subGoalsData: self.selectedGoalSubGoals)
-            })
         } else if editMode {
-            selectedGoalIndex = indexPath.row
             self.performSegue(withIdentifier: "goals_to_edit_goal", sender: self)
         }
     }

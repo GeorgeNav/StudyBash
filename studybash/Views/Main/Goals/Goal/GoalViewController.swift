@@ -21,34 +21,62 @@ class GoalViewController: UIViewController, UpdateGoalData {
     @IBOutlet weak var subGoalsTV: UITableView!
     @IBOutlet weak var goalNameL: UILabel!
     
-    var goalData: [String: Any] = [String: Any]()
-    var subGoalsData: [[String: Any]] = [[String: Any]]()
+    var goalData = [String: Any]()
+    var goalTypes = [[String: Any]]()
+    var subGoalTypes = [[String: Any]]()
+    var subGoalsData = [[String: Any]]()
     var goalDocRef: DocumentReference?
     var studyBash: [String: Any]?
-    var timer: Timer = Timer()
-    var selectedSubGoalIndex: Int = Int()
+    var timer = Timer()
+    var selectedSubGoal = [String: Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.subGoalsTV.dataSource = self
         self.subGoalsTV.delegate = self
-        subGoalsTV.rowHeight = UITableView.automaticDimension
-        subGoalsTV.estimatedRowHeight = UITableView.automaticDimension
-        print(subGoalsData)
+//        subGoalsTV.rowHeight = UITableView.automaticDimension
+//        subGoalsTV.estimatedRowHeight = UITableView.automaticDimension
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goal_to_add_sub_goal" {
             let vc = segue.destination as! AddEditGoalViewController
             vc.goalsColRef = self.goalDocRef!.collection("sub_goals")
+            vc.goalTypes = subGoalTypes
             vc.useCase = "add_sub_goal"
         } else if segue.identifier == "goal_to_edit_sub_goal" {
             let vc = segue.destination as! AddEditGoalViewController
             vc.goalsColRef = self.goalDocRef!.collection("sub_goals")
-            vc.goalData = subGoalsData[selectedSubGoalIndex]
+            vc.goalData = selectedSubGoal
+            vc.goalTypes = subGoalTypes
             vc.useCase = "edit_sub_goal"
         } else {
             print("nope")
+        }
+    }
+    
+    func getSubGoalTypes() {
+        var subGoalTypesRefs = [DocumentReference]()
+        let thisGoalTypesRefs = goalData["types"]! as! [DocumentReference]
+        subGoalTypes = [[String: Any]]()
+        goalTypes.forEach { (typeData) in
+            let typeDocRef = typeData["ref"]! as! DocumentReference
+            guard thisGoalTypesRefs.contains(typeDocRef) else { return }
+            let subTypesDocRefs = typeData["sub_types"]! as! [DocumentReference]
+            subTypesDocRefs.forEach { (subTypeDocRef) in
+                if !subGoalTypesRefs.contains(subTypeDocRef) {
+                    subGoalTypesRefs.append(subTypeDocRef)
+                }
+            }
+        }
+        
+        subGoalTypesRefs.forEach { (subGoalTypeRef) in
+            subGoalTypeRef.getDocument { (snapshot, error) in
+                guard snapshot != nil else { return }
+                var subGoalTypeData = snapshot!.data()!
+                subGoalTypeData["ref"] = snapshot!.reference
+                self.subGoalTypes.append(subGoalTypeData)
+            }
         }
     }
     
@@ -56,7 +84,10 @@ class GoalViewController: UIViewController, UpdateGoalData {
         self.subGoalsData = subGoalsData
         self.goalData = goalData
         self.goalDocRef = goalDocRef
-        self.goalNameL.text = goalData["name"]! as? String
+        self.goalNameL?.text = goalData["name"]! as? String
+        if subGoalTypes.count == 0 {
+            getSubGoalTypes()
+        }
         subGoalsTV.reloadData()
     }
 
@@ -160,7 +191,7 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedSubGoalIndex = indexPath.row
+        selectedSubGoal = subGoalsData[indexPath.row]
         print("selected: \(subGoalsData[indexPath.row]["name"]!)")
         self.performSegue(withIdentifier: "goal_to_edit_sub_goal", sender: self)
     }
