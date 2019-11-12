@@ -15,7 +15,7 @@ class SubGoalsTableViewCell: UITableViewCell {
     @IBOutlet weak var notesL: UILabel!
     @IBOutlet weak var hoursSpentL: UILabel!
     @IBOutlet weak var daysLeftL: UILabel!
-    @IBOutlet weak var categoryL: UILabel!
+    @IBOutlet weak var subType: UILabel!
     
     @IBOutlet weak var deleteSubGoal: UIButton!
     var subGoalDocRef: DocumentReference?

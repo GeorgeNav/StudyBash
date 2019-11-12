@@ -26,7 +26,10 @@ class GoalViewController: UIViewController, UpdateGoalData {
     var subGoalTypes = [[String: Any]]()
     var subGoalsData = [[String: Any]]()
     var goalDocRef: DocumentReference?
+    
+    var dispatchGroup: DispatchGroup?
     var studyBash: [String: Any]?
+    
     var timer = Timer()
     var selectedSubGoal = [String: Any]()
     
@@ -34,6 +37,10 @@ class GoalViewController: UIViewController, UpdateGoalData {
         super.viewDidLoad()
         self.subGoalsTV.dataSource = self
         self.subGoalsTV.delegate = self
+        let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
+        longPressGR.minimumPressDuration = 0.5
+        longPressGR.delaysTouchesBegan = true
+        self.subGoalsTV.addGestureRecognizer(longPressGR)
 //        subGoalsTV.rowHeight = UITableView.automaticDimension
 //        subGoalsTV.estimatedRowHeight = UITableView.automaticDimension
     }
@@ -53,6 +60,21 @@ class GoalViewController: UIViewController, UpdateGoalData {
         } else {
             print("nope")
         }
+    }
+    
+    @objc
+    func handleLongPress(longPressGR: UILongPressGestureRecognizer) {
+//        if longPressGR.state != .began {
+//            return
+//        }
+//
+//        let point = longPressGR.location(in: self.subGoalsTV)
+//        let indexPath = self.subGoalsTV.indexPathForRow(at: point)
+//
+//        if let indexPath = indexPath {
+//            // var cell = self.subGoalsTV.cellForRow(at: indexPath)
+//            print("do something")
+//        }
     }
     
     func getSubGoalTypes() {
@@ -110,19 +132,37 @@ class GoalViewController: UIViewController, UpdateGoalData {
         // TODO: Perform math to calculate amount of seconds between start and stop times
         let start = studyBash!["start"]! as! Timestamp
         let stop = studyBash!["stop"]! as! Timestamp
+        
         studyBash!["elapsed_time"] = stop.seconds - start.seconds
         print("Stop \(subGoalDocRef.documentID)! \(studyBash!["elapsed_time"]!) seconds")
-        studyBash!.removeValue(forKey: "ref")
-        subGoalDocRef.updateData(["study_bashes": FieldValue.arrayUnion([studyBash!])])
-        studyBash = nil
+        
+        self.dispatchGroup?.enter()
+        (studyBash!["ref"]! as! DocumentReference).getDocument { (snapshot, error) in
+            guard snapshot != nil else { return }
+            let thisSubGoalData = snapshot!.data()!
+            var stats = thisSubGoalData["statistics"]! as! [String: Any]
+            stats["time_spent"] = stats["time_spent"]! as! Int64 + (stop.seconds - start.seconds)
+            self.studyBash!.removeValue(forKey: "ref")
+            subGoalDocRef.updateData([
+                "study_bashes": FieldValue.arrayUnion([self.studyBash!]),
+                "statistics": stats
+            ])
+            self.studyBash = nil
+            self.subGoalsTV.reloadData()
+            self.dispatchGroup?.leave()
+        }
     }
     
     func studyBashStart(subGoalDocRef: DocumentReference) {
         guard studyBash == nil else { // Stop current studybash
             let studyBashDocRef = studyBash!["ref"]! as! DocumentReference
-            if studyBashDocRef.documentID == subGoalDocRef.documentID { return }
+            guard studyBashDocRef != subGoalDocRef else { return }
+            dispatchGroup = DispatchGroup()
             studyBashStop(subGoalDocRef: studyBashDocRef)
-            studyBashStart(subGoalDocRef: subGoalDocRef)
+            dispatchGroup?.notify(queue: .main, execute: {
+                self.studyBashStart(subGoalDocRef: subGoalDocRef)
+                self.dispatchGroup = nil
+            })
             return
         }
         
@@ -155,12 +195,23 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         // TODO: Show category
         
         let stats = subGoalsData[indexPath.row]["statistics"]! as! [String: Any]
-        let timeSpent = stats["time_spent"]! as! Int
-        cell.hoursSpentL.text = "\(timeSpent / 60)"
+        let timeSpent = stats["time_spent"]! as! Double
+        cell.hoursSpentL.text = "\(round(1000 * timeSpent/(60*60)) / 1000)"
         
         let dueDate = (subGoalsData[indexPath.row]["due_date"]! as! Timestamp).dateValue()
         let days = dueDate.days(sinceDate: Date())!
-        cell.daysLeftL.text = "\(days)"
+        if days == 0 { cell.daysLeftL.text = "Due Today" }
+        else if days > 0 { cell.daysLeftL.text = "\(days) days left"
+        } else if days < 0 {
+            cell.daysLeftL.text = "\(abs(days)) Days Late"
+            cell.daysLeftL.textColor = .red
+        }
+        
+        let thisSubGoalTypes = subGoalsData[indexPath.row]["types"]! as! [DocumentReference]
+        let thisSubGoalTypesData = subGoalTypes.filter { (subGoalTypeData) -> Bool in
+            return thisSubGoalTypes.contains(subGoalTypeData["ref"]! as! DocumentReference)
+        }
+        cell.subType.text = thisSubGoalTypesData.count > 0 ? thisSubGoalTypesData[0]["name"]! as! String : ""
         
         let df = DateFormatter()
         df.dateFormat = "MM/dd/yyyy"

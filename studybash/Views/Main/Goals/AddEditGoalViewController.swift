@@ -272,13 +272,13 @@ extension AddEditGoalViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var typeRefs = goalData["types"]! as! [DocumentReference]
-        let selectedType = filteredTypes[indexPath.row]["ref"] as! DocumentReference
-        if typeRefs.contains(selectedType) {
+        let selectedTypeRef = filteredTypes[indexPath.row]["ref"] as! DocumentReference
+        if typeRefs.contains(selectedTypeRef) {
             typeRefs = typeRefs.filter({ (typeRef) -> Bool in
-                return typeRef != selectedType
+                return typeRef != selectedTypeRef
             })
         } else {
-            typeRefs.append(selectedType)
+            typeRefs.append(selectedTypeRef)
         }
         goalData["types"] = typeRefs
         typesCV.reloadData()

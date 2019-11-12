@@ -78,6 +78,9 @@ class SignupViewController: UIViewController {
         case "lastName":
             title = "Missing Last Name"
             message = "Please enter your last name"
+        case "phoneNumber":
+            title = "Missing Phone Number"
+            message = "Please enter your phone number"
         case "email":
             title = "Missing Email"
             message = "Please enter your email"
@@ -110,6 +113,7 @@ class SignupViewController: UIViewController {
     @IBAction func signUpButton(_ sender: Any) {
         guard firstNameTF.text!.count > 0 else { createTextFieldAlert(type: "name"); return }
         guard lastNameTF.text!.count > 0 else { createTextFieldAlert(type: "lastName"); return }
+        guard phoneNumberTF.text!.count > 0 else { createTextFieldAlert(type: "phoneNumber"); return }
         guard emailTF.text!.count > 0 else { createTextFieldAlert(type: "email"); return }
         guard passwordTF.text!.count > 0 else { createTextFieldAlert(type: "password"); return }
         guard passConfirmationTF.text!.count > 0 else { createTextFieldAlert(type: "passConfirmation"); return }
