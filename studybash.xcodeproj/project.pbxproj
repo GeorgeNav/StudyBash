@@ -28,6 +28,7 @@
 		2192ACBE2065527441A29DAA /* Pods_studybash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 058121D66A0A44677895E6CB /* Pods_studybash.framework */; };
 		450DEF7C235263C2000F9EE6 /* AboutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450DEF7B235263C2000F9EE6 /* AboutScreen.swift */; };
 		450DEF802352659B000F9EE6 /* about.json in Resources */ = {isa = PBXBuildFile; fileRef = 450DEF7F2352659B000F9EE6 /* about.json */; };
+		4519CAB9237B573E00E5F358 /* clock.json in Resources */ = {isa = PBXBuildFile; fileRef = 4519CAB8237B573E00E5F358 /* clock.json */; };
 		451A3FA22373B89F0096CA03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */; };
 		45395DB223502DEA005F7C67 /* time.json in Resources */ = {isa = PBXBuildFile; fileRef = 45395DB123502DEA005F7C67 /* time.json */; };
 		456467522377C33100CC8B3B /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456467512377C33100CC8B3B /* ScheduleViewController.swift */; };
@@ -73,6 +74,7 @@
 		08F0A9932359A39700820E51 /* AddGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		450DEF7B235263C2000F9EE6 /* AboutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutScreen.swift; sourceTree = "<group>"; };
 		450DEF7F2352659B000F9EE6 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = about.json; sourceTree = "<group>"; };
+		4519CAB8237B573E00E5F358 /* clock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = clock.json; sourceTree = "<group>"; };
 		45395DB123502DEA005F7C67 /* time.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = time.json; sourceTree = "<group>"; };
 		456467512377C33100CC8B3B /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		456467532377C39F00CC8B3B /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 		457CA50F23503B8600AF6B8C /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				4519CAB8237B573E00E5F358 /* clock.json */,
 				45D863802378F0AC00FBDC7F /* loading.json */,
 				450DEF7F2352659B000F9EE6 /* about.json */,
 				45395DB123502DEA005F7C67 /* time.json */,
@@ -378,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				451A3FA22373B89F0096CA03 /* LaunchScreen.storyboard in Resources */,
+				4519CAB9237B573E00E5F358 /* clock.json in Resources */,
 				08A9A118234AB6AD00B3C45A /* GoogleService-Info.plist in Resources */,
 				458D035023726A58008AC42B /* PaperOnboarding in Resources */,
 				45395DB223502DEA005F7C67 /* time.json in Resources */,

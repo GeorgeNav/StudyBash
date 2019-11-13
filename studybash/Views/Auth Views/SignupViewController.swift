@@ -19,7 +19,6 @@ class SignupViewController: UIViewController {
     
     @IBOutlet weak var firstNameTF: UITextField!
     @IBOutlet weak var lastNameTF: UITextField!
-    @IBOutlet weak var phoneNumberTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var passConfirmationTF: UITextField!
@@ -113,7 +112,6 @@ class SignupViewController: UIViewController {
     @IBAction func signUpButton(_ sender: Any) {
         guard firstNameTF.text!.count > 0 else { createTextFieldAlert(type: "name"); return }
         guard lastNameTF.text!.count > 0 else { createTextFieldAlert(type: "lastName"); return }
-        guard phoneNumberTF.text!.count > 0 else { createTextFieldAlert(type: "phoneNumber"); return }
         guard emailTF.text!.count > 0 else { createTextFieldAlert(type: "email"); return }
         guard passwordTF.text!.count > 0 else { createTextFieldAlert(type: "password"); return }
         guard passConfirmationTF.text!.count > 0 else { createTextFieldAlert(type: "passConfirmation"); return }
@@ -142,7 +140,6 @@ class SignupViewController: UIViewController {
                     "email": self.emailTF.text!,
                     "first_name": self.firstNameTF.text!,
                     "last_name": self.lastNameTF.text!,
-                    "phone_number": self.phoneNumberTF.text!,
                 ], completion: { _ in             self.db.collection("users").document(self.auth.currentUser!.uid).collection("goals").addDocument(data: [
                         "date_created": Timestamp(date: Date()),
                         "finished": false,

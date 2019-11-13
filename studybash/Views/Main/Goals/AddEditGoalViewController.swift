@@ -39,6 +39,10 @@ class AddEditGoalViewController: UIViewController {
     let timeFormatter = DateFormatter()
     
     override func viewDidLoad() {
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         super.viewDidLoad()
         filteredTypes = goalTypes
         typesCV.delegate = self

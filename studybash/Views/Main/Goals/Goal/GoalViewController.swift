@@ -8,6 +8,9 @@
 
 import UIKit
 import FirebaseFirestore
+import Lottie
+import UserNotifications
+import NotificationCenter
 
 let subGoalCellIdentifier = "sub_goal_cell"
 
@@ -20,6 +23,9 @@ protocol UpdateGoalData {
 class GoalViewController: UIViewController, UpdateGoalData {
     @IBOutlet weak var subGoalsTV: UITableView!
     @IBOutlet weak var goalNameL: UILabel!
+    
+    @IBOutlet weak var animationView: UIView!
+    var animation : AnimationView?
     
     var goalData = [String: Any]()
     var goalTypes = [[String: Any]]()
@@ -35,14 +41,34 @@ class GoalViewController: UIViewController, UpdateGoalData {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // animation
+        setupAnimation()
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationEnterInForground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
         self.subGoalsTV.dataSource = self
         self.subGoalsTV.delegate = self
         let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
         longPressGR.minimumPressDuration = 0.5
         longPressGR.delaysTouchesBegan = true
         self.subGoalsTV.addGestureRecognizer(longPressGR)
-//        subGoalsTV.rowHeight = UITableView.automaticDimension
-//        subGoalsTV.estimatedRowHeight = UITableView.automaticDimension
+        //        subGoalsTV.rowHeight = UITableView.automaticDimension
+        //        subGoalsTV.estimatedRowHeight = UITableView.automaticDimension
+    }
+    
+    // animation
+    func setupAnimation() {
+        animation = AnimationView(name: "clock")
+        animation?.frame = animationView.bounds
+        animationView.addSubview(animation!)
+        animation?.loopMode = .loop
+        animation?.contentMode = .scaleAspectFit
+        animation?.play()
+    }
+    
+    @objc func applicationEnterInForground() {
+        if animation != nil {
+            if !(self.animation?.isAnimationPlaying)! {self.animation?.play()}}
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,17 +90,17 @@ class GoalViewController: UIViewController, UpdateGoalData {
     
     @objc
     func handleLongPress(longPressGR: UILongPressGestureRecognizer) {
-//        if longPressGR.state != .began {
-//            return
-//        }
-//
-//        let point = longPressGR.location(in: self.subGoalsTV)
-//        let indexPath = self.subGoalsTV.indexPathForRow(at: point)
-//
-//        if let indexPath = indexPath {
-//            // var cell = self.subGoalsTV.cellForRow(at: indexPath)
-//            print("do something")
-//        }
+        //        if longPressGR.state != .began {
+        //            return
+        //        }
+        //
+        //        let point = longPressGR.location(in: self.subGoalsTV)
+        //        let indexPath = self.subGoalsTV.indexPathForRow(at: point)
+        //
+        //        if let indexPath = indexPath {
+        //            // var cell = self.subGoalsTV.cellForRow(at: indexPath)
+        //            print("do something")
+        //        }
     }
     
     func getSubGoalTypes() {
@@ -112,7 +138,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
         }
         subGoalsTV.reloadData()
     }
-
+    
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -183,7 +209,7 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 134
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = subGoalsTV.dequeueReusableCell(withIdentifier: subGoalCellIdentifier, for: indexPath) as! SubGoalsTableViewCell
         cell.subGoalName.text = subGoalsData[indexPath.row]["name"]! as? String
@@ -196,7 +222,7 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         
         let stats = subGoalsData[indexPath.row]["statistics"]! as! [String: Any]
         let timeSpent = stats["time_spent"]! as! Double
-        cell.hoursSpentL.text = "\(round(1000 * timeSpent/(60*60)) / 1000)"
+        cell.hoursSpentL.text = "\(round(1000 * timeSpent/(60*60)) / 100)" + " Hours Spent"
         
         let dueDate = (subGoalsData[indexPath.row]["due_date"]! as! Timestamp).dateValue()
         let days = dueDate.days(sinceDate: Date())!
@@ -217,7 +243,7 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         df.dateFormat = "MM/dd/yyyy"
         let tf = DateFormatter()
         tf.dateFormat = "h:mm a"
-        cell.dueDateL.text = "Due Date: " + df.string(from: dueDate) + " " + tf.string(from: dueDate)
+        cell.dueDateL.text = "Due Date: " + df.string(from: dueDate) + "  " + tf.string(from: dueDate)
         return cell
     }
     
@@ -250,29 +276,29 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension Date {
-
+    
     func years(sinceDate: Date) -> Int? {
         return Calendar.current.dateComponents([.year], from: sinceDate, to: self).year
     }
-
+    
     func months(sinceDate: Date) -> Int? {
         return Calendar.current.dateComponents([.month], from: sinceDate, to: self).month
     }
-
+    
     func days(sinceDate: Date) -> Int? {
         return Calendar.current.dateComponents([.day], from: sinceDate, to: self).day
     }
-
+    
     func hours(sinceDate: Date) -> Int? {
         return Calendar.current.dateComponents([.hour], from: sinceDate, to: self).hour
     }
-
+    
     func minutes(sinceDate: Date) -> Int? {
         return Calendar.current.dateComponents([.minute], from: sinceDate, to: self).minute
     }
-
+    
     func seconds(sinceDate: Date) -> Int? {
         return Calendar.current.dateComponents([.second], from: sinceDate, to: self).second
     }
-
+    
 }

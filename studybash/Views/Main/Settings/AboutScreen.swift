@@ -4,6 +4,8 @@
 
 import UIKit
 import Lottie
+import UserNotifications
+import NotificationCenter
 
 class AboutScreen: UIViewController {
     @IBOutlet weak var animationView: UIView!
@@ -15,6 +17,13 @@ class AboutScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAnimation()
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationEnterInForground), name: UIApplication.willEnterForegroundNotification, object: nil)
+
+    }
+    
+    @objc func applicationEnterInForground() {
+        if animation != nil {
+            if !(self.animation?.isAnimationPlaying)! {self.animation?.play()}}
     }
 
     func setupAnimation() {
