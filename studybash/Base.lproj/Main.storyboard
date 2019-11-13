@@ -1068,6 +1068,17 @@
                                     <action selector="cancelButton:" destination="HI2-ir-YLd" eventType="touchUpInside" id="MYj-s2-RYi"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L7I-kh-TpV">
+                                <rect key="frame" x="314" y="55" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="cMe-oD-gAL"/>
+                                    <constraint firstAttribute="width" constant="40" id="pPJ-Rf-ogY"/>
+                                </constraints>
+                                <state key="normal" image="trashIcon"/>
+                                <connections>
+                                    <action selector="deleteGoal:" destination="HI2-ir-YLd" eventType="touchUpInside" id="Li8-vJ-Ena"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -1097,6 +1108,7 @@
                             <constraint firstItem="SG2-mE-bSJ" firstAttribute="trailing" secondItem="3xy-xW-NcE" secondAttribute="trailing" constant="16" id="bbF-E4-fO9"/>
                             <constraint firstItem="SBg-AI-fmi" firstAttribute="leading" secondItem="UA3-sx-s06" secondAttribute="trailing" constant="8" id="dJs-y8-tWH"/>
                             <constraint firstItem="u0X-JN-QJS" firstAttribute="leading" secondItem="gFc-eB-4k6" secondAttribute="leading" id="g1n-AQ-S5m"/>
+                            <constraint firstItem="L7I-kh-TpV" firstAttribute="top" secondItem="EhM-Xx-0cE" secondAttribute="top" id="hBN-5b-Jga"/>
                             <constraint firstItem="9H7-N3-0dy" firstAttribute="leading" secondItem="SG2-mE-bSJ" secondAttribute="leading" id="jE5-Qn-ArM"/>
                             <constraint firstItem="gFc-eB-4k6" firstAttribute="leading" secondItem="Rtt-OX-Phm" secondAttribute="leading" id="lPV-0T-UBS"/>
                             <constraint firstItem="3xy-xW-NcE" firstAttribute="centerY" secondItem="gFc-eB-4k6" secondAttribute="centerY" id="lUz-c0-fdL"/>
@@ -1104,6 +1116,7 @@
                             <constraint firstItem="gFc-eB-4k6" firstAttribute="top" secondItem="Z6B-Jo-KdW" secondAttribute="bottom" constant="14" id="oBP-tt-p0H"/>
                             <constraint firstItem="wuw-aO-ozG" firstAttribute="leading" secondItem="SG2-mE-bSJ" secondAttribute="leading" constant="16" id="otA-Js-JMo"/>
                             <constraint firstItem="R3n-af-gpl" firstAttribute="top" secondItem="SG2-mE-bSJ" secondAttribute="top" constant="63" id="pM2-kH-Mxp"/>
+                            <constraint firstItem="EhM-Xx-0cE" firstAttribute="leading" secondItem="L7I-kh-TpV" secondAttribute="trailing" id="rWp-el-GDN"/>
                             <constraint firstItem="Z6B-Jo-KdW" firstAttribute="top" secondItem="Rtt-OX-Phm" secondAttribute="bottom" constant="50" id="s7p-Xb-Tnk"/>
                             <constraint firstItem="SBg-AI-fmi" firstAttribute="centerY" secondItem="Z6B-Jo-KdW" secondAttribute="centerY" id="uTk-qM-RP8"/>
                             <constraint firstItem="fCJ-EI-qMP" firstAttribute="leading" secondItem="SG2-mE-bSJ" secondAttribute="leading" constant="16" id="ukJ-tI-ZKc"/>
@@ -1117,6 +1130,7 @@
                     <navigationItem key="navigationItem" id="GeZ-fF-Vyn"/>
                     <connections>
                         <outlet property="dateButton" destination="UA3-sx-s06" id="0YF-yz-F0v"/>
+                        <outlet property="deleteGoalButton" destination="L7I-kh-TpV" id="m75-Jy-yw5"/>
                         <outlet property="goalName" destination="Rtt-OX-Phm" id="XNF-bu-OK2"/>
                         <outlet property="notesTF" destination="LIK-4r-Rvn" id="OK0-Iy-3Qt"/>
                         <outlet property="searchBar" destination="NoZ-ho-JRT" id="uKv-3H-rka"/>

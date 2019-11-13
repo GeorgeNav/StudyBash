@@ -49,12 +49,12 @@ class GoalsViewController: UIViewController {
             getSelectedGoalDataListener()
         } else if(segue.identifier == "goals_to_add_goal") {
             let vc = segue.destination as! AddEditGoalViewController
-            vc.goalsColRef = self.userGoalsColRef!
-            vc.goalTypes = self.goalTypes
+            vc.goalsColRef = userGoalsColRef!
+            vc.goalTypes = goalTypes
             vc.useCase = "add_goal"
         } else if(segue.identifier == "goals_to_edit_goal") {
             let vc = segue.destination as! AddEditGoalViewController
-            vc.goalTypes = self.goalTypes
+            vc.goalTypes = goalTypes
             vc.goalData = selectedGoalData
             vc.useCase = "edit_goal"
         }

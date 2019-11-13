@@ -27,12 +27,14 @@ class AddEditGoalViewController: UIViewController {
     @IBOutlet weak var notesTF: UITextField!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var typesCV: UICollectionView!
+    @IBOutlet weak var deleteGoalButton: UIButton!
     
     // Logic Elements
     var goalTypes = [[String: Any]]()
     var typeNames = [String]()
     var filteredTypes = [[String: Any]]()
     var goalsColRef: CollectionReference?
+    var goalDocRef: DocumentReference?
     var useCase: String = ""
     var goalData: [String: Any] = [String: Any]()
     let dateTimeFormat = DateFormatter()
@@ -68,6 +70,8 @@ class AddEditGoalViewController: UIViewController {
         dateTimeFormat.dateFormat = "MMMM dd, yyyy  hh:mm:ss"
         timeFormatter.dateFormat = "h:mm a"
         if ["add_goal", "add_sub_goal"].contains(useCase) {
+            deleteGoalButton.isEnabled = false
+            deleteGoalButton.isHidden = true
             let currentDate = Date()
             // Prep calendar and date button
             let dateFormat = DateFormatter()
@@ -110,6 +114,10 @@ class AddEditGoalViewController: UIViewController {
                 goalData["study_bashes"] = []
             }
         } else if ["edit_goal", "edit_sub_goal"].contains(useCase) {
+            deleteGoalButton.isEnabled = true
+            deleteGoalButton.isHidden = false
+            goalDocRef = (goalData["ref"]! as! DocumentReference)
+            
             let dueDate = (goalData["due_date"]! as! Timestamp).dateValue()
             
             let dateFormatter = DateFormatter()
@@ -188,6 +196,22 @@ class AddEditGoalViewController: UIViewController {
         
         goalDocRef.updateData(goalData)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func deleteGoal(_ sender: Any) {
+        if useCase == "edit_goal" {
+            goalDocRef?.collection("sub_goals").getDocuments(completion: {(snapshot, error) in
+                guard snapshot != nil else { print("Error:", error!); return }
+                snapshot!.documents.forEach({(doc) in
+                    doc.reference.delete()
+                })
+                self.goalDocRef?.delete()
+                self.dismiss(animated: true, completion: nil)
+            })
+        } else if useCase == "edit_sub_goal" {
+            goalDocRef?.delete()
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func toggleCalendar(_ sender: Any) {
