@@ -84,7 +84,7 @@ class GoalsViewController: UIViewController {
     }
     
     func getGoalTypesListener() {
-        db.collection("goal_types").getDocuments(completion: { (snapshot, error) in
+        db.collection("goal_types").addSnapshotListener({ (snapshot, error) in
             guard snapshot != nil else { print("Error:", error!); return }
             self.goalTypes = [[String: Any]]()
             snapshot!.documents.forEach({ (doc) in

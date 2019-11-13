@@ -39,10 +39,6 @@ class AddEditGoalViewController: UIViewController {
     let timeFormatter = DateFormatter()
     
     override func viewDidLoad() {
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        
         super.viewDidLoad()
         filteredTypes = goalTypes
         typesCV.delegate = self
@@ -247,11 +243,6 @@ extension AddEditGoalViewController: UISearchBarDelegate {
         // Use the filter method to iterate over all items in the data array
         // For each item, return true if the item should be included and false if the
         // item should NOT be included
-//        filteredTypes = searchText.isEmpty ? typeNames : typeNames.filter)  (item: [String: Any]) -> Bool in
-//            // If dataItem matches the searchText, return true to include it
-//            let nameValue = item["name"]! as? String
-//            return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil{
-//        }
         filteredTypes = searchText.isEmpty ? goalTypes : goalTypes.filter({ (type) -> Bool in
             let nameValue = type["name"]! as! String
             return nameValue.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
@@ -269,14 +260,17 @@ extension AddEditGoalViewController: UICollectionViewDataSource, UICollectionVie
         let cell = typesCV.dequeueReusableCell(withReuseIdentifier: typeCellIdentifier, for: indexPath) as! AddGoalCollectionViewCell
         let goalTypesRefs = goalData["types"]! as! [DocumentReference]
         let selectedType = filteredTypes[indexPath.row]["ref"]! as! DocumentReference
-        cell.type.backgroundColor = goalTypesRefs.contains(selectedType) ? .blue : .gray
-        cell.type.setTitle(filteredTypes[indexPath.row]["name"]! as? String, for: .normal)
+        
+        let imageName = !goalTypesRefs.contains(selectedType) ? "catBackground" : "catBackgroundSelected"
+        cell.toggleStateIV.image = UIImage(named: imageName)
+        cell.typeNameL.text = filteredTypes[indexPath.row]["name"]! as? String
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var typeRefs = goalData["types"]! as! [DocumentReference]
-        let selectedTypeRef = filteredTypes[indexPath.row]["ref"] as! DocumentReference
+        let selectedTypeRef = filteredTypes[indexPath.row]["ref"]! as! DocumentReference
         if typeRefs.contains(selectedTypeRef) {
             typeRefs = typeRefs.filter({ (typeRef) -> Bool in
                 return typeRef != selectedTypeRef
@@ -295,7 +289,7 @@ extension AddEditGoalViewController: UICollectionViewDataSource, UICollectionVie
 }
 
 extension Date {
-    public func setTime(hour: Int, min: Int, sec: Int, timeZoneAbbrev: String = "UTC") -> Date? {
+    public func setTime(hour: Int, min: Int, sec: Int, timeZoneAbbrev: String) -> Date? {
         let x: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
         let cal = Calendar.current
         var components = cal.dateComponents(x, from: self)
