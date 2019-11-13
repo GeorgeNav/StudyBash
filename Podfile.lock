@@ -126,6 +126,7 @@ PODS:
   - nanopb/encode (0.3.9011)
   - paper-onboarding (6.1.4)
   - Protobuf (3.10.0)
+  - SwiftyUserDefaults (4.0.0)
   - SWXMLHash (5.0.1)
 
 DEPENDENCIES:
@@ -139,6 +140,7 @@ DEPENDENCIES:
   - Macaw (= 0.9.5)
   - paper-onboarding
   - Protobuf
+  - SwiftyUserDefaults
 
 SPEC REPOS:
   trunk:
@@ -168,6 +170,7 @@ SPEC REPOS:
     - nanopb
     - paper-onboarding
     - Protobuf
+    - SwiftyUserDefaults
     - SWXMLHash
 
 SPEC CHECKSUMS:
@@ -197,8 +200,9 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   paper-onboarding: d3f16416e6f42add686117e8b32bfffaad899a79
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
+  SwiftyUserDefaults: 6a1951df1daa19337862b677dd9a4b9bd4c288cd
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
 
-PODFILE CHECKSUM: 0d658b330a823dd031087309b69484ed047da5a0
+PODFILE CHECKSUM: 9fe078ca5cf58a2d36052868855f9826052fc782
 
 COCOAPODS: 1.8.4

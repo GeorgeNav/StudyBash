@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 import NotificationCenter
 import UserNotifications
+import SwiftyUserDefaults
 import Lottie
 
 class LoginViewController: UIViewController {
@@ -35,7 +36,11 @@ class LoginViewController: UIViewController {
         passwordTF.text = "testing"
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
+        if Defaults[.isLogin] == true {
+            emailTF.text = Defaults[.email]
+            passwordTF.text = Defaults[.password]
+            signInButton(self)
+        }
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -102,6 +107,10 @@ class LoginViewController: UIViewController {
         let password: String = passwordTF.text!
         
         auth.signIn(withEmail: email, password: password, completion: { (authResult, error) in
+            Defaults[.email] = email
+            Defaults[.password] = password
+            Defaults[.isLogin] = true
+            
             guard authResult != nil else {
                 print("Error: \(error!)")
                 return
@@ -110,7 +119,6 @@ class LoginViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline:.now() + 1.0, execute: {
                 self.performSegue(withIdentifier: "sign_in_to_goals", sender: self)
             })
-            print(authResult!.user.email!, " is logged in!")
         })
     }
     
@@ -135,3 +143,8 @@ class LoginViewController: UIViewController {
     }
 }
 
+extension DefaultsKeys {
+    static let email = DefaultsKey<String?>("username")
+    static let password = DefaultsKey<String?>("password")
+    static let isLogin = DefaultsKey<Bool?>("isLogin")
+}

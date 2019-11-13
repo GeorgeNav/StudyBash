@@ -8,13 +8,16 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import FirebaseFirestore
+import SwiftyUserDefaults
 
 let goalsCellIdentifier: String = "goal_cell"
 
 class GoalsViewController: UIViewController {
     @IBOutlet weak var goalsCV: UICollectionView!
     let db: Firestore = Firestore.firestore()
+    let auth: Auth = Auth.auth()
     
     // All
     var userDocRef: DocumentReference?
@@ -37,6 +40,7 @@ class GoalsViewController: UIViewController {
         self.goalsCV.dataSource = self
         self.goalsCV.delegate = self
         self.userGoalsColRef = db.collection("users").document(Auth.auth().currentUser!.uid).collection("goals")
+        
         getUserData()
         getGoalTypesListener()
     }

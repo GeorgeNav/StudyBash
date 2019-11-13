@@ -1,6 +1,6 @@
 import UIKit
 import Firebase
-
+import SwiftyUserDefaults
 
 class SettingsViewController: UIViewController {
     
@@ -23,7 +23,10 @@ class SettingsViewController: UIViewController {
     @IBAction func logOutButton(_ sender: Any) {
         do {
             try Auth.auth().signOut()
-            self.dismiss(animated: true, completion: nil)
+            Defaults[.isLogin] = false
+            Defaults[.email] = nil
+            Defaults[.password] = nil
+            performSegue(withIdentifier: "settings_to_sign_in", sender: self)
         } catch let err {
             print(err)
         }

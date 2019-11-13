@@ -10,6 +10,7 @@ target 'studybash' do
   pod 'Firebase/Analytics'
   pod 'FSCalendar'
   pod 'Charts'
+  pod 'SwiftyUserDefaults'
 
 
 
