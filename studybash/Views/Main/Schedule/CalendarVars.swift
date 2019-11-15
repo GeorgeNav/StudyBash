@@ -1,12 +1,8 @@
-
 import Foundation
 
+let curDate = Date()
 
-let date = Date()
-let calendar = Calendar.current
-
-let day = calendar.component(.day , from: date)
-var weekday = calendar.component(.weekday, from: date) - 1
-var month = calendar.component(.month, from: date) - 1
-var year = calendar.component(.year, from: date)
- 
+let curDay = Calendar.current.component(.day , from: curDate)
+var curWeekday = Calendar.current.component(.weekday, from: curDate) - 1
+var curMonth = Calendar.current.component(.month, from: curDate) - 1
+var curYear = Calendar.current.component(.year, from: curDate)

@@ -48,6 +48,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
         
         self.subGoalsTV.dataSource = self
         self.subGoalsTV.delegate = self
+        
         let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
         longPressGR.minimumPressDuration = 0.5
         longPressGR.delaysTouchesBegan = true
@@ -83,24 +84,23 @@ class GoalViewController: UIViewController, UpdateGoalData {
             vc.goalData = selectedSubGoal
             vc.goalTypes = subGoalTypes
             vc.useCase = "edit_sub_goal"
-        } else {
-            print("nope")
         }
     }
     
     @objc
     func handleLongPress(longPressGR: UILongPressGestureRecognizer) {
-        //        if longPressGR.state != .began {
-        //            return
-        //        }
-        //
-        //        let point = longPressGR.location(in: self.subGoalsTV)
-        //        let indexPath = self.subGoalsTV.indexPathForRow(at: point)
-        //
-        //        if let indexPath = indexPath {
-        //            // var cell = self.subGoalsTV.cellForRow(at: indexPath)
-        //            print("do something")
-        //        }
+        if longPressGR.state != .began {
+            return
+        }
+
+        let point = longPressGR.location(in: self.subGoalsTV)
+        let indexPath = self.subGoalsTV.indexPathForRow(at: point)
+
+        if let indexPath = indexPath {
+            // var cell = self.subGoalsTV.cellForRow(at: indexPath) // get cell at indexPath
+            selectedSubGoal = subGoalsData[indexPath.row]
+            self.performSegue(withIdentifier: "goal_to_edit_sub_goal", sender: self)
+        }
     }
     
     func getSubGoalTypes() {
@@ -124,6 +124,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
                 var subGoalTypeData = snapshot!.data()!
                 subGoalTypeData["ref"] = snapshot!.reference
                 self.subGoalTypes.append(subGoalTypeData)
+                self.subGoalsTV.reloadData()
             }
         }
     }
@@ -233,9 +234,9 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
             cell.daysLeftL.textColor = .red
         }
         
-        let thisSubGoalTypes = subGoalsData[indexPath.row]["types"]! as! [DocumentReference]
+        let thisSubGoalTypesRefs = subGoalsData[indexPath.row]["types"]! as! [DocumentReference]
         let thisSubGoalTypesData = subGoalTypes.filter { (subGoalTypeData) -> Bool in
-            return thisSubGoalTypes.contains(subGoalTypeData["ref"]! as! DocumentReference)
+            return thisSubGoalTypesRefs.contains(subGoalTypeData["ref"]! as! DocumentReference)
         }
         cell.subType.text = thisSubGoalTypesData.count > 0 ? thisSubGoalTypesData[0]["name"]! as! String : ""
         
@@ -268,9 +269,8 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedSubGoal = subGoalsData[indexPath.row]
-        print("selected: \(subGoalsData[indexPath.row]["name"]!)")
-        self.performSegue(withIdentifier: "goal_to_edit_sub_goal", sender: self)
+//        selectedSubGoal = subGoalsData[indexPath.row]
+//        self.performSegue(withIdentifier: "goal_to_edit_sub_goal", sender: self)
     }
     
 }

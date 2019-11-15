@@ -4,16 +4,16 @@ import UIKit
 
 class DateCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var DateLabel: UILabel!
+    @IBOutlet weak var dayL: UILabel!
+    @IBOutlet weak var circleV: UIView!
+    var date = Date()
     
-    @IBOutlet weak var Circle: UIView!
-    
-    
-    func DrawCircle() {
+    func DrawCircle(progress: Double) {
+        guard progress >= 0 && progress <= 1 else { return }
         
-        let circleCenter = Circle.center
+        let circleCenter = circleV.center
         
-        let circlePath = UIBezierPath(arcCenter: circleCenter, radius: (Circle.bounds.width/2 - 5), startAngle: -CGFloat.pi/2, endAngle: (2 * CGFloat.pi), clockwise: true)
+        let circlePath = UIBezierPath(arcCenter: circleCenter, radius: (circleV.bounds.width/2 - 5), startAngle: -CGFloat.pi/2, endAngle: (2 * CGFloat.pi), clockwise: true)
         
         let CircleLayer = CAShapeLayer()
         CircleLayer.path = circlePath.cgPath
@@ -25,14 +25,13 @@ class DateCollectionViewCell: UICollectionViewCell {
         
         let Animation = CABasicAnimation(keyPath: "strokeEnd")
         Animation.duration = 1
-        Animation.toValue = 1
+        Animation.toValue = progress
         Animation.fillMode = CAMediaTimingFillMode.forwards
         Animation.isRemovedOnCompletion = false
         
         CircleLayer.add(Animation, forKey: nil)
-        Circle.layer.addSublayer(CircleLayer)
-        Circle.layer.backgroundColor = UIColor.clear.cgColor
-        
+        circleV.layer.addSublayer(CircleLayer)
+        circleV.layer.backgroundColor = UIColor.clear.cgColor
     }
     
 }

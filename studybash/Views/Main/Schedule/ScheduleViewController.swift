@@ -4,127 +4,150 @@
 
 
 import UIKit
+import Firebase
 
 class ScheduleViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    let db: Firestore = Firestore.firestore()
     
-    @IBOutlet weak var Calendar: UICollectionView!
-    @IBOutlet weak var MonthLabel: UILabel!
+    @IBOutlet weak var calendarCV: UICollectionView!
+    @IBOutlet weak var monthL: UILabel!
+    var subGoalsDataForMonths = [String: [String: Any]]()
+    var subGoalsOnDayListener: ListenerRegistration?
     
-    let Months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-    let DaysOfMonth = ["Monday","Thuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-    var DaysInMonths = [31,28,31,30,31,30,31,31,30,31,30,31]
-    var currentMonth = String()
-    var NumberOfEmptyBox = Int()
-    var NextNumberOfEmptyBox = Int()
-    var PreviousNumberOfEmptyBox = 0
-    var Direction = 0
-    var PositionIndex = 0
-    var LeapYearCounter = 2
+    // Calendar
+    let monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+    let dayNames = ["Monday","Thuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    var daysInMonths = [31,28,31,30,31,30,31,31,30,31,30,31]
+    var currentMonth = ""
+    var numNextMonthDays = -1
+    var numCurMonthDays = -1
+    var numPrevMonthDays = -1
+    var curDirection = 0
+    var positionIndex = 0
+    var leapYearCounter = 2
     var dayCounter = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentMonth = Months[month]
-        MonthLabel.text = "\(currentMonth) \(year)"
-        if weekday == 0 { weekday = 7 }
-        GetStartDateDayPosition()
+        currentMonth = monthNames[curMonth]
+        monthL.text = "\(currentMonth) \(curYear)"
+        if curWeekday == 0 { curWeekday = 7 }
+        getMonthDaysForDay()
+    }
+    
+    func getSubGoalDataForSelectedMonth(date: Date) -> [[String: Any]] {
+        var data = [[String: Any]]()
+        return data
+    }
+    
+    func subGoalsDueOnDate(date: Date) {
+        if subGoalsOnDayListener != nil {
+            subGoalsOnDayListener?.remove()
+            subGoalsOnDayListener = nil
+        }
+        subGoalsOnDayListener = db.collection("users").document(Auth.auth().currentUser!.uid).addSnapshotListener({ (snapshot, error) in
+            guard snapshot != nil else { print("Error:", error!); return }
+            self.db.collectionGroup("sub_goals")
+            .whereField("due_date", onThisDay: date)
+            .addSnapshotListener({ (snapshot, error) in
+                guard snapshot != nil else { print("Error:", error!); return }
+                print("Number of Doc Changes: ", snapshot!.documentChanges.count)
+                print(snapshot!.documents.count)
+                snapshot?.documents.forEach({ (subGoalDocRef) in
+                    let subGoalData = subGoalDocRef.data()
+                    print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
+                })
+            })
+        })
     }
     
     // Calculates the number of "empty" boxes at the start of every month"
-    func GetStartDateDayPosition() {
-        switch Direction{
+    func getMonthDaysForDay() {
+        switch curDirection {
         case 0:
-            NumberOfEmptyBox = weekday
-            dayCounter = day
-            while dayCounter>0 {
-                NumberOfEmptyBox = NumberOfEmptyBox - 1
+            numCurMonthDays = curWeekday
+            dayCounter = curDay
+            while dayCounter > 0 {
+                numCurMonthDays = numCurMonthDays - 1
                 dayCounter = dayCounter - 1
-                if NumberOfEmptyBox == 0 {
-                    NumberOfEmptyBox = 7}
+                if numCurMonthDays == 0 { numCurMonthDays = 7 }
             }
-            if NumberOfEmptyBox == 7 { NumberOfEmptyBox = 0 }
-            PositionIndex = NumberOfEmptyBox
+            if numCurMonthDays == 7 { numCurMonthDays = 0 }
+            positionIndex = numCurMonthDays
             
         case 1...:
-            NextNumberOfEmptyBox = (PositionIndex + DaysInMonths[month])%7
-            PositionIndex = NextNumberOfEmptyBox
+            numNextMonthDays = (positionIndex + daysInMonths[curMonth]) % 7
+            positionIndex = numNextMonthDays
             
         case -1:
-            PreviousNumberOfEmptyBox = (7 - (DaysInMonths[month] - PositionIndex)%7)
-            if PreviousNumberOfEmptyBox == 7 { PreviousNumberOfEmptyBox = 0 }
-            PositionIndex = PreviousNumberOfEmptyBox
+            numPrevMonthDays = 7 - (daysInMonths[curMonth] - positionIndex) % 7
+            if numPrevMonthDays == 7 { numPrevMonthDays = 0 }
+            positionIndex = numPrevMonthDays
             
         default: fatalError()
         }
     }
     
-    // (Next and back buttons)
-    @IBAction func Next(_ sender: Any) {
+    // next button
+    @IBAction func next(_ sender: Any) {
+        curDirection = 1
+        
         switch currentMonth {
         case "December":
-            Direction = 1
-            month = 0
-            year += 1
-            
-            if LeapYearCounter  < 5 { LeapYearCounter += 1 }
-            
-            if LeapYearCounter == 4 { DaysInMonths[1] = 29 }
-            
-            if LeapYearCounter == 5{
-                LeapYearCounter = 1
-                DaysInMonths[1] = 28
+            curMonth = 0
+            curYear += 1
+            if leapYearCounter  < 5 { leapYearCounter += 1 }
+            if leapYearCounter == 4 { daysInMonths[1] = 29 }
+            if leapYearCounter == 5 {
+                leapYearCounter = 1
+                daysInMonths[1] = 28
             }
-            GetStartDateDayPosition()
-            currentMonth = Months[month]
-            MonthLabel.text = "\(currentMonth) \(year)"
-            Calendar.reloadData()
+            getMonthDaysForDay()
             
         default:
-            Direction = 1
-            GetStartDateDayPosition()
-            month += 1
-            currentMonth = Months[month]
-            MonthLabel.text = "\(currentMonth) \(year)"
-            Calendar.reloadData()
+            getMonthDaysForDay()
+            curMonth += 1
         }
+        currentMonth = monthNames[curMonth]
+        monthL.text = "\(currentMonth) \(curYear)"
+        calendarCV.reloadData()
     }
     
-    @IBAction func Back(_ sender: Any) {
+    // back button
+    @IBAction func back(_ sender: Any) {
+        curDirection = -1
+        
         switch currentMonth {
         case "January":
-            Direction = -1
-            month = 11
-            year -= 1
-            
-            if LeapYearCounter > 0{ LeapYearCounter -= 1 }
-            if LeapYearCounter == 0{
-                DaysInMonths[1] = 29
-                LeapYearCounter = 4
-            } else {
-                DaysInMonths[1] = 28
+            curMonth = 11
+            curYear -= 1
+            if leapYearCounter > 0 {
+                leapYearCounter -= 1
             }
-            GetStartDateDayPosition()
-            currentMonth = Months[month]
-            MonthLabel.text = "\(currentMonth) \(year)"
-            Calendar.reloadData()
+            if leapYearCounter == 0 {
+                daysInMonths[1] = 29
+                leapYearCounter = 4
+            } else {
+                daysInMonths[1] = 28
+            }
             
         default:
-            Direction = -1
-            month -= 1
-            GetStartDateDayPosition()
-            currentMonth = Months[month]
-            MonthLabel.text = "\(currentMonth) \(year)"
-            Calendar.reloadData()
+            curMonth -= 1
         }
+        
+        getMonthDaysForDay()
+        currentMonth = monthNames[curMonth]
+        monthL.text = "\(currentMonth) \(curYear)"
+        calendarCV.reloadData()
     }
     
     
     // CollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch Direction{
-        case 0: return DaysInMonths[month] + NumberOfEmptyBox
-        case 1...: return DaysInMonths[month] + NextNumberOfEmptyBox
-        case -1: return DaysInMonths[month] + PreviousNumberOfEmptyBox
+        switch curDirection {
+        case 0: return daysInMonths[curMonth] + numCurMonthDays
+        case 1...: return daysInMonths[curMonth] + numNextMonthDays
+        case -1: return daysInMonths[curMonth] + numPrevMonthDays
         default: fatalError()
         }
     }
@@ -132,34 +155,60 @@ class ScheduleViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Calendar", for: indexPath) as! DateCollectionViewCell
         cell.backgroundColor = UIColor.clear
-        cell.DateLabel.textColor = UIColor.white
-        cell.Circle.isHidden = true
+        cell.dayL.textColor = UIColor.white
+        cell.circleV.isHidden = true
         
         if cell.isHidden{ cell.isHidden = false }
         
         // the first cells that needs to be hidden (if needed) will be negative or zero so we can hide them
-        switch Direction {
-        case 0: cell.DateLabel.text = "\(indexPath.row + 1 - NumberOfEmptyBox)"
-        case 1: cell.DateLabel.text = "\(indexPath.row + 1 - NextNumberOfEmptyBox)"
-        case -1: cell.DateLabel.text = "\(indexPath.row + 1 - PreviousNumberOfEmptyBox)"
+        var thisDay = -1
+        switch curDirection {
+        case 0: thisDay = indexPath.row + 1 - numCurMonthDays
+        case 1: thisDay = indexPath.row + 1 - numNextMonthDays
+        case -1: thisDay = indexPath.row + 1 - numPrevMonthDays
         default: fatalError()
         }
+        cell.dayL.text = "\(thisDay)"
         
-        //here we hide the negative numbers or zero
-        if Int(cell.DateLabel.text!)! < 1{ cell.isHidden = true }
-        
-        //weekend days color
-        switch indexPath.row {
-        case 5,6,12,13,19,20,26,27,33,34:
-            if Int(cell.DateLabel.text!)! > 0 { cell.DateLabel.textColor = UIColor.darkGray }
-        default: break
+        // here we hide the negative numbers or zero
+        if Int(cell.dayL.text!)! < 1 {
+            cell.isHidden = true
+            // TODO: Use this day
+            if true {
+                cell.circleV.isHidden = false
+                cell.DrawCircle(progress: 1)
+            }
         }
         
-        if currentMonth == Months[calendar.component(.month, from: date) - 1] && year == calendar.component(.year, from: date) && indexPath.row + 1 - NumberOfEmptyBox == day{
-            cell.Circle.isHidden = false
-            cell.DrawCircle()
-        }
+        // weekend days color
+//        switch indexPath.row {
+//        case 5,6,12,13,19,20,26,27,33,34:
+//            if Int(cell.calDay.text!)! > 0 { cell.calDay.textColor = UIColor.darkGray }
+//        default: break
+//        }
+        
+//        if currentMonth == monthNames[Calendar.current.component(.month, from: curDate) - 1] && curYear == Calendar.current.component(.year, from: curDate) && indexPath.row + 1 - numCurMonthDays == curDay { // Do something on today's cell
+//        }
+        
         return cell
     }
+    
 }
 
+extension Query {
+    func whereField(_ field: String, onThisDay date: Date) -> Query {
+        let f1 = DateFormatter()
+        f1.dateFormat = "yyyy/MM/dd"
+        let f2 = DateFormatter()
+        f2.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        
+        let startDate = f2.date(from: f1.string(from: date) + " 00:00:00")!
+        let endDate = f2.date(from: f1.string(from: date.dayAfter) + " 00:00:00")!
+        let startTimestamp = Timestamp(date: startDate)
+        let endTimestamp = Timestamp(date: endDate)
+        
+        print(startTimestamp, " - start")
+        print(endTimestamp, " - end")
+        return whereField("due_date", isGreaterThanOrEqualTo: startTimestamp).whereField("due_date", isLessThan: endTimestamp)
+    }
+}

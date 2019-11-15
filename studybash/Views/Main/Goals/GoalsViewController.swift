@@ -41,6 +41,11 @@ class GoalsViewController: UIViewController {
         self.goalsCV.delegate = self
         self.userGoalsColRef = db.collection("users").document(Auth.auth().currentUser!.uid).collection("goals")
         
+        let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
+        longPressGR.minimumPressDuration = 0.5
+        longPressGR.delaysTouchesBegan = true
+        self.goalsCV.addGestureRecognizer(longPressGR)
+        
         getUserData()
         getGoalTypesListener()
     }
@@ -61,6 +66,23 @@ class GoalsViewController: UIViewController {
             vc.goalTypes = goalTypes
             vc.goalData = selectedGoalData
             vc.useCase = "edit_goal"
+        }
+    }
+    
+    @objc
+    func handleLongPress(longPressGR: UILongPressGestureRecognizer) {
+        if longPressGR.state != .began {
+            return
+        }
+
+        let point = longPressGR.location(in: self.goalsCV)
+        let indexPath = self.goalsCV.indexPathForItem(at: point)
+
+        if let indexPath = indexPath {
+            // var cell = self.subGoalsTV.cellForRow(at: indexPath) // get cell at indexPath
+            selectedGoalDocRef = userGoalsData[indexPath.row]["ref"] as? DocumentReference
+            selectedGoalData = userGoalsData[indexPath.row]
+            self.performSegue(withIdentifier: "goals_to_edit_goal", sender: self)
         }
     }
     
@@ -123,22 +145,6 @@ class GoalsViewController: UIViewController {
         self.performSegue(withIdentifier: "goals_to_add_goal", sender: self)
     }
     
-    func subGoalsDueOnDate(date: Date) {
-        db.collection("users").document(Auth.auth().currentUser!.uid).addSnapshotListener({ (snapshot, error) in
-            guard snapshot != nil else { print("Error:", error!); return }
-            self.db.collectionGroup("sub_goals")
-            .whereField("due_date", onThisDay: date)
-            .addSnapshotListener({ (snapshot, error) in
-                guard snapshot != nil else { print("Error:", error!); return }
-                print("Number of Doc Changes: ", snapshot!.documentChanges.count)
-                print(snapshot!.documents.count)
-                snapshot?.documents.forEach({ (subGoalDocRef) in
-                    let subGoalData = subGoalDocRef.data()
-                    print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
-                })
-            })
-        })
-    }
 }
 
 extension GoalsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -193,22 +199,3 @@ extension Date {
         return nil
     }
 }
-
-extension Query {
-    func whereField(_ field: String, onThisDay date: Date) -> Query {
-        let f1 = DateFormatter()
-        f1.dateFormat = "yyyy/MM/dd"
-        let f2 = DateFormatter()
-        f2.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        
-        let startDate = f2.date(from: f1.string(from: date) + " 00:00:00")!
-        let endDate = f2.date(from: f1.string(from: date.dayAfter) + " 00:00:00")!
-        let startTimestamp = Timestamp(date: startDate)
-        let endTimestamp = Timestamp(date: endDate)
-        
-        print(startTimestamp, " - start")
-        print(endTimestamp, " - end")
-        return whereField("due_date", isGreaterThanOrEqualTo: startTimestamp).whereField("due_date", isLessThan: endTimestamp)
-    }
-}
-
