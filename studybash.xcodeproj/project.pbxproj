@@ -32,8 +32,6 @@
 		451A3FA22373B89F0096CA03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */; };
 		45395DB223502DEA005F7C67 /* time.json in Resources */ = {isa = PBXBuildFile; fileRef = 45395DB123502DEA005F7C67 /* time.json */; };
 		456467522377C33100CC8B3B /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456467512377C33100CC8B3B /* ScheduleViewController.swift */; };
-		456467552377C39F00CC8B3B /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456467532377C39F00CC8B3B /* DateCollectionViewCell.swift */; };
-		456467562377C39F00CC8B3B /* CalendarVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456467542377C39F00CC8B3B /* CalendarVars.swift */; };
 		457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */; };
 		457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */; };
 		457F17C52379EBC100543E79 /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457F17C42379EBC100543E79 /* BarChart.swift */; };
@@ -77,8 +75,6 @@
 		4519CAB8237B573E00E5F358 /* clock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = clock.json; sourceTree = "<group>"; };
 		45395DB123502DEA005F7C67 /* time.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = time.json; sourceTree = "<group>"; };
 		456467512377C33100CC8B3B /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
-		456467532377C39F00CC8B3B /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
-		456467542377C39F00CC8B3B /* CalendarVars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarVars.swift; sourceTree = "<group>"; };
 		457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopoutViewController.swift; sourceTree = "<group>"; };
 		457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopoutViewController.swift; sourceTree = "<group>"; };
 		457F17C42379EBC100543E79 /* BarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
@@ -226,8 +222,6 @@
 		456467502377C12900CC8B3B /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
-				456467542377C39F00CC8B3B /* CalendarVars.swift */,
-				456467532377C39F00CC8B3B /* DateCollectionViewCell.swift */,
 				456467512377C33100CC8B3B /* ScheduleViewController.swift */,
 			);
 			path = Schedule;
@@ -446,7 +440,6 @@
 				087BAA1E235100C6008FCD12 /* LoginViewController.swift in Sources */,
 				087BAA20235100E9008FCD12 /* SignupViewController.swift in Sources */,
 				458D03592372A6FC008AC42B /* ProfileViewController.swift in Sources */,
-				456467562377C39F00CC8B3B /* CalendarVars.swift in Sources */,
 				08A9A108234AB40A00B3C45A /* SplashScreenViewController.swift in Sources */,
 				08557BCA2352A171009944A2 /* GoalsCollectionViewCell.swift in Sources */,
 				087BAA272351015E008FCD12 /* ChangePasswordViewController.swift in Sources */,
@@ -461,7 +454,6 @@
 				087BAA222351010F008FCD12 /* ResetPasswordViewController.swift in Sources */,
 				457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */,
 				087A45EF2375400500A964B1 /* GoalsViewController.swift in Sources */,
-				456467552377C39F00CC8B3B /* DateCollectionViewCell.swift in Sources */,
 				45D8637A2378D78900FBDC7F /* LineChart.swift in Sources */,
 				45D8637B2378D78900FBDC7F /* DotCALayer.swift in Sources */,
 				08A9A104234AB40A00B3C45A /* AppDelegate.swift in Sources */,

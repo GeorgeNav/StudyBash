@@ -39,7 +39,10 @@ class GoalsViewController: UIViewController {
         self.view.addSubview(goalsCV)
         self.goalsCV.dataSource = self
         self.goalsCV.delegate = self
-        self.userGoalsColRef = db.collection("users").document(Auth.auth().currentUser!.uid).collection("goals")
+        self.userDocRef = db.collection("users").document(Auth.auth().currentUser!.uid)
+        self.userGoalsColRef = userDocRef?.collection("goals")
+        let scheduleTab = self.tabBarController?.viewControllers![1] as! ScheduleViewController
+        scheduleTab.userDocRef = userDocRef
         
         let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
         longPressGR.minimumPressDuration = 0.5
@@ -54,15 +57,18 @@ class GoalsViewController: UIViewController {
         if(segue.identifier == "goals_to_goal") {
             let vc = segue.destination as! GoalViewController
             goalDelegate = vc
+            vc.userDocRef = userDocRef
             vc.goalTypes = goalTypes
             getSelectedGoalDataListener()
         } else if(segue.identifier == "goals_to_add_goal") {
             let vc = segue.destination as! AddEditGoalViewController
+            vc.userDocRef = userDocRef
             vc.goalsColRef = userGoalsColRef!
             vc.goalTypes = goalTypes
             vc.useCase = "add_goal"
         } else if(segue.identifier == "goals_to_edit_goal") {
             let vc = segue.destination as! AddEditGoalViewController
+            vc.userDocRef = userDocRef
             vc.goalTypes = goalTypes
             vc.goalData = selectedGoalData
             vc.useCase = "edit_goal"

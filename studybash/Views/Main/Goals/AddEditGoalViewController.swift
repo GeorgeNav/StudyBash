@@ -8,6 +8,7 @@
 
 import UIKit
 import FSCalendar
+import FirebaseAuth
 import FirebaseFirestore
 import NotificationCenter
 import UserNotifications
@@ -18,7 +19,7 @@ class AddEditGoalViewController: UIViewController {
     let db: Firestore = Firestore.firestore()
     
     // UI Elements
-    fileprivate weak var calendar: FSCalendar!
+    @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var time: UIDatePicker!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var timeButton: UIButton!
@@ -30,6 +31,7 @@ class AddEditGoalViewController: UIViewController {
     @IBOutlet weak var deleteGoalButton: UIButton!
     
     // Logic Elements
+    var userDocRef: DocumentReference?
     var goalTypes = [[String: Any]]()
     var typeNames = [String]()
     var filteredTypes = [[String: Any]]()
@@ -46,19 +48,7 @@ class AddEditGoalViewController: UIViewController {
         typesCV.delegate = self
         typesCV.dataSource = self
         searchBar.delegate = self
-        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
-        calendar.dataSource = self
-        calendar.delegate = self
-        calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "cal_cell")
-        view.addSubview(calendar)
-        calendar.translatesAutoresizingMaskIntoConstraints = false
-        calendar.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        calendar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        calendar.heightAnchor.constraint(equalToConstant: 275).isActive = true
-        calendar.widthAnchor.constraint(equalToConstant: view.frame.width - 32).isActive = true
-        calendar.backgroundColor = .white
-        calendar.isHidden = true
-        self.calendar = calendar
+        calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "add_edit_cal_cell")
         
 //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
 //        tap.cancelsTouchesInView = false
@@ -107,7 +97,8 @@ class AddEditGoalViewController: UIViewController {
                 "statistics": [
                     "time_spent": 0
                 ],
-                "types": []
+                "types": [],
+                "uid_ref": userDocRef!
             ]
             
             if useCase == "add_sub_goal" {
@@ -254,7 +245,7 @@ extension AddEditGoalViewController: FSCalendarDataSource, FSCalendarDelegate {
     }
 
     public func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        let cell = calendar.dequeueReusableCell(withIdentifier: "cal_cell", for: date, at: position)
+        let cell = calendar.dequeueReusableCell(withIdentifier: "add_edit_cal_cell", for: date, at: position)
         cell.imageView.contentMode = .scaleAspectFit
         return cell
     }

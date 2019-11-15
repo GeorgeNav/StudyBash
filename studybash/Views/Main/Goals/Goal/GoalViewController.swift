@@ -27,6 +27,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
     @IBOutlet weak var animationView: UIView!
     var animation : AnimationView?
     
+    var userDocRef: DocumentReference?
     var goalData = [String: Any]()
     var goalTypes = [[String: Any]]()
     var subGoalTypes = [[String: Any]]()
@@ -75,11 +76,13 @@ class GoalViewController: UIViewController, UpdateGoalData {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goal_to_add_sub_goal" {
             let vc = segue.destination as! AddEditGoalViewController
+            vc.userDocRef = userDocRef
             vc.goalsColRef = self.goalDocRef!.collection("sub_goals")
             vc.goalTypes = subGoalTypes
             vc.useCase = "add_sub_goal"
         } else if segue.identifier == "goal_to_edit_sub_goal" {
             let vc = segue.destination as! AddEditGoalViewController
+            vc.userDocRef = userDocRef
             vc.goalsColRef = self.goalDocRef!.collection("sub_goals")
             vc.goalData = selectedSubGoal
             vc.goalTypes = subGoalTypes
