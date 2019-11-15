@@ -64,8 +64,10 @@ extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
                 guard snapshot != nil || snapshot!.count == 0 else { return }
                 var allSubGoalsDueThisDay = [[String: Any]]()
                 snapshot!.documents.forEach({ (subGoalDocRef) in
+                    var subGoalData = subGoalDocRef.data()
+                    subGoalData["ref"] = subGoalDocRef
                     //print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
-                    allSubGoalsDueThisDay.append(subGoalDocRef.data())
+                    allSubGoalsDueThisDay.append(subGoalData)
                 })
                 self.calendarData[dateFormat.string(from: date)] = allSubGoalsDueThisDay
                 calendar.reloadData()
