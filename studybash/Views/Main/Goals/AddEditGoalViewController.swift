@@ -49,6 +49,7 @@ class AddEditGoalViewController: UIViewController {
         typesCV.dataSource = self
         searchBar.delegate = self
         calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "add_edit_cal_cell")
+        calendar.isHidden = true
         
 //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
 //        tap.cancelsTouchesInView = false

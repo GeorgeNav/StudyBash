@@ -10,17 +10,24 @@ import FSCalendar
 class ScheduleViewController: UIViewController {
     let db: Firestore = Firestore.firestore()
     @IBOutlet weak var calendar: FSCalendar!
+    @IBOutlet weak var subGoalsTV: UITableView!
+    
     var calendarData = [String: Any]()
     var calendarDayListeners = [String: ListenerRegistration]()
-    
     var currentMonthPos = -1
     
+    var dispatchGroup: DispatchGroup?
+    var studyBash: [String: Any]?
+    
+    var curDaySubGoalsData = [[String: Any]]()
     var currentDaySubGoalsListener: ListenerRegistration?
     var userDocRef: DocumentReference?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "schedule_cal_cell")
+        subGoalsTV.delegate = self
+        subGoalsTV.dataSource = self
     }
     
     func subGoalsDueOnDate(date: Date) {
@@ -45,7 +52,13 @@ extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "MM/dd/yyyy"
         if calendarData[dateFormat.string(from: date)] != nil { // Do something with the data
-            dump(calendarData[dateFormat.string(from: date)]!)
+            curDaySubGoalsData = calendarData[dateFormat.string(from: date)]! as! [[String: Any]]
+            print(curDaySubGoalsData)
+            print(curDaySubGoalsData.count)
+            subGoalsTV.reloadData()
+        } else {
+            curDaySubGoalsData = [[String: Any]]()
+            subGoalsTV.reloadData()
         }
     }
     
@@ -93,4 +106,49 @@ extension Query {
         
         return whereField("due_date", isGreaterThanOrEqualTo: startTimestamp).whereField("due_date", isLessThan: endTimestamp)
     }
+}
+
+extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return curDaySubGoalsData.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = subGoalsTV.dequeueReusableCell(withIdentifier: subGoalCellIdentifier, for: indexPath) as! SubGoalsTableViewCell
+        cell.subGoalName.text = curDaySubGoalsData[indexPath.row]["name"]! as? String
+        cell.subGoalDocRef = curDaySubGoalsData[indexPath.row]["ref"] as? DocumentReference
+        
+        let notes = curDaySubGoalsData[indexPath.row]["notes"]! as? String
+        cell.notesL.text = notes
+        
+        // TODO: Show category
+        
+        let stats = curDaySubGoalsData[indexPath.row]["statistics"]! as! [String: Any]
+        let timeSpent = stats["time_spent"]! as! Double
+        cell.hoursSpentL.text = "\(round(1000 * timeSpent/(60*60)) / 100)" + " Hours Spent"
+        
+        let dueDate = (curDaySubGoalsData[indexPath.row]["due_date"]! as! Timestamp).dateValue()
+        let days = dueDate.days(sinceDate: Date())!
+        if days == 0 { cell.daysLeftL.text = "Due Today" }
+        else if days > 0 { cell.daysLeftL.text = "\(days) days left"
+        } else if days < 0 {
+            cell.daysLeftL.text = "\(abs(days)) Days Late"
+            cell.daysLeftL.textColor = .red
+        }
+        
+        let thisSubGoalTypesRefs = curDaySubGoalsData[indexPath.row]["types"]! as! [DocumentReference]
+        if thisSubGoalTypesRefs.count != 0 {
+            cell.subType.text = thisSubGoalTypesRefs[0].documentID
+        } else {
+            cell.subType.text = ""
+        }
+
+        return cell
+    }
+    
 }
