@@ -26,8 +26,6 @@ class ScheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "schedule_cal_cell")
-        subGoalsTV.delegate = self
-        subGoalsTV.dataSource = self
     }
     
     func subGoalsDueOnDate(date: Date) {
@@ -83,7 +81,7 @@ extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
                     allSubGoalsDueThisDay.append(subGoalData)
                 })
                 self.calendarData[dateFormat.string(from: date)] = allSubGoalsDueThisDay
-                calendar.reloadData()
+                self.calendar.reloadData()
             })
         }
         

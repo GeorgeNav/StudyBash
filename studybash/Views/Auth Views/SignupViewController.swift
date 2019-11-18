@@ -142,14 +142,16 @@ class SignupViewController: UIViewController {
                     "last_name": self.lastNameTF.text!,
                 ], completion: { _ in             self.db.collection("users").document(self.auth.currentUser!.uid).collection("goals").addDocument(data: [
                         "date_created": Timestamp(date: Date()),
+                        "due_date": Timestamp(date: Date()),
                         "finished": false,
                         "name": "Your First Goal!",
+                        "notes": "",
                         "statistics": [
                             "time_spent": 42
                         ],
                         "types": [
                             self.db.collection("goal_types").document("C4mCR1TM08fzLnsjBSFZ")
-                        ]
+                        ],
                 ], completion: { _ in self.dismiss(animated: true, completion: nil) })
                 })
             })

@@ -145,7 +145,7 @@ class AddEditGoalViewController: UIViewController {
 //            isKeyboardAppear = true
 //        }
 //    }
-
+//
 //    @objc func keyboardWillHide(notification: NSNotification) {
 //        if isKeyboardAppear {
 //            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {

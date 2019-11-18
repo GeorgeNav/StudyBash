@@ -23,6 +23,8 @@ protocol UpdateGoalData {
 class GoalViewController: UIViewController, UpdateGoalData {
     @IBOutlet weak var subGoalsTV: UITableView!
     @IBOutlet weak var goalNameL: UILabel!
+    @IBOutlet weak var stopWatch: UILabel!
+    @IBOutlet weak var studyBashSubGoalName: UILabel!
     
     @IBOutlet weak var animationView: UIView!
     var animation : AnimationView?
@@ -36,8 +38,10 @@ class GoalViewController: UIViewController, UpdateGoalData {
     
     var dispatchGroup: DispatchGroup?
     var studyBash: [String: Any]?
-    
     var timer = Timer()
+    var (hours, minutes, seconds, fractions) = (0,0,0,0)
+    var totalSeconds = 0
+    
     var selectedSubGoal = [String: Any]()
     
     override func viewDidLoad() {
@@ -165,13 +169,13 @@ class GoalViewController: UIViewController, UpdateGoalData {
         
         studyBash!["elapsed_time"] = stop.seconds - start.seconds
         print("Stop \(subGoalDocRef.documentID)! \(studyBash!["elapsed_time"]!) seconds")
-        
+        timer.invalidate()
         self.dispatchGroup?.enter()
         (studyBash!["ref"]! as! DocumentReference).getDocument { (snapshot, error) in
             guard snapshot != nil else { return }
             let thisSubGoalData = snapshot!.data()!
             var stats = thisSubGoalData["statistics"]! as! [String: Any]
-            stats["time_spent"] = stats["time_spent"]! as! Int64 + (stop.seconds - start.seconds)
+            stats["time_spent"] = self.totalSeconds
             self.studyBash!.removeValue(forKey: "ref")
             subGoalDocRef.updateData([
                 "study_bashes": FieldValue.arrayUnion([self.studyBash!]),
@@ -183,24 +187,50 @@ class GoalViewController: UIViewController, UpdateGoalData {
         }
     }
     
-    func studyBashStart(subGoalDocRef: DocumentReference) {
+    func studyBashStart(subGoalDocRef: DocumentReference, subGoalData: [String: Any]) {
         guard studyBash == nil else { // Stop current studybash
             let studyBashDocRef = studyBash!["ref"]! as! DocumentReference
             guard studyBashDocRef != subGoalDocRef else { return }
             dispatchGroup = DispatchGroup()
             studyBashStop(subGoalDocRef: studyBashDocRef)
             dispatchGroup?.notify(queue: .main, execute: {
-                self.studyBashStart(subGoalDocRef: subGoalDocRef)
+                self.studyBashStart(subGoalDocRef: subGoalDocRef, subGoalData: subGoalData)
                 self.dispatchGroup = nil
             })
             return
         }
         
         print("Start \(subGoalDocRef.documentID)!")
+        (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+        totalSeconds = 0
+        stopWatch.text = "00:00:00"
+        studyBashSubGoalName.text = subGoalData["name"]! as? String
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setNewTime), userInfo: nil, repeats: true)
         studyBash = [
             "ref": subGoalDocRef,
-            "start": Timestamp(date: Date())
+            "start": Timestamp(date: Date()),
+            "data": subGoalData
         ]
+    }
+    
+    @objc func setNewTime() {
+        totalSeconds += 1
+        
+        // Update UI
+        seconds += 1
+        if seconds == 60 {
+            minutes += 1
+            seconds = 0
+        }
+        if minutes == 60 {
+            hours += 1
+            minutes = 0
+        }
+        
+        stopWatch.text =
+            String(format: "%02d", hours) + " : " +
+            String(format: "%02d", minutes) + " : " +
+            String(format: "%02d", seconds)
     }
 }
 
@@ -264,7 +294,10 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let startAction = UIContextualAction(style: .normal, title:  "Start", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let subGoalData = self.subGoalsData[indexPath.row]
-            self.studyBashStart(subGoalDocRef: subGoalData["ref"]! as! DocumentReference)
+            self.studyBashStart(
+                subGoalDocRef: subGoalData["ref"]! as! DocumentReference,
+                subGoalData: subGoalData
+            )
             success(true)
         })
         startAction.backgroundColor = .green
