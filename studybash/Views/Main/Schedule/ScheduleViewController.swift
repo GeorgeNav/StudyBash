@@ -227,13 +227,6 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
             cell.daysLeftL.textColor = .red
         }
         
-        let thisSubGoalTypesRefs = curDaySubGoalsData[indexPath.row]["types"]! as! [DocumentReference]
-        if thisSubGoalTypesRefs.count != 0 {
-            cell.subType.text = thisSubGoalTypesRefs[0].documentID
-        } else {
-            cell.subType.text = ""
-        }
-        
         return cell
     }
     
