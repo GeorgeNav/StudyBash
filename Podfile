@@ -1,15 +1,25 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+# platform :ios, '10.0'
 
 target 'studybash' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for studybash
+  # George's Pods
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
+  pod 'FSCalendar'
+  pod 'Charts'
+  pod 'SwiftyUserDefaults'
+
+
+
+  # Mustafa's Pods
   pod 'lottie-ios'
   pod 'Protobuf', :inhibit_warnings => true
+  pod 'paper-onboarding'
+  pod 'JTAppleCalendar'
+  pod "Macaw", "0.9.5"
+
 
 end
