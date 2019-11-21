@@ -11,6 +11,11 @@ class ScheduleViewController: UIViewController {
     let db: Firestore = Firestore.firestore()
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var subGoalsTV: UITableView!
+    @IBOutlet weak var stopWatch: UILabel!
+    
+    var timer = Timer()
+    var (hours, minutes, seconds, fractions) = (0,0,0,0)
+    var totalSeconds = 0
     
     var calendarData = [String: Any]()
     var calendarDayListeners = [String: ListenerRegistration]()
@@ -41,6 +46,80 @@ class ScheduleViewController: UIViewController {
                 allSubGoalsDueThisDay.append(subGoalData["name"]! as! String)
             })
         })
+    }
+    
+    func studyBashStop(subGoalDocRef: DocumentReference) {
+        guard studyBash != nil else { return }
+        studyBash!["stop"] = Timestamp(date: Date())
+        
+        // TODO: Perform math to calculate amount of seconds between start and stop times
+        let start = studyBash!["start"]! as! Timestamp
+        let stop = studyBash!["stop"]! as! Timestamp
+        
+        studyBash!["elapsed_time"] = stop.seconds - start.seconds
+        print("Stop \(subGoalDocRef.documentID)! \(studyBash!["elapsed_time"]!) seconds")
+        timer.invalidate()
+        self.dispatchGroup?.enter()
+        (studyBash!["ref"]! as! DocumentReference).getDocument { (snapshot, error) in
+            guard snapshot != nil else { return }
+            let thisSubGoalData = snapshot!.data()!
+            var stats = thisSubGoalData["statistics"]! as! [String: Any]
+            stats["time_spent"] = self.totalSeconds
+            self.studyBash!.removeValue(forKey: "ref")
+            subGoalDocRef.updateData([
+                "study_bashes": FieldValue.arrayUnion([self.studyBash!]),
+                "statistics": stats
+            ])
+            self.studyBash = nil
+            self.subGoalsTV.reloadData()
+            self.dispatchGroup?.leave()
+        }
+    }
+    
+    func studyBashStart(subGoalDocRef: DocumentReference, subGoalData: [String: Any]) {
+        guard studyBash == nil else { // Stop current studybash
+            let studyBashDocRef = studyBash!["ref"]! as! DocumentReference
+            guard studyBashDocRef != subGoalDocRef else { return }
+            dispatchGroup = DispatchGroup()
+            studyBashStop(subGoalDocRef: studyBashDocRef)
+            dispatchGroup?.notify(queue: .main, execute: {
+                self.studyBashStart(subGoalDocRef: subGoalDocRef, subGoalData: subGoalData)
+                self.dispatchGroup = nil
+            })
+            return
+        }
+        
+        print("Start \(subGoalDocRef.documentID)!")
+        (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+        totalSeconds = 0
+//        stopWatch.text = "00:00:00"
+//        studyBashSubGoalName.text = subGoalData["name"]! as? String
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setNewTime), userInfo: nil, repeats: true)
+        studyBash = [
+            "ref": subGoalDocRef,
+            "start": Timestamp(date: Date()),
+            "data": subGoalData
+        ]
+    }
+    
+    @objc func setNewTime() {
+        totalSeconds += 1
+        
+        // Update UI
+        seconds += 1
+        if seconds == 60 {
+            minutes += 1
+            seconds = 0
+        }
+        if minutes == 60 {
+            hours += 1
+            minutes = 0
+        }
+        
+        stopWatch.text =
+            String(format: "%02d", hours) + " : " +
+            String(format: "%02d", minutes) + " : " +
+            String(format: "%02d", seconds)
     }
     
 }
@@ -76,12 +155,13 @@ extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
                 var allSubGoalsDueThisDay = [[String: Any]]()
                 snapshot!.documents.forEach({ (subGoalDocRef) in
                     var subGoalData = subGoalDocRef.data()
-                    subGoalData["ref"] = subGoalDocRef
+                    subGoalData["ref"] = subGoalDocRef.reference
                     //print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
                     allSubGoalsDueThisDay.append(subGoalData)
                 })
                 self.calendarData[dateFormat.string(from: date)] = allSubGoalsDueThisDay
                 self.calendar.reloadData()
+                self.subGoalsTV.reloadData()
             })
         }
         
@@ -125,6 +205,14 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
         cell.notesL.text = notes
         
         // TODO: Show category
+        let typeRefs = curDaySubGoalsData[indexPath.row]["types"]! as!  [DocumentReference]
+        if typeRefs.count != 0 {
+            typeRefs[0].getDocument { (snapshot, error) in
+                guard snapshot != nil else { return }
+                let typeData = snapshot!.data()!
+                cell.subType.text = typeData["name"]! as? String
+            }
+        }
         
         let stats = curDaySubGoalsData[indexPath.row]["statistics"]! as! [String: Any]
         let timeSpent = stats["time_spent"]! as! Double
@@ -145,8 +233,31 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.subType.text = ""
         }
-
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let stopAction = UIContextualAction(style: .normal, title:  "Stop", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            let subGoalData = self.curDaySubGoalsData[indexPath.row]
+            self.studyBashStop(subGoalDocRef: subGoalData["ref"]! as! DocumentReference)
+            success(true)
+        })
+        stopAction.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [stopAction])
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let startAction = UIContextualAction(style: .normal, title:  "Start", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            let subGoalData = self.curDaySubGoalsData[indexPath.row]
+            self.studyBashStart(
+                subGoalDocRef: subGoalData["ref"]! as! DocumentReference,
+                subGoalData: subGoalData
+            )
+            success(true)
+        })
+        startAction.backgroundColor = .green
+        return UISwipeActionsConfiguration(actions: [startAction])
     }
     
 }
