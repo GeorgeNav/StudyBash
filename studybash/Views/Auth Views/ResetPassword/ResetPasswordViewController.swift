@@ -3,6 +3,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import SwiftMessages
 
 class ResetPasswordViewController: UIViewController {
     
@@ -16,33 +17,74 @@ class ResetPasswordViewController: UIViewController {
     func createTextFieldAlert(type: String){
         
         if (type == "email"){
-            let alert = UIAlertController(title: "Missing email", message: "Please make sure you enter your email in the two boxes.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+            messageView.configureBackgroundView(width: 300)
+            messageView.configureContent(title: "Missing Email!", body: "Please enter your Email", iconImage: nil, iconText: "❌", buttonImage: nil, buttonTitle: "Okay") { _ in SwiftMessages.hide()}
+            messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+            messageView.backgroundView.layer.cornerRadius = 10
+            var config = SwiftMessages.defaultConfig
+            config.presentationStyle = .center
+            config.duration = .forever
+            config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+            config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+            SwiftMessages.show(config: config, view: messageView)
+            
         }
             
         else if (type == "emailFormat"){
-            let alert = UIAlertController(title: "Invalid Email", message: "Email address is not valid. Please try again", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+            messageView.configureBackgroundView(width: 300)
+            messageView.configureContent(title: "Invalid Email!", body: "Email address is not valid. Please try again", iconImage: nil, iconText: "❌", buttonImage: nil, buttonTitle: "Okay") { _ in SwiftMessages.hide()}
+            messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+            messageView.backgroundView.layer.cornerRadius = 10
+            var config = SwiftMessages.defaultConfig
+            config.presentationStyle = .center
+            config.duration = .forever
+            config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+            config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+            SwiftMessages.show(config: config, view: messageView)
         }
         
         else if (type == "noAccount"){
-            let alert = UIAlertController(title: "Invalid Email", message: "There are no accounts with the provided email. Please check again or go to signup", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+            messageView.configureBackgroundView(width: 300)
+            messageView.configureContent(title: "Invalid Email!", body: "No account associated with the provided email", iconImage: nil, iconText: "❌", buttonImage: nil, buttonTitle: "Okay") { _ in SwiftMessages.hide()}
+            messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+            messageView.backgroundView.layer.cornerRadius = 10
+            var config = SwiftMessages.defaultConfig
+            config.presentationStyle = .center
+            config.duration = .forever
+            config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+            config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+            SwiftMessages.show(config: config, view: messageView)
         }
             
         else if (type == "emailExists"){
-            let alert = UIAlertController(title: "Invalid Email", message: "Email address is already in use. Try resetting your password if you forgot it.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+            messageView.configureBackgroundView(width: 300)
+            messageView.configureContent(title: "Invalid Email!", body: "Email address is already in use. Try resetting your password if you forgot it", iconImage: nil, iconText: "❌", buttonImage: nil, buttonTitle: "Okay") { _ in SwiftMessages.hide()}
+            messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+            messageView.backgroundView.layer.cornerRadius = 10
+            var config = SwiftMessages.defaultConfig
+            config.presentationStyle = .center
+            config.duration = .forever
+            config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+            config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+            SwiftMessages.show(config: config, view: messageView)
         }
 
         else if (type == "mismatch"){
-            let alert = UIAlertController(title: "Email Mismatch", message: "Your emails did not match. Check for typos", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+            messageView.configureBackgroundView(width: 300)
+            messageView.configureContent(title: "Email Mismatch!", body: "Emails did not match", iconImage: nil, iconText: "❌", buttonImage: nil, buttonTitle: "Okay") { _ in SwiftMessages.hide()}
+            messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+            messageView.backgroundView.layer.cornerRadius = 10
+            var config = SwiftMessages.defaultConfig
+            config.presentationStyle = .center
+            config.duration = .forever
+            config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+            config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+            SwiftMessages.show(config: config, view: messageView)
         }
     }
     

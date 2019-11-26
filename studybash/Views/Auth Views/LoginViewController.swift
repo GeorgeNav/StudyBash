@@ -13,6 +13,7 @@ import NotificationCenter
 import UserNotifications
 import SwiftyUserDefaults
 import Lottie
+import SwiftMessages
 
 class LoginViewController: UIViewController {
     var auth: Auth = Auth.auth()
@@ -72,19 +73,30 @@ class LoginViewController: UIViewController {
     
     func emptyFieldAlert(type: String) {
         if (type == "email"){
-            let alert = UIAlertController(title: "Missing email", message: "Please enter your email", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+            messageView.configureBackgroundView(width: 300)
+            messageView.configureContent(title: "Missing Email!", body: "Please enter your Email", iconImage: nil, iconText: "❌", buttonImage: nil, buttonTitle: "Okay") { _ in SwiftMessages.hide()}
+            messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+            messageView.backgroundView.layer.cornerRadius = 10
+            var config = SwiftMessages.defaultConfig
+            config.presentationStyle = .center
+            config.duration = .forever
+            config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+            config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+            SwiftMessages.show(config: config, view: messageView)
         }
         else if (type == "password"){
-            let alert = UIAlertController(title: "Missing password", message: "Please enter your password", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-        else if (type == "mismatch"){
-            let alert = UIAlertController(title: "Login Error!", message: "Your email or password is incorrect ", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+            messageView.configureBackgroundView(width: 300)
+            messageView.configureContent(title: "Missing Password!", body: "Please enter your password", iconImage: nil, iconText: "❌", buttonImage: nil, buttonTitle: "Okay") { _ in SwiftMessages.hide()}
+            messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+            messageView.backgroundView.layer.cornerRadius = 10
+            var config = SwiftMessages.defaultConfig
+            config.presentationStyle = .center
+            config.duration = .forever
+            config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+            config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+            SwiftMessages.show(config: config, view: messageView)
         }
     }
     
@@ -112,7 +124,17 @@ class LoginViewController: UIViewController {
             Defaults[.isLogin] = true
             
             guard authResult != nil else {
-                print("Error: \(error!)")
+                let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+                messageView.configureBackgroundView(width: 300)
+                messageView.configureContent(title: "Login Error!", body: "Your email or password is incorrect", iconImage: nil, iconText: "❌", buttonImage: nil, buttonTitle: "Okay") { _ in SwiftMessages.hide()}
+                messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+                messageView.backgroundView.layer.cornerRadius = 10
+                var config = SwiftMessages.defaultConfig
+                config.presentationStyle = .center
+                config.duration = .forever
+                config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+                config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+                SwiftMessages.show(config: config, view: messageView)
                 return
             }
             self.setupAnimation()

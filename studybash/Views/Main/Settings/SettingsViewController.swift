@@ -1,11 +1,17 @@
 import UIKit
 import Firebase
 import SwiftyUserDefaults
+import Lottie
+import NotificationCenter
+import UserNotifications
+
 
 class SettingsViewController: UIViewController {
     
-    // Label
-    @IBOutlet weak var settingsLabel: UILabel!
+    @IBOutlet weak var animationView: UIView!
+    var animation : AnimationView?
+    
+
     
     
     override func viewDidLoad() {
@@ -22,15 +28,28 @@ class SettingsViewController: UIViewController {
     
     @IBAction func logOutButton(_ sender: Any) {
         do {
+            self.setupAnimation()
             try Auth.auth().signOut()
             Defaults[.isLogin] = false
             Defaults[.email] = nil
             Defaults[.password] = nil
-            performSegue(withIdentifier: "settings_to_sign_in", sender: self)
+            DispatchQueue.main.asyncAfter(deadline:.now() + 1.0, execute: {
+                self.performSegue(withIdentifier: "settings_to_sign_in", sender: self)
+            })
         } catch let err {
             print(err)
         }
     }
     
+    func setupAnimation() {
+        animation = AnimationView(name: "loading")
+        animation?.frame = animationView.bounds
+        animationView.addSubview(animation!)
+        animation?.loopMode = .loop
+        animation?.contentMode = .scaleAspectFit
+        animation?.play()
+    }
+    
+
     
 }

@@ -271,6 +271,7 @@ PODS:
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.21.0)
   - GTMSessionFetcher/Core (1.3.0)
+  - GTProgressBar (0.3.3)
   - JTAppleCalendar (8.0.2)
   - leveldb-library (1.22)
   - lottie-ios (3.1.5)
@@ -282,7 +283,10 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - paper-onboarding (6.1.4)
-  - Protobuf (3.10.0)
+  - Protobuf (3.11.0)
+  - SwiftMessages (7.0.1):
+    - SwiftMessages/App (= 7.0.1)
+  - SwiftMessages/App (7.0.1)
   - SwiftyUserDefaults (4.0.0)
   - SWXMLHash (5.0.1)
 
@@ -292,11 +296,13 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
   - FSCalendar
+  - GTProgressBar
   - JTAppleCalendar
   - lottie-ios
   - Macaw (= 0.9.5)
   - paper-onboarding
   - Protobuf
+  - SwiftMessages
   - SwiftyUserDefaults
 
 SPEC REPOS:
@@ -321,6 +327,7 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
+    - GTProgressBar
     - JTAppleCalendar
     - leveldb-library
     - lottie-ios
@@ -328,6 +335,7 @@ SPEC REPOS:
     - nanopb
     - paper-onboarding
     - Protobuf
+    - SwiftMessages
     - SwiftyUserDefaults
     - SWXMLHash
 
@@ -352,16 +360,18 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
+  GTProgressBar: a480283ecb0ada50de16c71e634892826928f640
   JTAppleCalendar: bb3dd3752e2bcc85cb798ab763fbdd6e142715fc
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   lottie-ios: 32bf84389337d86fbc8b12266e88452e0abf1dee
   Macaw: 10bf9e327cb75f24e3225d5229a80ed544df85f0
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   paper-onboarding: d3f16416e6f42add686117e8b32bfffaad899a79
-  Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
+  Protobuf: 394b2bf29ec303f4325e3ee4892c09e675647152
+  SwiftMessages: b577dc7043be8b299857ab35bb663dbff6483bd0
   SwiftyUserDefaults: 6a1951df1daa19337862b677dd9a4b9bd4c288cd
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
 
-PODFILE CHECKSUM: 9fe078ca5cf58a2d36052868855f9826052fc782
+PODFILE CHECKSUM: 1b45b89ed6da5940ac2b131a14165cf18bfc7f95
 
 COCOAPODS: 1.8.4

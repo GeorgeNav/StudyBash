@@ -11,7 +11,6 @@ class ScheduleViewController: UIViewController {
     let db: Firestore = Firestore.firestore()
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var subGoalsTV: UITableView!
-    @IBOutlet weak var stopWatch: UILabel!
     
     var timer = Timer()
     var (hours, minutes, seconds, fractions) = (0,0,0,0)
@@ -36,16 +35,16 @@ class ScheduleViewController: UIViewController {
     func subGoalsDueOnDate(date: Date) {
         var allSubGoalsDueThisDay = [String]()
         self.db.collectionGroup("sub_goals")
-        .whereField("due_date", onThisDay: date)
-        .whereField("uid_ref", isEqualTo: userDocRef!)
-        .getDocuments(completion: { (snapshot, error) in
-            guard snapshot != nil else { print(error!); return }
-            snapshot?.documents.forEach({ (subGoalDocRef) in
-                let subGoalData = subGoalDocRef.data()
-                //print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
-                allSubGoalsDueThisDay.append(subGoalData["name"]! as! String)
+            .whereField("due_date", onThisDay: date)
+            .whereField("uid_ref", isEqualTo: userDocRef!)
+            .getDocuments(completion: { (snapshot, error) in
+                guard snapshot != nil else { print(error!); return }
+                snapshot?.documents.forEach({ (subGoalDocRef) in
+                    let subGoalData = subGoalDocRef.data()
+                    //print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
+                    allSubGoalsDueThisDay.append(subGoalData["name"]! as! String)
+                })
             })
-        })
     }
     
     func studyBashStop(subGoalDocRef: DocumentReference) {
@@ -92,9 +91,8 @@ class ScheduleViewController: UIViewController {
         print("Start \(subGoalDocRef.documentID)!")
         (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
         totalSeconds = 0
-//        stopWatch.text = "00:00:00"
-//        studyBashSubGoalName.text = subGoalData["name"]! as? String
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setNewTime), userInfo: nil, repeats: true)
+        //        stopWatch.text = "00:00:00"
+        //        studyBashSubGoalName.text = subGoalData["name"]! as? String
         studyBash = [
             "ref": subGoalDocRef,
             "start": Timestamp(date: Date()),
@@ -102,25 +100,7 @@ class ScheduleViewController: UIViewController {
         ]
     }
     
-    @objc func setNewTime() {
-        totalSeconds += 1
-        
-        // Update UI
-        seconds += 1
-        if seconds == 60 {
-            minutes += 1
-            seconds = 0
-        }
-        if minutes == 60 {
-            hours += 1
-            minutes = 0
-        }
-        
-        stopWatch.text =
-            String(format: "%02d", hours) + " : " +
-            String(format: "%02d", minutes) + " : " +
-            String(format: "%02d", seconds)
-    }
+    
     
 }
 
@@ -148,21 +128,21 @@ extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
         cell.imageView.contentMode = .scaleAspectFit
         if calendarDayListeners[dateFormat.string(from: date)] == nil {
             calendarDayListeners[dateFormat.string(from: date)] = db.collectionGroup("sub_goals")
-            .whereField("due_date", onThisDay: date)
-            .whereField("uid_ref", isEqualTo: userDocRef!)
-            .addSnapshotListener({ (snapshot, error) in
-                guard snapshot != nil || snapshot!.count == 0 else { return }
-                var allSubGoalsDueThisDay = [[String: Any]]()
-                snapshot!.documents.forEach({ (subGoalDocRef) in
-                    var subGoalData = subGoalDocRef.data()
-                    subGoalData["ref"] = subGoalDocRef.reference
-                    //print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
-                    allSubGoalsDueThisDay.append(subGoalData)
+                .whereField("due_date", onThisDay: date)
+                .whereField("uid_ref", isEqualTo: userDocRef!)
+                .addSnapshotListener({ (snapshot, error) in
+                    guard snapshot != nil || snapshot!.count == 0 else { return }
+                    var allSubGoalsDueThisDay = [[String: Any]]()
+                    snapshot!.documents.forEach({ (subGoalDocRef) in
+                        var subGoalData = subGoalDocRef.data()
+                        subGoalData["ref"] = subGoalDocRef.reference
+                        //print((subGoalData["due_date"]! as! Timestamp), " - ", subGoalData["name"]!, " - query")
+                        allSubGoalsDueThisDay.append(subGoalData)
+                    })
+                    self.calendarData[dateFormat.string(from: date)] = allSubGoalsDueThisDay
+                    self.calendar.reloadData()
+                    self.subGoalsTV.reloadData()
                 })
-                self.calendarData[dateFormat.string(from: date)] = allSubGoalsDueThisDay
-                self.calendar.reloadData()
-                self.subGoalsTV.reloadData()
-            })
         }
         
         return cell
@@ -201,22 +181,7 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
         cell.subGoalName.text = curDaySubGoalsData[indexPath.row]["name"]! as? String
         cell.subGoalDocRef = curDaySubGoalsData[indexPath.row]["ref"] as? DocumentReference
         
-        let notes = curDaySubGoalsData[indexPath.row]["notes"]! as? String
-        cell.notesL.text = notes
         
-        // TODO: Show category
-        let typeRefs = curDaySubGoalsData[indexPath.row]["types"]! as!  [DocumentReference]
-        if typeRefs.count != 0 {
-            typeRefs[0].getDocument { (snapshot, error) in
-                guard snapshot != nil else { return }
-                let typeData = snapshot!.data()!
-                cell.subType.text = typeData["name"]! as? String
-            }
-        }
-        
-        let stats = curDaySubGoalsData[indexPath.row]["statistics"]! as! [String: Any]
-        let timeSpent = stats["time_spent"]! as! Double
-        cell.hoursSpentL.text = "\(round(1000 * timeSpent/(60*60)) / 100)" + " Hours Spent"
         
         let dueDate = (curDaySubGoalsData[indexPath.row]["due_date"]! as! Timestamp).dateValue()
         let days = dueDate.days(sinceDate: Date())!
@@ -230,27 +195,6 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let stopAction = UIContextualAction(style: .normal, title:  "Stop", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            let subGoalData = self.curDaySubGoalsData[indexPath.row]
-            self.studyBashStop(subGoalDocRef: subGoalData["ref"]! as! DocumentReference)
-            success(true)
-        })
-        stopAction.backgroundColor = .red
-        return UISwipeActionsConfiguration(actions: [stopAction])
-    }
     
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let startAction = UIContextualAction(style: .normal, title:  "Start", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            let subGoalData = self.curDaySubGoalsData[indexPath.row]
-            self.studyBashStart(
-                subGoalDocRef: subGoalData["ref"]! as! DocumentReference,
-                subGoalData: subGoalData
-            )
-            success(true)
-        })
-        startAction.backgroundColor = .green
-        return UISwipeActionsConfiguration(actions: [startAction])
-    }
     
 }

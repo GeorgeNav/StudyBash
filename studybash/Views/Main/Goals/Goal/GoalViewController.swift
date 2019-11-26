@@ -15,34 +15,31 @@ import NotificationCenter
 let subGoalCellIdentifier = "sub_goal_cell"
 
 protocol UpdateGoalData {
-    func updateGoalData(goalData: [String : Any],
-                        goalDocRef: DocumentReference,
-                        subGoalsData: [[String : Any]])
+    func updateGoalData(goalData: [String : Any], goalDocRef: DocumentReference, subGoalsData: [[String : Any]])
 }
 
 class GoalViewController: UIViewController, UpdateGoalData {
+    
     @IBOutlet weak var subGoalsTV: UITableView!
     @IBOutlet weak var goalNameL: UILabel!
     @IBOutlet weak var stopWatch: UILabel!
     @IBOutlet weak var studyBashSubGoalName: UILabel!
-    
     @IBOutlet weak var animationView: UIView!
+ 
     var animation : AnimationView?
-    
     var userDocRef: DocumentReference?
     var goalData = [String: Any]()
     var goalTypes = [[String: Any]]()
     var subGoalTypes = [[String: Any]]()
     var subGoalsData = [[String: Any]]()
     var goalDocRef: DocumentReference?
-    
     var dispatchGroup: DispatchGroup?
     var studyBash: [String: Any]?
     var timer = Timer()
     var (hours, minutes, seconds, fractions) = (0,0,0,0)
     var totalSeconds = 0
-    
     var selectedSubGoal = [String: Any]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -261,10 +258,9 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
         let dueDate = (subGoalsData[indexPath.row]["due_date"]! as! Timestamp).dateValue()
         let days = dueDate.days(sinceDate: Date())!
         if days == 0 { cell.daysLeftL.text = "Due Today" }
-        else if days > 0 { cell.daysLeftL.text = "\(days) days left"
+        else if days > 0 { cell.daysLeftL.text = "\(days) Days to due date"
         } else if days < 0 {
             cell.daysLeftL.text = "\(abs(days)) Days Late"
-            cell.daysLeftL.textColor = .red
         }
         
         let thisSubGoalTypesRefs = subGoalsData[indexPath.row]["types"]! as! [DocumentReference]

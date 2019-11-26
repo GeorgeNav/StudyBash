@@ -26,12 +26,14 @@
 		08A9A118234AB6AD00B3C45A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A117234AB6AD00B3C45A /* GoogleService-Info.plist */; };
 		08F0A9942359A39700820E51 /* AddGoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F0A9932359A39700820E51 /* AddGoalCollectionViewCell.swift */; };
 		2192ACBE2065527441A29DAA /* Pods_studybash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 058121D66A0A44677895E6CB /* Pods_studybash.framework */; };
+		4505BB71238CF1BE003A55F1 /* settings.json in Resources */ = {isa = PBXBuildFile; fileRef = 4505BB70238CF1BE003A55F1 /* settings.json */; };
 		450DEF7C235263C2000F9EE6 /* AboutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450DEF7B235263C2000F9EE6 /* AboutScreen.swift */; };
 		450DEF802352659B000F9EE6 /* about.json in Resources */ = {isa = PBXBuildFile; fileRef = 450DEF7F2352659B000F9EE6 /* about.json */; };
 		4519CAB9237B573E00E5F358 /* clock.json in Resources */ = {isa = PBXBuildFile; fileRef = 4519CAB8237B573E00E5F358 /* clock.json */; };
 		451A3FA22373B89F0096CA03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A9A10E234AB40D00B3C45A /* LaunchScreen.storyboard */; };
 		45395DB223502DEA005F7C67 /* time.json in Resources */ = {isa = PBXBuildFile; fileRef = 45395DB123502DEA005F7C67 /* time.json */; };
 		456467522377C33100CC8B3B /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456467512377C33100CC8B3B /* ScheduleViewController.swift */; };
+		45675F13238B990B004E2ADD /* HealthStat in Resources */ = {isa = PBXBuildFile; fileRef = 45675F12238B990B004E2ADD /* HealthStat */; };
 		457CA513235040CC00AF6B8C /* SuccessPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */; };
 		457CA5152350479400AF6B8C /* ErrorPopoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */; };
 		457F17C52379EBC100543E79 /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457F17C42379EBC100543E79 /* BarChart.swift */; };
@@ -70,11 +72,13 @@
 		08A9A111234AB40D00B3C45A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08A9A117234AB6AD00B3C45A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		08F0A9932359A39700820E51 /* AddGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalCollectionViewCell.swift; sourceTree = "<group>"; };
+		4505BB70238CF1BE003A55F1 /* settings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = settings.json; sourceTree = "<group>"; };
 		450DEF7B235263C2000F9EE6 /* AboutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutScreen.swift; sourceTree = "<group>"; };
 		450DEF7F2352659B000F9EE6 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = about.json; sourceTree = "<group>"; };
 		4519CAB8237B573E00E5F358 /* clock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = clock.json; sourceTree = "<group>"; };
 		45395DB123502DEA005F7C67 /* time.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = time.json; sourceTree = "<group>"; };
 		456467512377C33100CC8B3B /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		45675F12238B990B004E2ADD /* HealthStat */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HealthStat; sourceTree = "<group>"; };
 		457CA512235040CC00AF6B8C /* SuccessPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPopoutViewController.swift; sourceTree = "<group>"; };
 		457CA5142350479400AF6B8C /* ErrorPopoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPopoutViewController.swift; sourceTree = "<group>"; };
 		457F17C42379EBC100543E79 /* BarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 		0821C0552372B4BB007BDB3D /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				45675F12238B990B004E2ADD /* HealthStat */,
 				457F17C12379EAB800543E79 /* BarChart */,
 				45D863752378D72400FBDC7F /* studying hours charts */,
 				0821C0582372B825007BDB3D /* ActivityViewController.swift */,
@@ -230,6 +235,7 @@
 		457CA50F23503B8600AF6B8C /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				4505BB70238CF1BE003A55F1 /* settings.json */,
 				4519CAB8237B573E00E5F358 /* clock.json */,
 				45D863802378F0AC00FBDC7F /* loading.json */,
 				450DEF7F2352659B000F9EE6 /* about.json */,
@@ -381,7 +387,9 @@
 				45395DB223502DEA005F7C67 /* time.json in Resources */,
 				45D863812378F0AC00FBDC7F /* loading.json in Resources */,
 				450DEF802352659B000F9EE6 /* about.json in Resources */,
+				4505BB71238CF1BE003A55F1 /* settings.json in Resources */,
 				08A9A10D234AB40D00B3C45A /* Assets.xcassets in Resources */,
+				45675F13238B990B004E2ADD /* HealthStat in Resources */,
 				458D034723726A08008AC42B /* Constants in Resources */,
 				08A9A10B234AB40A00B3C45A /* Main.storyboard in Resources */,
 				458D034E23726A21008AC42B /* Source in Resources */,
@@ -611,7 +619,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3673S68AAT;
+				DEVELOPMENT_TEAM = 99E236FR8T;
 				INFOPLIST_FILE = studybash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -619,7 +627,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.davidherrera;
+				PRODUCT_BUNDLE_IDENTIFIER = com.navality.studybash;
 				PRODUCT_NAME = StudyBash;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -636,7 +644,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3673S68AAT;
+				DEVELOPMENT_TEAM = 99E236FR8T;
 				INFOPLIST_FILE = studybash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -644,7 +652,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.davidherrera;
+				PRODUCT_BUNDLE_IDENTIFIER = com.navality.studybash;
 				PRODUCT_NAME = StudyBash;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
