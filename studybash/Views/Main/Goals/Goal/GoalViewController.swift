@@ -52,7 +52,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
         self.subGoalsTV.delegate = self
         
         let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
-        longPressGR.minimumPressDuration = 0.5
+        longPressGR.minimumPressDuration = 0.1
         longPressGR.delaysTouchesBegan = true
         self.subGoalsTV.addGestureRecognizer(longPressGR)
         //        subGoalsTV.rowHeight = UITableView.automaticDimension
