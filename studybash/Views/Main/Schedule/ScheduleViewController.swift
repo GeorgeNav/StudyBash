@@ -28,8 +28,11 @@ class ScheduleViewController: UIViewController {
     var currentDaySubGoalsListener: ListenerRegistration?
     var userDocRef: DocumentReference?
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "schedule_cal_cell")
     }
     
@@ -188,20 +191,23 @@ extension Query {
 extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tableView.allowsSelection = false
         return curDaySubGoalsData.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        tableView.allowsSelection = false
         return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        tableView.allowsSelection = false
         let cell = subGoalsTV.dequeueReusableCell(withIdentifier: subGoalCellIdentifier, for: indexPath) as! SubGoalsTableViewCell
         cell.subGoalName.text = curDaySubGoalsData[indexPath.row]["name"]! as? String
         cell.subGoalDocRef = curDaySubGoalsData[indexPath.row]["ref"] as? DocumentReference
         
-        let notes = curDaySubGoalsData[indexPath.row]["notes"]! as? String
-        cell.notesL.text = notes
+//        let notes = curDaySubGoalsData[indexPath.row]["notes"]! as? String
+//        cell.notesL.text = notes
         
         // TODO: Show category
         let typeRefs = curDaySubGoalsData[indexPath.row]["types"]! as!  [DocumentReference]
@@ -220,8 +226,8 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
         let dueDate = (curDaySubGoalsData[indexPath.row]["due_date"]! as! Timestamp).dateValue()
         let days = dueDate.days(sinceDate: Date())!
         if days == 0 { cell.daysLeftL.text = "Due Today" }
-        else if days > 0 { cell.daysLeftL.text = "\(days) days left"
-        } else if days < 0 {
+//        else if days > 0 { cell.daysLeftL.text = "\(days) days left"
+        else if days < 0 {
             cell.daysLeftL.text = "\(abs(days)) Days Late"
             cell.daysLeftL.textColor = .red
         }
@@ -229,27 +235,27 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let stopAction = UIContextualAction(style: .normal, title:  "Stop", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            let subGoalData = self.curDaySubGoalsData[indexPath.row]
-            self.studyBashStop(subGoalDocRef: subGoalData["ref"]! as! DocumentReference)
-            success(true)
-        })
-        stopAction.backgroundColor = .red
-        return UISwipeActionsConfiguration(actions: [stopAction])
-    }
-    
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let startAction = UIContextualAction(style: .normal, title:  "Start", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            let subGoalData = self.curDaySubGoalsData[indexPath.row]
-            self.studyBashStart(
-                subGoalDocRef: subGoalData["ref"]! as! DocumentReference,
-                subGoalData: subGoalData
-            )
-            success(true)
-        })
-        startAction.backgroundColor = .green
-        return UISwipeActionsConfiguration(actions: [startAction])
-    }
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let stopAction = UIContextualAction(style: .normal, title:  "Stop", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+//            let subGoalData = self.curDaySubGoalsData[indexPath.row]
+//            self.studyBashStop(subGoalDocRef: subGoalData["ref"]! as! DocumentReference)
+//            success(true)
+//        })
+//        stopAction.backgroundColor = .red
+//        return UISwipeActionsConfiguration(actions: [stopAction])
+//    }
+//
+//    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let startAction = UIContextualAction(style: .normal, title:  "Start", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+//            let subGoalData = self.curDaySubGoalsData[indexPath.row]
+//            self.studyBashStart(
+//                subGoalDocRef: subGoalData["ref"]! as! DocumentReference,
+//                subGoalData: subGoalData
+//            )
+//            success(true)
+//        })
+//        startAction.backgroundColor = .green
+//        return UISwipeActionsConfiguration(actions: [startAction])
+//    }
     
 }

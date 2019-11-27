@@ -231,15 +231,19 @@ class GoalViewController: UIViewController, UpdateGoalData {
 
 extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tableView.allowsSelection = false
         return subGoalsData.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        tableView.allowsSelection = false
         return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        tableView.allowsSelection = false
         let cell = subGoalsTV.dequeueReusableCell(withIdentifier: subGoalCellIdentifier, for: indexPath) as! SubGoalsTableViewCell
         cell.subGoalName.text = subGoalsData[indexPath.row]["name"]! as? String
         cell.subGoalDocRef = subGoalsData[indexPath.row]["ref"] as? DocumentReference
@@ -276,6 +280,7 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        tableView.allowsSelection = false
         let stopAction = UIContextualAction(style: .normal, title:  "Stop", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let subGoalData = self.subGoalsData[indexPath.row]
             self.studyBashStop(subGoalDocRef: subGoalData["ref"]! as! DocumentReference)
@@ -286,6 +291,8 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        tableView.allowsSelection = false
+        tableView.allowsSelection = false
         let startAction = UIContextualAction(style: .normal, title:  "Start", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let subGoalData = self.subGoalsData[indexPath.row]
             self.studyBashStart(
