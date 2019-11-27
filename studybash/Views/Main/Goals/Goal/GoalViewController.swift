@@ -25,7 +25,8 @@ class GoalViewController: UIViewController, UpdateGoalData {
     @IBOutlet weak var stopWatch: UILabel!
     @IBOutlet weak var studyBashSubGoalName: UILabel!
     @IBOutlet weak var animationView: UIView!
- 
+    var timer = Timer()
+    
     var animation : AnimationView?
     var userDocRef: DocumentReference?
     var goalData = [String: Any]()
@@ -35,7 +36,6 @@ class GoalViewController: UIViewController, UpdateGoalData {
     var goalDocRef: DocumentReference?
     var dispatchGroup: DispatchGroup?
     var studyBash: [String: Any]?
-    var timer = Timer()
     var (hours, minutes, seconds, fractions) = (0,0,0,0)
     var totalSeconds = 0
     var selectedSubGoal = [String: Any]()
@@ -160,20 +160,18 @@ class GoalViewController: UIViewController, UpdateGoalData {
         guard studyBash != nil else { return }
         studyBash!["stop"] = Timestamp(date: Date())
         
-        // TODO: Perform math to calculate amount of seconds between start and stop times
-        let start = studyBash!["start"]! as! Timestamp
-        let stop = studyBash!["stop"]! as! Timestamp
-        
-        studyBash!["elapsed_time"] = stop.seconds - start.seconds
-        print("Stop \(subGoalDocRef.documentID)! \(studyBash!["elapsed_time"]!) seconds")
         timer.invalidate()
+        studyBash!["elapsed_time"] = self.totalSeconds
+        print("Stop \(subGoalDocRef.documentID)! \(studyBash!["elapsed_time"]!) seconds")
+        
         self.dispatchGroup?.enter()
         (studyBash!["ref"]! as! DocumentReference).getDocument { (snapshot, error) in
             guard snapshot != nil else { return }
             let thisSubGoalData = snapshot!.data()!
             var stats = thisSubGoalData["statistics"]! as! [String: Any]
-            stats["time_spent"] = self.totalSeconds
+            stats["time_spent"] = stats["time_spent"]! as! Int + self.totalSeconds
             self.studyBash!.removeValue(forKey: "ref")
+            self.studyBash!.removeValue(forKey: "data")
             subGoalDocRef.updateData([
                 "study_bashes": FieldValue.arrayUnion([self.studyBash!]),
                 "statistics": stats

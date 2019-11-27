@@ -13,14 +13,14 @@ import FirebaseFirestore
 import SwiftyUserDefaults
 
 let goalsCellIdentifier: String = "goal_cell"
+var userDocRef: DocumentReference?
 
 class GoalsViewController: UIViewController {
     @IBOutlet weak var goalsCV: UICollectionView!
     let db: Firestore = Firestore.firestore()
     let auth: Auth = Auth.auth()
-    
     // All
-    var userDocRef: DocumentReference?
+
     var userGoalsColRef: CollectionReference?
     var userGoalsData = [[String: Any]]()
     
@@ -39,7 +39,7 @@ class GoalsViewController: UIViewController {
         self.view.addSubview(goalsCV)
         self.goalsCV.dataSource = self
         self.goalsCV.delegate = self
-        self.userDocRef = db.collection("users").document(Auth.auth().currentUser!.uid)
+        userDocRef = db.collection("users").document(Auth.auth().currentUser!.uid)
         self.userGoalsColRef = userDocRef?.collection("goals")
         let scheduleTab = self.tabBarController?.viewControllers![1] as! ScheduleViewController
         scheduleTab.userDocRef = userDocRef

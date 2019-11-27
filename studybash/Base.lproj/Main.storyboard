@@ -510,6 +510,10 @@
                         <outlet property="barChartView" destination="0Mf-YS-MUC" id="ne2-Gp-zNt"/>
                         <outlet property="curvedlineChart" destination="E3O-GK-gAS" id="gZ7-4Q-Tdd"/>
                         <outlet property="firstProgressBar" destination="0kj-QE-n2m" id="0rk-35-HOa"/>
+                        <outlet property="numGoals" destination="2Pa-4x-PBu" id="uI2-S7-ma0"/>
+                        <outlet property="numHoursSpent" destination="Wwd-Mi-WT4" id="ZXB-7d-CZl"/>
+                        <outlet property="numSubGoals" destination="fe7-58-q6q" id="hii-Ro-gVz"/>
+                        <outlet property="subGoalsDueToday" destination="BXa-ET-X2I" id="Uxz-cU-dPU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="otL-aT-kAG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2424,6 +2428,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RfR-pq-mie"/>
-        <segue reference="tUi-fA-ecP"/>
+        <segue reference="fbo-q2-0rt"/>
     </inferredMetricsTieBreakers>
 </document>
