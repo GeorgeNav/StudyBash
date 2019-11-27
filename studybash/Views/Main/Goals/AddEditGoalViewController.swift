@@ -30,6 +30,9 @@ class AddEditGoalViewController: UIViewController {
     @IBOutlet weak var typesCV: UICollectionView!
     @IBOutlet weak var deleteGoalButton: UIButton!
     
+    var isKeyboardAppear = false
+
+    
     // Logic Elements
     var userDocRef: DocumentReference?
     var goalTypes = [[String: Any]]()
@@ -51,12 +54,12 @@ class AddEditGoalViewController: UIViewController {
         calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "add_edit_cal_cell")
         calendar.isHidden = true
         
-        //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
-        //        tap.cancelsTouchesInView = false
-        //        view.addGestureRecognizer(tap)
-        
-        //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+//        
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         dateTimeFormat.dateFormat = "MMMM dd, yyyy  hh:mm:ss"
         timeFormatter.dateFormat = "h:mm a"
@@ -135,27 +138,27 @@ class AddEditGoalViewController: UIViewController {
         }
     }
     
-    //    @objc func keyboardWillShow(notification: NSNotification) {
-    //        if !isKeyboardAppear {
-    //            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-    //                if self.view.frame.origin.y == 0 {
-    //                    self.view.frame.origin.y -= 65
-    //                }
-    //            }
-    //            isKeyboardAppear = true
-    //        }
-    //    }
-    //
-    //    @objc func keyboardWillHide(notification: NSNotification) {
-    //        if isKeyboardAppear {
-    //            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-    //                if self.view.frame.origin.y != 0{
-    //                    self.view.frame.origin.y = 0
-    //                }
-    //            }
-    //             isKeyboardAppear = false
-    //        }
-    //    }
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if !isKeyboardAppear {
+//            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+//                if self.view.frame.origin.y == 0 {
+//                    self.view.frame.origin.y -= 65
+//                }
+//            }
+//            isKeyboardAppear = true
+//        }
+//    }
+//
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        if isKeyboardAppear {
+//            if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+//                if self.view.frame.origin.y != 0{
+//                    self.view.frame.origin.y = 0
+//                }
+//            }
+//            isKeyboardAppear = false
+//        }
+//    }
     
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
