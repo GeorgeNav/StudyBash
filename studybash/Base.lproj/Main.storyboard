@@ -1364,7 +1364,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jak-Lz-kIs">
-                                <rect key="frame" x="337" y="64" width="69" height="69"/>
+                                <rect key="frame" x="268" y="64" width="138" height="138"/>
                                 <state key="normal" image="AddButtonSmall"/>
                                 <connections>
                                     <action selector="addSubGoalButton:" destination="BAG-X6-iwN" eventType="touchUpInside" id="qdc-DI-MMX"/>

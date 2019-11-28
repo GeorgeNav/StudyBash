@@ -34,7 +34,7 @@ class SignupViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-
+        
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -47,7 +47,7 @@ class SignupViewController: UIViewController {
             isKeyboardAppear = true
         }
     }
-
+    
     @objc func keyboardWillHide(notification: NSNotification) {
         if isKeyboardAppear {
             if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
@@ -55,10 +55,10 @@ class SignupViewController: UIViewController {
                     self.view.frame.origin.y = 0
                 }
             }
-             isKeyboardAppear = false
+            isKeyboardAppear = false
         }
     }
-
+    
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
@@ -69,7 +69,7 @@ class SignupViewController: UIViewController {
     }
     
     func createTextFieldAlert(type: String) {
-
+        
         
         switch type {
         case "name":
@@ -180,8 +180,8 @@ class SignupViewController: UIViewController {
             _ = ""
             _ = ""
         }
-
-
+        
+        
     }
     
     
@@ -207,16 +207,27 @@ class SignupViewController: UIViewController {
                     return
                 }
                 
+                
                 print(authResult!.user.email!, " account is created and logged in!")
                 authResult!.user.sendEmailVerification(completion: { (_) in
-                    // Decide if there needs to be a pop up to tell the user to check their email to verify their account
+                    let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+                    messageView.configureBackgroundView(width: 300)
+                    messageView.configureContent(title: "Congrats!!", body: "Account was successfully created", iconImage: nil, iconText: "👍🏻", buttonImage: nil, buttonTitle: "Done") { _ in SwiftMessages.hide()}
+                    messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+                    messageView.backgroundView.layer.cornerRadius = 10
+                    var config = SwiftMessages.defaultConfig
+                    config.presentationStyle = .center
+                    config.duration = .forever
+                    config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+                    config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+                    SwiftMessages.show(config: config, view: messageView)
                 })
                 
                 self.db.collection("users").document(self.auth.currentUser!.uid).setData([
                     "email": self.emailTF.text!,
                     "first_name": self.firstNameTF.text!,
                     "last_name": self.lastNameTF.text!,
-                ], completion: { _ in             self.db.collection("users").document(self.auth.currentUser!.uid).collection("goals").addDocument(data: [
+                    ], completion: { _ in             self.db.collection("users").document(self.auth.currentUser!.uid).collection("goals").addDocument(data: [
                         "date_created": Timestamp(date: Date()),
                         "due_date": Timestamp(date: Date()),
                         "finished": false,
@@ -228,7 +239,7 @@ class SignupViewController: UIViewController {
                         "types": [
                             self.db.collection("goal_types").document("C4mCR1TM08fzLnsjBSFZ")
                         ],
-                ], completion: { _ in self.dismiss(animated: true, completion: nil) })
+                    ], completion: { _ in self.dismiss(animated: true, completion: nil) })
                 })
             })
         }
