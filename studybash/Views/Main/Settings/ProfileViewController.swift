@@ -8,6 +8,7 @@ import FirebaseFirestore
 
 
 
+
 class ProfileViewController: UIViewController {
     //Labels
     @IBOutlet weak var myProfileLabel: UILabel!
@@ -30,6 +31,8 @@ class ProfileViewController: UIViewController {
     var auth: Auth = Auth.auth()
     var userDocRef: DocumentReference?
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userDocRef = db.collection("users").document(auth.currentUser!.uid)
@@ -46,7 +49,10 @@ class ProfileViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
+    
+    
     
     func saveUserData() {
         userDocRef?.setData([
@@ -78,7 +84,7 @@ class ProfileViewController: UIViewController {
                     self.view.frame.origin.y = 0
                 }
             }
-             isKeyboardAppear = false
+            isKeyboardAppear = false
         }
     }
     
@@ -87,10 +93,24 @@ class ProfileViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @IBAction func saveButton(_ sender: Any) {
-        
-    }
     
+    
+    @IBAction func saveButton(_ sender: Any) {
+        let currentUser = Auth.auth().currentUser
+        currentUser?.updateEmail(to: emailTextField.text!) { error in
+            if let error = error {
+                print(error)
+            } else {
+                self.userDocRef = self.db.collection("users").document(self.auth.currentUser!.uid)
+                self.userDocRef?.getDocument(completion: {(snapshot, error) in
+                    guard snapshot != nil else { print("Error:", error!); return }
+                    let userData = snapshot!.data()!
+                    self.emailTextField.text = userData["email"]! as? String
+                })
+                print("CHANGED")
+                
+            }
+        }
 
-
+    }
 }

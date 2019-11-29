@@ -1,6 +1,4 @@
-//  ScheduleViewController.swift
-//  studybash
-//  Created by Mustafa AL-Jaburi on 11/9/19.
+
 
 import UIKit
 import Firebase
@@ -223,14 +221,14 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
         let timeSpent = stats["time_spent"]! as! Double
         cell.hoursSpentL.text = "\(round(1000 * timeSpent/(60*60)) / 100)" + " Hours Spent"
         
-        let dueDate = (curDaySubGoalsData[indexPath.row]["due_date"]! as! Timestamp).dateValue()
-        let days = dueDate.days(sinceDate: Date())!
-        if days == 0 { cell.daysLeftL.text = "Due Today" }
+//        let dueDate = (curDaySubGoalsData[indexPath.row]["due_date"]! as! Timestamp).dateValue()
+//        let days = dueDate.days(sinceDate: Date())!
+//        if days == 0 { cell.daysLeftL.text = "Due Today" }
 //        else if days > 0 { cell.daysLeftL.text = "\(days) days left"
-        else if days < 0 {
-            cell.daysLeftL.text = "\(abs(days)) Days Late"
-            cell.daysLeftL.textColor = .red
-        }
+//        else if days < 0 {
+//            cell.daysLeftL.text = "\(abs(days)) Days Late"
+//            cell.daysLeftL.textColor = .red
+//        }
         
         return cell
     }

@@ -1,10 +1,5 @@
-//
-//  SignupViewController.swift
-//  studybash
-//
-//  Created by George Navarro on 10/11/19.
-//  Copyright © 2019 Navality. All rights reserved.
-//
+
+
 
 import UIKit
 import FirebaseAuth

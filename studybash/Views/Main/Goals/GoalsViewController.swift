@@ -1,10 +1,4 @@
-//
-//  GoalsViewController.swift
-//  studybash
-//
-//  Created by George Navarro on 10/12/19.
-//  Copyright © 2019 Navality. All rights reserved.
-//
+
 
 import UIKit
 import Firebase

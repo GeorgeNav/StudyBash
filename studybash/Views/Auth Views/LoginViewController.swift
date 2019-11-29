@@ -1,10 +1,4 @@
-//
-//  LoginViewController.swift
-//  studybash
-//
-//  Created by George Navarro on 10/11/19.
-//  Copyright © 2019 Navality. All rights reserved.
-//
+
 
 import UIKit
 import Firebase
@@ -33,8 +27,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        emailTF.text = "george.g.navarro@gmail.com"
-        passwordTF.text = "testing"
+//        emailTF.text = "george.g.navarro@gmail.com"
+//        passwordTF.text = "testing"
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         if Defaults[.isLogin] == true {

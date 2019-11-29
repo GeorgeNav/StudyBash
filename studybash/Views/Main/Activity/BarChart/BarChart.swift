@@ -1,9 +1,4 @@
-//
-//  BarChart.swift
-//  studybash
-//
-//  Created by Mustafa AL-Jaburi on 11/11/19.
-//  Copyright © 2019 Navality. All rights reserved.
+
 
 
 import Foundation

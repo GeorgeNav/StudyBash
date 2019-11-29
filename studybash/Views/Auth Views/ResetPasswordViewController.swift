@@ -28,7 +28,6 @@ class ResetPasswordViewController: UIViewController {
             config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
             config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
             SwiftMessages.show(config: config, view: messageView)
-            
         }
             
         else if (type == "emailFormat"){
@@ -73,7 +72,7 @@ class ResetPasswordViewController: UIViewController {
             SwiftMessages.show(config: config, view: messageView)
         }
 
-        else if (type == "mismatch"){
+        else if (type == "mismatch") {
             let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
             messageView.configureBackgroundView(width: 300)
             messageView.configureContent(title: "Email Mismatch!", body: "Emails did not match", iconImage: nil, iconText: "❌", buttonImage: nil, buttonTitle: "Okay") { _ in SwiftMessages.hide()}
@@ -92,12 +91,22 @@ class ResetPasswordViewController: UIViewController {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
                view.addGestureRecognizer(tap)
+        
+        
+        let transition = CATransition()
+        transition.duration = 1.0
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        self.view.window?.layer.add(transition, forKey: kCATransition)
+        self.performSegue(withIdentifier: "toLogin", sender: self)
     }
     
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
+    
     
     @IBAction func sendCodeButton(_ sender: Any) {
         
@@ -135,12 +144,26 @@ class ResetPasswordViewController: UIViewController {
                         print("Since no password was returned -> There's no active account")
                         self.createTextFieldAlert(type: "noAccount")
                     } else {
+                        let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+                        messageView.configureBackgroundView(width: 300)
+                        messageView.configureContent(title: "Password Sent!", body: "We sent you an email to change your password. Please check your email inbox.", iconImage: nil, iconText: "✔️", buttonImage: nil, buttonTitle: "Done") { _ in SwiftMessages.hide()}
+                        messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+                        messageView.backgroundView.layer.cornerRadius = 10
+                        var config = SwiftMessages.defaultConfig
+                        config.presentationStyle = .center
+                        config.duration = .forever
+                        config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+                        config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+                        SwiftMessages.show(config: config, view: messageView)
                         print("There is an active account")
-                        //Now we have to implement the send code stuff and reset the password
+                        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+                            if error != nil {
+                                print("sent")
+                            }
+                        }
                     }
                 }
             })
         }
     }
-    
 }

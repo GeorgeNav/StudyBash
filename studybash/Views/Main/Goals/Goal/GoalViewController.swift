@@ -1,10 +1,4 @@
-//
-//  GoalViewController.swift
-//  studybash
-//
-//  Created by George Navarro on 10/17/19.
-//  Copyright © 2019 Navality. All rights reserved.
-//
+
 
 import UIKit
 import FirebaseFirestore
@@ -24,7 +18,6 @@ class GoalViewController: UIViewController, UpdateGoalData {
     @IBOutlet weak var goalNameL: UILabel!
     @IBOutlet weak var stopWatch: UILabel!
     @IBOutlet weak var studyBashSubGoalName: UILabel!
-    @IBOutlet weak var animationView: UIView!
     var timer = Timer()
     
     var animation : AnimationView?
@@ -44,10 +37,6 @@ class GoalViewController: UIViewController, UpdateGoalData {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // animation
-        setupAnimation()
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationEnterInForground), name: UIApplication.willEnterForegroundNotification, object: nil)
-        
         self.subGoalsTV.dataSource = self
         self.subGoalsTV.delegate = self
         
@@ -57,21 +46,6 @@ class GoalViewController: UIViewController, UpdateGoalData {
         self.subGoalsTV.addGestureRecognizer(longPressGR)
         //        subGoalsTV.rowHeight = UITableView.automaticDimension
         //        subGoalsTV.estimatedRowHeight = UITableView.automaticDimension
-    }
-    
-    // animation
-    func setupAnimation() {
-        animation = AnimationView(name: "clock")
-        animation?.frame = animationView.bounds
-        animationView.addSubview(animation!)
-        animation?.loopMode = .loop
-        animation?.contentMode = .scaleAspectFit
-        animation?.play()
-    }
-    
-    @objc func applicationEnterInForground() {
-        if animation != nil {
-            if !(self.animation?.isAnimationPlaying)! {self.animation?.play()}}
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -199,7 +173,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
         (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
         totalSeconds = 0
         stopWatch.text = "00:00:00"
-        studyBashSubGoalName.text = subGoalData["name"]! as? String
+        studyBashSubGoalName.text = "Counting Time: " + (subGoalData["name"]! as? String)!
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setNewTime), userInfo: nil, repeats: true)
         studyBash = [
             "ref": subGoalDocRef,
