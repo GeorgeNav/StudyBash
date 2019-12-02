@@ -97,19 +97,12 @@ class ProfileViewController: UIViewController {
     
     @IBAction func saveButton(_ sender: Any) {
         let currentUser = Auth.auth().currentUser
-        currentUser?.updateEmail(to: emailTextField.text!) { error in
-            if let error = error {
-                print(error)
-            } else {
-                self.userDocRef = self.db.collection("users").document(self.auth.currentUser!.uid)
-                self.userDocRef?.getDocument(completion: {(snapshot, error) in
-                    guard snapshot != nil else { print("Error:", error!); return }
-                    let userData = snapshot!.data()!
-                    self.emailTextField.text = userData["email"]! as? String
-                })
-                print("CHANGED")
-                
-            }
+        let newEmail = emailTextField.text!
+        currentUser?.updateEmail(to: newEmail) { error in
+            guard error == nil else { print(error!); return }
+            self.userDocRef = self.db.collection("users").document(self.auth.currentUser!.uid)
+            self.userDocRef?.updateData(["email": newEmail])
+            print("CHANGED")
         }
 
     }
