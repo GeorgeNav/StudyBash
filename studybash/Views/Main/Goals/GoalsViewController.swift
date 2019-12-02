@@ -133,10 +133,13 @@ class GoalsViewController: UIViewController {
             print("Number of Doc Changes: ", goalDocRefs!.documentChanges.count)
             self.userGoalsData = [[String: Any]]()
             goalDocRefs?.documents.forEach({ (doc) in
-                var goalData = doc.data()
-                goalData["ref"] = doc.reference
-                self.userGoalsData.append(goalData)
-                self.goalsCV.reloadData()
+                self.userGoalsData.append(doc.data())
+                self.userGoalsData[self.userGoalsData.endIndex - 1]["ref"] = doc.reference
+                doc.reference.collection("sub_goals").addSnapshotListener({ (snapshot, error) in
+                    guard snapshot != nil else { return }
+                    self.userGoalsData[self.userGoalsData.endIndex - 1]["num_sub_goals"] = snapshot!.count
+                    self.goalsCV.reloadData()
+                })
             })
         })
     }
@@ -156,6 +159,7 @@ extension GoalsViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = goalsCV.dequeueReusableCell(withReuseIdentifier: goalsCellIdentifier, for: indexPath) as! GoalsCollectionViewCell
         cell.goalName.text = self.userGoalsData[indexPath.row]["name"] as? String
+        cell.numSubGoals.text = "\(self.userGoalsData[self.userGoalsData.endIndex - 1]["num_sub_goals"] as! Int) Sub Goals"
         cell.goalDocRef = self.userGoalsData[indexPath.row]["ref"] as? DocumentReference
         cell.deleteGoal.isHidden = !editMode
         cell.deleteGoal.isEnabled = editMode

@@ -905,8 +905,8 @@
                                     <constraint firstAttribute="height" constant="149" id="Kcv-8G-Bq5"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVV-Qd-bAq">
-                                <rect key="frame" x="337" y="60" width="69" height="74"/>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVV-Qd-bAq">
+                                <rect key="frame" x="337" y="60" width="69" height="69"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="69" id="Xga-Sl-tSH"/>
                                 </constraints>
@@ -979,7 +979,7 @@
                                         <connections>
                                             <outlet property="deleteGoal" destination="15q-vQ-JYY" id="Cu2-b9-P78"/>
                                             <outlet property="goalName" destination="0ID-Kg-msS" id="N22-hm-Iki"/>
-                                            <outlet property="numSubGoalsDueToday" destination="C1i-Cp-8x9" id="kQw-ER-f4h"/>
+                                            <outlet property="numSubGoals" destination="C1i-Cp-8x9" id="kQw-ER-f4h"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -2377,7 +2377,7 @@
         <image name="trashIcon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RfR-pq-mie"/>
+        <segue reference="OP7-Ii-Vxo"/>
         <segue reference="fbo-q2-0rt"/>
     </inferredMetricsTieBreakers>
 </document>

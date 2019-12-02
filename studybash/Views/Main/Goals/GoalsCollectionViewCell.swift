@@ -6,8 +6,7 @@ import FirebaseFirestore
 
 class GoalsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var goalName: UILabel!
-    @IBOutlet weak var numSubGoalsDueToday: UILabel!
-    @IBOutlet weak var subGoalProgress: UILabel!
+    @IBOutlet weak var numSubGoals: UILabel!
     @IBOutlet weak var deleteGoal: UIButton!
     var goalDocRef: DocumentReference?
     
