@@ -32,7 +32,6 @@ class ActivityViewController: UIViewController {
         SecondProgressBar.progress = 0.2
         ThirdProgressBar.progress = 0.6
         FourthProgressBar.progress = 0.9
-
         
         // LineChart
         let dataEntries = generateRandomEntries()
@@ -90,5 +89,3 @@ class ActivityViewController: UIViewController {
     }
 
 }
-
-

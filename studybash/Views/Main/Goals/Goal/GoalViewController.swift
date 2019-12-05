@@ -173,7 +173,7 @@ class GoalViewController: UIViewController, UpdateGoalData {
         (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
         totalSeconds = 0
         stopWatch.text = "00:00:00"
-        studyBashSubGoalName.text = "Counting Time: " + (subGoalData["name"]! as? String)!
+        studyBashSubGoalName.text = subGoalData["name"]! as? String
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setNewTime), userInfo: nil, repeats: true)
         studyBash = [
             "ref": subGoalDocRef,

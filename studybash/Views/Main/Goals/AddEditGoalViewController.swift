@@ -1,6 +1,3 @@
-
-
-
 import UIKit
 import FSCalendar
 import FirebaseAuth
@@ -61,17 +58,13 @@ class AddEditGoalViewController: UIViewController {
 //        
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        self.viewDidAppear(false)
         
         dateTimeFormat.dateFormat = "MMMM dd, yyyy  hh:mm:ss"
         timeFormatter.dateFormat = "h:mm a"
         if ["add_goal", "add_sub_goal"].contains(useCase) {
             deleteGoalButton.isEnabled = false
             deleteGoalButton.isHidden = true
-            
-            timeIcon.isHidden = false
-            timeName.isHidden = false
-            notesIcon.isHidden = false
-            notesTF.isHidden = false
             
             let currentDate = Date()
             // Prep calendar and date button
@@ -119,11 +112,6 @@ class AddEditGoalViewController: UIViewController {
             deleteGoalButton.isEnabled = true
             deleteGoalButton.isHidden = false
             
-            timeIcon.isHidden = true
-            timeName.isHidden = true
-            notesIcon.isHidden = true
-            notesTF.isHidden = true
-            
             goalDocRef = (goalData["ref"]! as! DocumentReference)
             
             let dueDate = (goalData["due_date"]! as! Timestamp).dateValue()
@@ -148,6 +136,26 @@ class AddEditGoalViewController: UIViewController {
                 // TODO: make UI different
                 titleL.text = "Your Sub-goal"
             }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if ["add_goal", "edit_goal"].contains(useCase) {
+            print("\(useCase)")
+            timeIcon.isHidden = true
+            timeName.isHidden = true
+            dateButton.isHidden = true
+            timeButton.isHidden = true
+            notesIcon.isHidden = true
+            notesTF.isHidden = true
+        } else if ["edit_sub_goal", "add_sub_goal"].contains(useCase) {
+            print("\(useCase)")
+            timeIcon.isHidden = false
+            timeName.isHidden = false
+            dateButton.isHidden = false
+            timeButton.isHidden = false
+            notesIcon.isHidden = false
+            notesTF.isHidden = false
         }
     }
     
