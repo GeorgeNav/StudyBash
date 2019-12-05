@@ -15,18 +15,24 @@ class AddEditGoalViewController: UIViewController {
     
     // UI Elements
     @IBOutlet weak var calendar: FSCalendar!
+    @IBOutlet weak var goalName: UITextField!
+    @IBOutlet weak var titleL: UILabel!
+    
+    @IBOutlet weak var timeIcon: UIImageView!
+    @IBOutlet weak var timeName: UITextField!
     @IBOutlet weak var time: UIDatePicker!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var timeButton: UIButton!
-    @IBOutlet weak var goalName: UITextField!
-    @IBOutlet weak var titleL: UILabel!
-    @IBOutlet weak var notesTF: UITextField!
-    @IBOutlet weak var searchBar: UISearchBar!
+    
     @IBOutlet weak var typesCV: UICollectionView!
+    
+    @IBOutlet weak var notesIcon: UIImageView!
+    @IBOutlet weak var notesTF: UITextField!
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var deleteGoalButton: UIButton!
     
     var isKeyboardAppear = false
-
     
     // Logic Elements
     var userDocRef: DocumentReference?
@@ -61,6 +67,12 @@ class AddEditGoalViewController: UIViewController {
         if ["add_goal", "add_sub_goal"].contains(useCase) {
             deleteGoalButton.isEnabled = false
             deleteGoalButton.isHidden = true
+            
+            timeIcon.isHidden = false
+            timeName.isHidden = false
+            notesIcon.isHidden = false
+            notesTF.isHidden = false
+            
             let currentDate = Date()
             // Prep calendar and date button
             let dateFormat = DateFormatter()
@@ -106,6 +118,12 @@ class AddEditGoalViewController: UIViewController {
         } else if ["edit_goal", "edit_sub_goal"].contains(useCase) {
             deleteGoalButton.isEnabled = true
             deleteGoalButton.isHidden = false
+            
+            timeIcon.isHidden = true
+            timeName.isHidden = true
+            notesIcon.isHidden = true
+            notesTF.isHidden = true
+            
             goalDocRef = (goalData["ref"]! as! DocumentReference)
             
             let dueDate = (goalData["due_date"]! as! Timestamp).dateValue()

@@ -1325,10 +1325,13 @@
                         <outlet property="dateButton" destination="UA3-sx-s06" id="0YF-yz-F0v"/>
                         <outlet property="deleteGoalButton" destination="L7I-kh-TpV" id="m75-Jy-yw5"/>
                         <outlet property="goalName" destination="Rtt-OX-Phm" id="XNF-bu-OK2"/>
+                        <outlet property="notesIcon" destination="wuw-aO-ozG" id="vGL-Xz-6dq"/>
                         <outlet property="notesTF" destination="LIK-4r-Rvn" id="OK0-Iy-3Qt"/>
                         <outlet property="searchBar" destination="NoZ-ho-JRT" id="uKv-3H-rka"/>
                         <outlet property="time" destination="sBu-NA-aOK" id="Nd2-gx-FEq"/>
                         <outlet property="timeButton" destination="SBg-AI-fmi" id="QPA-dU-Wmm"/>
+                        <outlet property="timeIcon" destination="15g-2K-6FF" id="m38-mO-QAe"/>
+                        <outlet property="timeName" destination="Z6B-Jo-KdW" id="yPc-VP-uUm"/>
                         <outlet property="titleL" destination="R3n-af-gpl" id="EH5-fr-gfg"/>
                         <outlet property="typesCV" destination="u0X-JN-QJS" id="D47-RP-56m"/>
                     </connections>
@@ -1356,7 +1359,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jak-Lz-kIs">
-                                <rect key="frame" x="268" y="64" width="138" height="138"/>
+                                <rect key="frame" x="337" y="64" width="69" height="69"/>
                                 <state key="normal" image="AddButtonSmall"/>
                                 <connections>
                                     <action selector="addSubGoalButton:" destination="BAG-X6-iwN" eventType="touchUpInside" id="qdc-DI-MMX"/>
@@ -2284,7 +2287,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2 Dues today" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7e-zz-ncP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0 Due Today" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7e-zz-ncP">
                                 <rect key="frame" x="26" y="447" width="172" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
@@ -2320,7 +2323,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s2v-a1-bwX" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-97.101449275362327" y="1806.6964285714284"/>
+            <point key="canvasLocation" x="-123" y="1806"/>
         </scene>
     </scenes>
     <resources>
@@ -2377,7 +2380,7 @@
         <image name="trashIcon" width="24" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OP7-Ii-Vxo"/>
+        <segue reference="hb3-DC-vqb"/>
         <segue reference="fbo-q2-0rt"/>
     </inferredMetricsTieBreakers>
 </document>

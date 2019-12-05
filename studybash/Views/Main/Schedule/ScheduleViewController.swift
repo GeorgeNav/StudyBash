@@ -8,7 +8,6 @@ class ScheduleViewController: UIViewController {
     let db: Firestore = Firestore.firestore()
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var subGoalsTV: UITableView!
-    @IBOutlet weak var stopWatch: UILabel!
     @IBOutlet weak var curNumDue: UILabel!
     
     var timer = Timer()
@@ -26,11 +25,8 @@ class ScheduleViewController: UIViewController {
     var currentDaySubGoalsListener: ListenerRegistration?
     var userDocRef: DocumentReference?
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "schedule_cal_cell")
     }
     
@@ -115,10 +111,10 @@ class ScheduleViewController: UIViewController {
             minutes = 0
         }
         
-        stopWatch.text =
-            String(format: "%02d", hours) + " : " +
-            String(format: "%02d", minutes) + " : " +
-            String(format: "%02d", seconds)
+//        stopWatch.text =
+//            String(format: "%02d", hours) + " : " +
+//            String(format: "%02d", minutes) + " : " +
+//            String(format: "%02d", seconds)
     }
     
 }
@@ -129,8 +125,7 @@ extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
         dateFormat.dateFormat = "MM/dd/yyyy"
         if calendarData[dateFormat.string(from: date)] != nil { // Do something with the data
             curDaySubGoalsData = calendarData[dateFormat.string(from: date)]! as! [[String: Any]]
-            print(curDaySubGoalsData)
-            print(curDaySubGoalsData.count)
+            curNumDue.text = "\(curDaySubGoalsData.count) Due Today"
             subGoalsTV.reloadData()
         } else {
             curDaySubGoalsData = [[String: Any]]()
@@ -160,7 +155,6 @@ extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
                 })
                 self.calendarData[dateFormat.string(from: date)] = allSubGoalsDueThisDay
                 self.calendar.reloadData()
-                self.subGoalsTV.reloadData()
             })
         } else {
             self.subGoalsTV.reloadData()
