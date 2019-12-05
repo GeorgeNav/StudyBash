@@ -94,14 +94,18 @@ class ProfileViewController: UIViewController {
     }
     
     
-    
     @IBAction func saveButton(_ sender: Any) {
         let currentUser = Auth.auth().currentUser
         let newEmail = emailTextField.text!
+        let newFirstName = firstNameTextField!
+        let newLastname = lastNameTextField!
+        
         currentUser?.updateEmail(to: newEmail) { error in
             guard error == nil else { print(error!); return }
             self.userDocRef = self.db.collection("users").document(self.auth.currentUser!.uid)
             self.userDocRef?.updateData(["email": newEmail])
+            self.userDocRef?.updateData(["first_name": newFirstName])
+            self.userDocRef?.updateData(["last_name": newLastname])
             print("CHANGED")
         }
 
