@@ -5,6 +5,7 @@ import UserNotifications
 import NotificationCenter
 import FirebaseAuth
 import FirebaseFirestore
+import SwiftMessages
 
 
 
@@ -15,15 +16,13 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var passwordLabel: UILabel!
-    @IBOutlet weak var confirmPasswordLabel: UILabel!
+
     
     //TextBox Input
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var confrimPasswordTextField: UITextField!
+
     
     var isKeyboardAppear = false
     
@@ -97,8 +96,8 @@ class ProfileViewController: UIViewController {
     @IBAction func saveButton(_ sender: Any) {
         let currentUser = Auth.auth().currentUser
         let newEmail = emailTextField.text!
-        let newFirstName = firstNameTextField!
-        let newLastname = lastNameTextField!
+        let newFirstName = firstNameTextField.text!
+        let newLastname = lastNameTextField.text!
         
         currentUser?.updateEmail(to: newEmail) { error in
             guard error == nil else { print(error!); return }
@@ -107,6 +106,18 @@ class ProfileViewController: UIViewController {
             self.userDocRef?.updateData(["first_name": newFirstName])
             self.userDocRef?.updateData(["last_name": newLastname])
             print("CHANGED")
+            let messageView: MessageView = MessageView.viewFromNib(layout: .centeredView)
+            messageView.configureBackgroundView(width: 300)
+            messageView.configureContent(title: "Success!", body: "Information has been updated", iconImage: nil, iconText: "✔️", buttonImage: nil, buttonTitle: "Okay") { _ in SwiftMessages.hide()}
+            messageView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+            messageView.backgroundView.layer.cornerRadius = 10
+            var config = SwiftMessages.defaultConfig
+            config.presentationStyle = .center
+            config.duration = .forever
+            config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+            config.presentationContext  = .window(windowLevel: UIWindow.Level.statusBar)
+            SwiftMessages.show(config: config, view: messageView)
+            self.dismiss(animated: true, completion: nil)
         }
 
     }
